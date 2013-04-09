@@ -1,0 +1,277 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		611420311714BE3E0067D3F3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 611420301714BE3E0067D3F3 /* UIKit.framework */; };
+		611420331714BE3E0067D3F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 611420321714BE3E0067D3F3 /* Foundation.framework */; };
+		611420351714BE3E0067D3F3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 611420341714BE3E0067D3F3 /* CoreGraphics.framework */; };
+		6114203B1714BE3E0067D3F3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611420391714BE3E0067D3F3 /* InfoPlist.strings */; };
+		6114203D1714BE3E0067D3F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114203C1714BE3E0067D3F3 /* main.m */; };
+		611420411714BE3E0067D3F3 /* FasTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 611420401714BE3E0067D3F3 /* FasTAppDelegate.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6114202D1714BE3E0067D3F3 /* FasT-retail.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FasT-retail.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		611420301714BE3E0067D3F3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		611420321714BE3E0067D3F3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		611420341714BE3E0067D3F3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6114203C1714BE3E0067D3F3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6114203E1714BE3E0067D3F3 /* FasT-retail-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FasT-retail-Prefix.pch"; sourceTree = "<group>"; };
+		6114203F1714BE3E0067D3F3 /* FasTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FasTAppDelegate.h; sourceTree = "<group>"; };
+		611420401714BE3E0067D3F3 /* FasTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FasTAppDelegate.m; sourceTree = "<group>"; };
+		6114204D1714C0B40067D3F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		611420561714C4370067D3F3 /* FasT-retail-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FasT-retail-Info.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6114202A1714BE3E0067D3F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				611420311714BE3E0067D3F3 /* UIKit.framework in Frameworks */,
+				611420331714BE3E0067D3F3 /* Foundation.framework in Frameworks */,
+				611420351714BE3E0067D3F3 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		611420241714BE3E0067D3F3 = {
+			isa = PBXGroup;
+			children = (
+				611420361714BE3E0067D3F3 /* FasT-retail */,
+				6114202F1714BE3E0067D3F3 /* Frameworks */,
+				6114202E1714BE3E0067D3F3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6114202E1714BE3E0067D3F3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6114202D1714BE3E0067D3F3 /* FasT-retail.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6114202F1714BE3E0067D3F3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				611420301714BE3E0067D3F3 /* UIKit.framework */,
+				611420321714BE3E0067D3F3 /* Foundation.framework */,
+				611420341714BE3E0067D3F3 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		611420361714BE3E0067D3F3 /* FasT-retail */ = {
+			isa = PBXGroup;
+			children = (
+				6114203F1714BE3E0067D3F3 /* FasTAppDelegate.h */,
+				611420401714BE3E0067D3F3 /* FasTAppDelegate.m */,
+				611420371714BE3E0067D3F3 /* Supporting Files */,
+			);
+			path = "FasT-retail";
+			sourceTree = "<group>";
+		};
+		611420371714BE3E0067D3F3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				611420561714C4370067D3F3 /* FasT-retail-Info.plist */,
+				611420391714BE3E0067D3F3 /* InfoPlist.strings */,
+				6114203C1714BE3E0067D3F3 /* main.m */,
+				6114203E1714BE3E0067D3F3 /* FasT-retail-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6114202C1714BE3E0067D3F3 /* FasT-retail */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6114204A1714BE3E0067D3F3 /* Build configuration list for PBXNativeTarget "FasT-retail" */;
+			buildPhases = (
+				611420291714BE3E0067D3F3 /* Sources */,
+				6114202A1714BE3E0067D3F3 /* Frameworks */,
+				6114202B1714BE3E0067D3F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "FasT-retail";
+			productName = "FasT-retail";
+			productReference = 6114202D1714BE3E0067D3F3 /* FasT-retail.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		611420251714BE3E0067D3F3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = FasT;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = Albisigns;
+			};
+			buildConfigurationList = 611420281714BE3E0067D3F3 /* Build configuration list for PBXProject "FasT-retail" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				de,
+			);
+			mainGroup = 611420241714BE3E0067D3F3;
+			productRefGroup = 6114202E1714BE3E0067D3F3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6114202C1714BE3E0067D3F3 /* FasT-retail */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6114202B1714BE3E0067D3F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6114203B1714BE3E0067D3F3 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		611420291714BE3E0067D3F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6114203D1714BE3E0067D3F3 /* main.m in Sources */,
+				611420411714BE3E0067D3F3 /* FasTAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		611420391714BE3E0067D3F3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6114204D1714C0B40067D3F3 /* de */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		611420481714BE3E0067D3F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		611420491714BE3E0067D3F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6114204B1714BE3E0067D3F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FasT-retail/FasT-retail-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/FasT-retail/FasT-retail-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		6114204C1714BE3E0067D3F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FasT-retail/FasT-retail-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/FasT-retail/FasT-retail-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		611420281714BE3E0067D3F3 /* Build configuration list for PBXProject "FasT-retail" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				611420481714BE3E0067D3F3 /* Debug */,
+				611420491714BE3E0067D3F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6114204A1714BE3E0067D3F3 /* Build configuration list for PBXNativeTarget "FasT-retail" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6114204B1714BE3E0067D3F3 /* Debug */,
+				6114204C1714BE3E0067D3F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 611420251714BE3E0067D3F3 /* Project object */;
+}
