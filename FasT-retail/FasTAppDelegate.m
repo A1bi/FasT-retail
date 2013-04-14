@@ -7,6 +7,7 @@
 //
 
 #import "FasTAppDelegate.h"
+#import "FasTOrderViewController.h"
 
 @implementation FasTAppDelegate
 
@@ -20,6 +21,9 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     [self.window makeKeyAndVisible];
+	
+	FasTOrderViewController *ovc = [[FasTOrderViewController alloc] init];
+	self.window.rootViewController = ovc;
 	
     return YES;
 }
