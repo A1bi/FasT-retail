@@ -27,6 +27,7 @@
 		61B79A76171B46D80096179B /* FasTOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61B79A75171B46D80096179B /* FasTOrderViewController.xib */; };
 		61B79A82171C51110096179B /* FasTTicketTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A80171C51110096179B /* FasTTicketTypeViewController.m */; };
 		61B79A83171C51110096179B /* FasTTicketTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61B79A81171C51110096179B /* FasTTicketTypeViewController.xib */; };
+		61B79A86171CA2350096179B /* FasTEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A85171CA2350096179B /* FasTEvent.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,8 @@
 		61B79A7F171C51110096179B /* FasTTicketTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTTicketTypeViewController.h; sourceTree = "<group>"; };
 		61B79A80171C51110096179B /* FasTTicketTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTTicketTypeViewController.m; sourceTree = "<group>"; };
 		61B79A81171C51110096179B /* FasTTicketTypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTTicketTypeViewController.xib; sourceTree = "<group>"; };
+		61B79A84171CA2350096179B /* FasTEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTEvent.h; sourceTree = "<group>"; };
+		61B79A85171CA2350096179B /* FasTEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTEvent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,8 @@
 				6114203F1714BE3E0067D3F3 /* FasTAppDelegate.h */,
 				611420401714BE3E0067D3F3 /* FasTAppDelegate.m */,
 				611420371714BE3E0067D3F3 /* Supporting Files */,
+				61B79A84171CA2350096179B /* FasTEvent.h */,
+				61B79A85171CA2350096179B /* FasTEvent.m */,
 				61B79A6F171B3C9D0096179B /* FasTOrder.h */,
 				61B79A70171B3C9D0096179B /* FasTOrder.m */,
 				61B79A6C171B3A250096179B /* FasTOrderViewController.h */,
@@ -254,6 +259,7 @@
 				61B79A71171B3C9D0096179B /* FasTOrder.m in Sources */,
 				61B79A74171B3FC80096179B /* FasTStepViewController.m in Sources */,
 				61B79A82171C51110096179B /* FasTTicketTypeViewController.m in Sources */,
+				61B79A86171CA2350096179B /* FasTEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

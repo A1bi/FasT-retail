@@ -10,6 +10,7 @@
 #import "FasTSeatsViewController.h"
 #import "FasTOrderViewController.h"
 #import "FasTOrder.h"
+#import "FasTEvent.h"
 
 @interface FasTDatesViewController ()
 
@@ -52,12 +53,13 @@
 	[super dealloc];
 }
 
-#pragma table view data source
+#pragma mark table view data source
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell * cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"date"] autorelease];
-	[[cell textLabel] setText:@"Montag, 1. Januar 2007"];
+    NSDate *date = [[[[self orderController] event] dates] objectAtIndex:[indexPath row]];
+	[[cell textLabel] setText:[NSString stringWithFormat:@"%@", date]];
 	[[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
 	
 	return cell;
@@ -65,7 +67,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return 1;
+	return [[[[self orderController] event] dates] count];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -73,14 +75,14 @@
 	return 1;
 }
 
-#pragma table view delegate
+#pragma mark table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	[[[self orderController] order] setDate:[indexPath row]];
 }
 
-#pragma actions
+#pragma mark actions
 
 - (IBAction)tappedNext:(UIButton *)sender {
 	FasTSeatsViewController *seatsVC = [[[FasTSeatsViewController alloc] init] autorelease];

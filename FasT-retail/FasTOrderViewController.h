@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @class FasTOrder;
+@class FasTEvent;
 
 @interface FasTOrderViewController : UIViewController
 {
     FasTOrder *order;
+    FasTEvent *event;
 	UINavigationController *nvc;
     int currentStepIndex;
     NSMutableArray *stepControllers;
@@ -23,6 +25,7 @@
 }
 
 @property (nonatomic, readonly) FasTOrder *order;
+@property (nonatomic, retain) FasTEvent *event;
 
 - (IBAction)nextTapped:(id)sender;
 - (IBAction)prevTapped:(id)sender;

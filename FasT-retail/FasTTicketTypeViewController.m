@@ -32,8 +32,12 @@
 {
     [super viewDidLoad];
     
+    // TODO: NSNull should be nil (JSONSerialization)
+    NSString *info = [typeInfo objectForKey:@"info"];
+    if ([info isKindOfClass:[NSNull class]]) info = nil;
+    
 	[nameLabel setText:[typeInfo objectForKey:@"name"]];
-	[infoLabel setText:[typeInfo objectForKey:@"info"]];
+	[infoLabel setText:info];
 	[priceLabel setText:[NSString stringWithFormat:@"je %.2f €", [[typeInfo objectForKey:@"price"] floatValue]]];
 }
 
@@ -55,6 +59,8 @@
 	[priceLabel release];
 	[super dealloc];
 }
+
+#pragma mark actions
 
 - (IBAction)numberChanged:(UIStepper *)stepper {
 	number = (int)[stepper value];

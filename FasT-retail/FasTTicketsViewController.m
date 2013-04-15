@@ -10,6 +10,7 @@
 #import "FasTTicketTypeViewController.h"
 #import "FasTOrderViewController.h"
 #import "FasTOrder.h"
+#import "FasTEvent.h"
 
 @interface FasTTicketsViewController ()
 
@@ -32,13 +33,9 @@
 {
     [super viewDidLoad];
 	
-	NSDictionary *adults = [NSDictionary dictionaryWithObjectsAndKeys:@"1", @"id", @"Erwachsene", @"name", @"", @"info", [NSNumber numberWithFloat:12.0f], @"price", nil];
-	NSDictionary *kids = [NSDictionary dictionaryWithObjectsAndKeys:@"2", @"id", @"Ermäßigt", @"name", @"Kinder und Jugendliche bis 17 Jahre.", @"info", [NSNumber numberWithFloat:6.5f], @"price", nil];
-	NSArray *types = [[NSArray alloc] initWithObjects:adults, kids, nil];
-	
 	NSMutableArray *tmpTypeVCs = [NSMutableArray array];
 	int i = 0;
-	for (NSDictionary *type in types) {
+	for (NSDictionary *type in [[[self orderController] event] ticketTypes]) {
 		
 		FasTTicketTypeViewController *typeVC = [[FasTTicketTypeViewController alloc] initWithTypeInfo:type];
 		[typeVC setDelegate:self];
@@ -75,6 +72,8 @@
     [ticketsView release];
 	[super dealloc];
 }
+
+#pragma mark class methods
 
 - (void)updateTotal
 {
