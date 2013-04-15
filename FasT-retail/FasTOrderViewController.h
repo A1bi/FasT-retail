@@ -12,10 +12,14 @@
 
 @interface FasTOrderViewController : UIViewController
 {
+    FasTOrder *order;
 	UINavigationController *nvc;
+    int currentStepIndex;
+    NSMutableArray *stepControllers;
+    NSArray *stepControllerClasses;
+    
 	IBOutlet UIButton *nextBtn;
 	IBOutlet UIButton *prevBtn;
-	FasTOrder *order;
 }
 
 @property (nonatomic, readonly) FasTOrder *order;
