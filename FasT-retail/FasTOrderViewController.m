@@ -79,11 +79,5 @@
 	[nvc popViewControllerAnimated:YES];
 }
 
-#pragma mark delegate methods
-
-- (void)dateChanged:(NSInteger)date
-{
-	[order setDate:date];
-}
 
 @end

@@ -16,5 +16,6 @@
 }
 
 @property (nonatomic, assign) NSInteger date;
+@property (nonatomic, retain) NSDictionary *tickets;
 
 @end

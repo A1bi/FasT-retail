@@ -9,6 +9,7 @@
 #import "FasTDatesViewController.h"
 #import "FasTSeatsViewController.h"
 #import "FasTOrderViewController.h"
+#import "FasTOrder.h"
 
 @interface FasTDatesViewController ()
 
@@ -76,7 +77,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	[[self orderController] dateChanged:[indexPath row]];
+	[[[self orderController] order] setDate:[indexPath row]];
 }
 
 #pragma actions

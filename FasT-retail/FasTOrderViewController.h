@@ -23,6 +23,4 @@
 - (IBAction)nextTapped:(id)sender;
 - (IBAction)prevTapped:(id)sender;
 
-- (void)dateChanged:(NSInteger)date;
-
 @end

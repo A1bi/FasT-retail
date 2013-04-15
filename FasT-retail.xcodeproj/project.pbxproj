@@ -25,6 +25,8 @@
 		61B79A71171B3C9D0096179B /* FasTOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A70171B3C9D0096179B /* FasTOrder.m */; };
 		61B79A74171B3FC80096179B /* FasTStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A73171B3FC80096179B /* FasTStepViewController.m */; };
 		61B79A76171B46D80096179B /* FasTOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61B79A75171B46D80096179B /* FasTOrderViewController.xib */; };
+		61B79A82171C51110096179B /* FasTTicketTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A80171C51110096179B /* FasTTicketTypeViewController.m */; };
+		61B79A83171C51110096179B /* FasTTicketTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61B79A81171C51110096179B /* FasTTicketTypeViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,9 @@
 		61B79A72171B3FC80096179B /* FasTStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTStepViewController.h; sourceTree = "<group>"; };
 		61B79A73171B3FC80096179B /* FasTStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTStepViewController.m; sourceTree = "<group>"; };
 		61B79A75171B46D80096179B /* FasTOrderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTOrderViewController.xib; sourceTree = "<group>"; };
+		61B79A7F171C51110096179B /* FasTTicketTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTTicketTypeViewController.h; sourceTree = "<group>"; };
+		61B79A80171C51110096179B /* FasTTicketTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTTicketTypeViewController.m; sourceTree = "<group>"; };
+		61B79A81171C51110096179B /* FasTTicketTypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTTicketTypeViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +157,9 @@
 				611420681717636A0067D3F3 /* FasTTicketsViewController.h */,
 				611420691717636A0067D3F3 /* FasTTicketsViewController.m */,
 				6114206A1717636A0067D3F3 /* FasTTicketsViewController.xib */,
+				61B79A7F171C51110096179B /* FasTTicketTypeViewController.h */,
+				61B79A80171C51110096179B /* FasTTicketTypeViewController.m */,
+				61B79A81171C51110096179B /* FasTTicketTypeViewController.xib */,
 			);
 			name = Tickets;
 			sourceTree = "<group>";
@@ -224,6 +232,7 @@
 				6114206117174D130067D3F3 /* FasTSeatsViewController.xib in Resources */,
 				6114206C1717636B0067D3F3 /* FasTTicketsViewController.xib in Resources */,
 				61B79A76171B46D80096179B /* FasTOrderViewController.xib in Resources */,
+				61B79A83171C51110096179B /* FasTTicketTypeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +253,7 @@
 				61B79A6E171B3A250096179B /* FasTOrderViewController.m in Sources */,
 				61B79A71171B3C9D0096179B /* FasTOrder.m in Sources */,
 				61B79A74171B3FC80096179B /* FasTStepViewController.m in Sources */,
+				61B79A82171C51110096179B /* FasTTicketTypeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

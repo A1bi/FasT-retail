@@ -9,6 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "FasTStepViewController.h"
 
+@class FasTTicketTypeViewController;
+
 @interface FasTTicketsViewController : FasTStepViewController
+{
+	NSArray *typeVCs;
+    IBOutlet UILabel *totalLabel;
+    IBOutlet UIView *ticketsView;
+}
+
+- (void)changedTotalOfTicketType:(FasTTicketTypeViewController *)t;
 
 @end
