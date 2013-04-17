@@ -10,12 +10,10 @@
 		611420311714BE3E0067D3F3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 611420301714BE3E0067D3F3 /* UIKit.framework */; };
 		611420331714BE3E0067D3F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 611420321714BE3E0067D3F3 /* Foundation.framework */; };
 		611420351714BE3E0067D3F3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 611420341714BE3E0067D3F3 /* CoreGraphics.framework */; };
-		6114203B1714BE3E0067D3F3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611420391714BE3E0067D3F3 /* InfoPlist.strings */; };
 		6114203D1714BE3E0067D3F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114203C1714BE3E0067D3F3 /* main.m */; };
 		611420411714BE3E0067D3F3 /* FasTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 611420401714BE3E0067D3F3 /* FasTAppDelegate.m */; };
 		6114205B1717399F0067D3F3 /* FasTDatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 611420591717399F0067D3F3 /* FasTDatesViewController.m */; };
 		6114205C1717399F0067D3F3 /* FasTDatesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6114205A1717399F0067D3F3 /* FasTDatesViewController.xib */; };
-		6114206017174D130067D3F3 /* FasTSeatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114205E17174D130067D3F3 /* FasTSeatsViewController.m */; };
 		6114206117174D130067D3F3 /* FasTSeatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6114205F17174D130067D3F3 /* FasTSeatsViewController.xib */; };
 		6114206417174D8B0067D3F3 /* FasTSeatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114206317174D8B0067D3F3 /* FasTSeatsView.m */; };
 		6114206717174E4E0067D3F3 /* FasTSeatsViewSeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114206617174E4E0067D3F3 /* FasTSeatsViewSeat.m */; };
@@ -28,6 +26,19 @@
 		61B79A82171C51110096179B /* FasTTicketTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A80171C51110096179B /* FasTTicketTypeViewController.m */; };
 		61B79A83171C51110096179B /* FasTTicketTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61B79A81171C51110096179B /* FasTTicketTypeViewController.xib */; };
 		61B79A86171CA2350096179B /* FasTEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A85171CA2350096179B /* FasTEvent.m */; };
+		61B79A89171F38200096179B /* FasTNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A88171F38200096179B /* FasTNode.m */; };
+		61B79CB3171F38480096179B /* SocketIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A90171F38470096179B /* SocketIO.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		61B79CB4171F38480096179B /* SocketIOJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A92171F38470096179B /* SocketIOJSONSerialization.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		61B79CB5171F38480096179B /* SocketIOPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A94171F38470096179B /* SocketIOPacket.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		61B79CB6171F38480096179B /* SocketIOTransportWebsocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A97171F38470096179B /* SocketIOTransportWebsocket.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		61B79DFB171F38480096179B /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 61B79C74171F38480096179B /* base64.c */; };
+		61B79DFC171F38480096179B /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79C77171F38480096179B /* NSData+SRB64Additions.m */; };
+		61B79DFD171F38480096179B /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79C7A171F38480096179B /* SRWebSocket.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		61B79E40171F3E4D0096179B /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B79E3F171F3E4D0096179B /* libicucore.dylib */; };
+		61B79E42171F3E530096179B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B79E41171F3E530096179B /* CFNetwork.framework */; };
+		61B79E44171F3E5E0096179B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B79E43171F3E5E0096179B /* Security.framework */; };
+		61B79E45171F492D0096179B /* SocketIOTransportXHR.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A99171F38470096179B /* SocketIOTransportXHR.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		61B79E46171F49F30096179B /* FasTSeatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114205E17174D130067D3F3 /* FasTSeatsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +77,42 @@
 		61B79A81171C51110096179B /* FasTTicketTypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTTicketTypeViewController.xib; sourceTree = "<group>"; };
 		61B79A84171CA2350096179B /* FasTEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTEvent.h; sourceTree = "<group>"; };
 		61B79A85171CA2350096179B /* FasTEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTEvent.m; sourceTree = "<group>"; };
+		61B79A87171F38200096179B /* FasTNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTNode.h; sourceTree = "<group>"; };
+		61B79A88171F38200096179B /* FasTNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTNode.m; sourceTree = "<group>"; };
+		61B79A8B171F38470096179B /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		61B79A8C171F38470096179B /* .gitmodules */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitmodules; sourceTree = "<group>"; };
+		61B79A8D171F38470096179B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		61B79A8E171F38470096179B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		61B79A8F171F38470096179B /* SocketIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIO.h; sourceTree = "<group>"; };
+		61B79A90171F38470096179B /* SocketIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIO.m; sourceTree = "<group>"; };
+		61B79A91171F38470096179B /* SocketIOJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOJSONSerialization.h; sourceTree = "<group>"; };
+		61B79A92171F38470096179B /* SocketIOJSONSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOJSONSerialization.m; sourceTree = "<group>"; };
+		61B79A93171F38470096179B /* SocketIOPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOPacket.h; sourceTree = "<group>"; };
+		61B79A94171F38470096179B /* SocketIOPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOPacket.m; sourceTree = "<group>"; };
+		61B79A95171F38470096179B /* SocketIOTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransport.h; sourceTree = "<group>"; };
+		61B79A96171F38470096179B /* SocketIOTransportWebsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportWebsocket.h; sourceTree = "<group>"; };
+		61B79A97171F38470096179B /* SocketIOTransportWebsocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportWebsocket.m; sourceTree = "<group>"; };
+		61B79A98171F38470096179B /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportXHR.h; sourceTree = "<group>"; };
+		61B79A99171F38470096179B /* SocketIOTransportXHR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportXHR.m; sourceTree = "<group>"; };
+		61B79AAA171F38470096179B /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		61B79C69171F38480096179B /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		61B79C6A171F38480096179B /* .gitmodules */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitmodules; sourceTree = "<group>"; };
+		61B79C6D171F38480096179B /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		61B79C6E171F38480096179B /* virtualenv.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = virtualenv.py; sourceTree = "<group>"; };
+		61B79C6F171F38480096179B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		61B79C70171F38480096179B /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		61B79C72171F38480096179B /* README.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.rst; sourceTree = "<group>"; };
+		61B79C74171F38480096179B /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base64.c; sourceTree = "<group>"; };
+		61B79C75171F38480096179B /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
+		61B79C76171F38480096179B /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SRB64Additions.h"; sourceTree = "<group>"; };
+		61B79C77171F38480096179B /* NSData+SRB64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SRB64Additions.m"; sourceTree = "<group>"; };
+		61B79C78171F38480096179B /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
+		61B79C79171F38480096179B /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
+		61B79C7A171F38480096179B /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
+		61B79C7B171F38480096179B /* SocketRocket.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SocketRocket.podspec; sourceTree = "<group>"; };
+		61B79E3F171F3E4D0096179B /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		61B79E41171F3E530096179B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		61B79E43171F3E5E0096179B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +120,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61B79E44171F3E5E0096179B /* Security.framework in Frameworks */,
+				61B79E42171F3E530096179B /* CFNetwork.framework in Frameworks */,
+				61B79E40171F3E4D0096179B /* libicucore.dylib in Frameworks */,
 				611420311714BE3E0067D3F3 /* UIKit.framework in Frameworks */,
 				611420331714BE3E0067D3F3 /* Foundation.framework in Frameworks */,
 				611420351714BE3E0067D3F3 /* CoreGraphics.framework in Frameworks */,
@@ -102,6 +152,10 @@
 		6114202F1714BE3E0067D3F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				61B79A8A171F38460096179B /* socket.IO */,
+				61B79E43171F3E5E0096179B /* Security.framework */,
+				61B79E41171F3E530096179B /* CFNetwork.framework */,
+				61B79E3F171F3E4D0096179B /* libicucore.dylib */,
 				611420301714BE3E0067D3F3 /* UIKit.framework */,
 				611420321714BE3E0067D3F3 /* Foundation.framework */,
 				611420341714BE3E0067D3F3 /* CoreGraphics.framework */,
@@ -115,6 +169,8 @@
 				6114203F1714BE3E0067D3F3 /* FasTAppDelegate.h */,
 				611420401714BE3E0067D3F3 /* FasTAppDelegate.m */,
 				611420371714BE3E0067D3F3 /* Supporting Files */,
+				61B79A87171F38200096179B /* FasTNode.h */,
+				61B79A88171F38200096179B /* FasTNode.m */,
 				61B79A84171CA2350096179B /* FasTEvent.h */,
 				61B79A85171CA2350096179B /* FasTEvent.m */,
 				61B79A6F171B3C9D0096179B /* FasTOrder.h */,
@@ -179,6 +235,93 @@
 			name = Dates;
 			sourceTree = "<group>";
 		};
+		61B79A8A171F38460096179B /* socket.IO */ = {
+			isa = PBXGroup;
+			children = (
+				61B79A8B171F38470096179B /* .gitignore */,
+				61B79A8C171F38470096179B /* .gitmodules */,
+				61B79A8D171F38470096179B /* LICENSE */,
+				61B79A8E171F38470096179B /* README.md */,
+				61B79A8F171F38470096179B /* SocketIO.h */,
+				61B79A90171F38470096179B /* SocketIO.m */,
+				61B79A91171F38470096179B /* SocketIOJSONSerialization.h */,
+				61B79A92171F38470096179B /* SocketIOJSONSerialization.m */,
+				61B79A93171F38470096179B /* SocketIOPacket.h */,
+				61B79A94171F38470096179B /* SocketIOPacket.m */,
+				61B79A95171F38470096179B /* SocketIOTransport.h */,
+				61B79A96171F38470096179B /* SocketIOTransportWebsocket.h */,
+				61B79A97171F38470096179B /* SocketIOTransportWebsocket.m */,
+				61B79A98171F38470096179B /* SocketIOTransportXHR.h */,
+				61B79A99171F38470096179B /* SocketIOTransportXHR.m */,
+				61B79AA9171F38470096179B /* submodules */,
+			);
+			name = socket.IO;
+			path = submodules/socket.IO;
+			sourceTree = "<group>";
+		};
+		61B79AA9171F38470096179B /* submodules */ = {
+			isa = PBXGroup;
+			children = (
+				61B79AAA171F38470096179B /* .gitignore */,
+				61B79C68171F38480096179B /* socket-rocket */,
+			);
+			path = submodules;
+			sourceTree = "<group>";
+		};
+		61B79C68171F38480096179B /* socket-rocket */ = {
+			isa = PBXGroup;
+			children = (
+				61B79C69171F38480096179B /* .gitignore */,
+				61B79C6A171F38480096179B /* .gitmodules */,
+				61B79C6B171F38480096179B /* extern */,
+				61B79C6F171F38480096179B /* LICENSE */,
+				61B79C70171F38480096179B /* Makefile */,
+				61B79C71171F38480096179B /* pages */,
+				61B79C72171F38480096179B /* README.rst */,
+				61B79C73171F38480096179B /* SocketRocket */,
+				61B79C7B171F38480096179B /* SocketRocket.podspec */,
+			);
+			path = "socket-rocket";
+			sourceTree = "<group>";
+		};
+		61B79C6B171F38480096179B /* extern */ = {
+			isa = PBXGroup;
+			children = (
+				61B79C6C171F38480096179B /* virtualenv */,
+			);
+			path = extern;
+			sourceTree = "<group>";
+		};
+		61B79C6C171F38480096179B /* virtualenv */ = {
+			isa = PBXGroup;
+			children = (
+				61B79C6D171F38480096179B /* LICENSE.txt */,
+				61B79C6E171F38480096179B /* virtualenv.py */,
+			);
+			path = virtualenv;
+			sourceTree = "<group>";
+		};
+		61B79C71171F38480096179B /* pages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = pages;
+			sourceTree = "<group>";
+		};
+		61B79C73171F38480096179B /* SocketRocket */ = {
+			isa = PBXGroup;
+			children = (
+				61B79C74171F38480096179B /* base64.c */,
+				61B79C75171F38480096179B /* base64.h */,
+				61B79C76171F38480096179B /* NSData+SRB64Additions.h */,
+				61B79C77171F38480096179B /* NSData+SRB64Additions.m */,
+				61B79C78171F38480096179B /* SocketRocket-Prefix.pch */,
+				61B79C79171F38480096179B /* SRWebSocket.h */,
+				61B79C7A171F38480096179B /* SRWebSocket.m */,
+			);
+			path = SocketRocket;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -232,7 +375,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6114203B1714BE3E0067D3F3 /* InfoPlist.strings in Resources */,
 				6114205C1717399F0067D3F3 /* FasTDatesViewController.xib in Resources */,
 				6114206117174D130067D3F3 /* FasTSeatsViewController.xib in Resources */,
 				6114206C1717636B0067D3F3 /* FasTTicketsViewController.xib in Resources */,
@@ -251,7 +393,7 @@
 				6114203D1714BE3E0067D3F3 /* main.m in Sources */,
 				611420411714BE3E0067D3F3 /* FasTAppDelegate.m in Sources */,
 				6114205B1717399F0067D3F3 /* FasTDatesViewController.m in Sources */,
-				6114206017174D130067D3F3 /* FasTSeatsViewController.m in Sources */,
+				61B79E46171F49F30096179B /* FasTSeatsViewController.m in Sources */,
 				6114206417174D8B0067D3F3 /* FasTSeatsView.m in Sources */,
 				6114206717174E4E0067D3F3 /* FasTSeatsViewSeat.m in Sources */,
 				6114206B1717636B0067D3F3 /* FasTTicketsViewController.m in Sources */,
@@ -260,6 +402,15 @@
 				61B79A74171B3FC80096179B /* FasTStepViewController.m in Sources */,
 				61B79A82171C51110096179B /* FasTTicketTypeViewController.m in Sources */,
 				61B79A86171CA2350096179B /* FasTEvent.m in Sources */,
+				61B79A89171F38200096179B /* FasTNode.m in Sources */,
+				61B79CB3171F38480096179B /* SocketIO.m in Sources */,
+				61B79CB4171F38480096179B /* SocketIOJSONSerialization.m in Sources */,
+				61B79CB5171F38480096179B /* SocketIOPacket.m in Sources */,
+				61B79CB6171F38480096179B /* SocketIOTransportWebsocket.m in Sources */,
+				61B79E45171F492D0096179B /* SocketIOTransportXHR.m in Sources */,
+				61B79DFB171F38480096179B /* base64.c in Sources */,
+				61B79DFC171F38480096179B /* NSData+SRB64Additions.m in Sources */,
+				61B79DFD171F38480096179B /* SRWebSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +454,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -327,6 +479,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -336,6 +489,10 @@
 		6114204B1714BE3E0067D3F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FasT-retail/FasT-retail-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/FasT-retail/FasT-retail-Info.plist";
@@ -347,6 +504,10 @@
 		6114204C1714BE3E0067D3F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FasT-retail/FasT-retail-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/FasT-retail/FasT-retail-Info.plist";
