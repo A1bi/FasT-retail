@@ -13,12 +13,14 @@
     NSString *name;
     NSArray *dates;
     NSArray *ticketTypes;
+    NSMutableDictionary *seats;
 }
 
-@property (nonatomic, readonly) NSString *name;
-@property (nonatomic, readonly) NSArray *dates;
-@property (nonatomic, readonly) NSArray *ticketTypes;
+@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) NSArray *dates;
+@property (nonatomic, retain) NSArray *ticketTypes;
+@property (nonatomic, readonly) NSMutableDictionary *seats;
 
-- (id)initWithInfo:(NSDictionary *)info;
+- (void)updateWithInfo:(NSDictionary *)info;
 
 @end

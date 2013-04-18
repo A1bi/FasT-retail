@@ -34,6 +34,7 @@
     [super viewDidLoad];
     
 	[datesTable setDataSource:self];
+    [datesTable setDelegate:self];
 	[datesTable setRowHeight:60.0f];
 }
 
@@ -79,7 +80,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	[[[self orderController] order] setDate:[indexPath row]];
+	[[[self orderController] order] setDate:[NSString stringWithFormat:@"%i", [indexPath row] + 1]];
 }
 
 #pragma mark actions

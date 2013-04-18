@@ -7,19 +7,29 @@
 //
 
 #import "FasTSeatsViewController.h"
+#import "FasTSeatsView.h"
 #import "FasTSeatsViewSeat.h"
+#import "FasTOrderViewController.h"
+#import "FasTEvent.h"
+#import "FasTOrder.h"
 
 @interface FasTSeatsViewController ()
+
+- (void)updateSeatsWithInfo:(NSDictionary *)seats;
+- (void)updateSeatsWithNotification:(NSNotification *)note;
+- (void)updateSeats;
 
 @end
 
 @implementation FasTSeatsViewController
 
+@synthesize seatsView;
+
 - (id)init
 {
     self = [super init];
     if (self) {
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSeatsWithNotification:) name:@"updateSeats" object:nil];
     }
     return self;
 }
@@ -27,7 +37,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self updateSeats];
 }
 
 - (void)didReceiveMemoryWarning
@@ -37,8 +51,32 @@
 }
 
 - (void)dealloc {
-    [_seatsView release];
+    [seatsView release];
     [super dealloc];
+}
+
+#pragma mark class methods
+
+- (void)updateSeatsWithInfo:(NSDictionary *)seats
+{
+    NSDictionary *dateSeats = [seats objectForKey:[[[self orderController] order] date]];
+    if (!dateSeats) return;
+    
+    for (NSString *seatId in dateSeats) {
+        NSDictionary *seat = [dateSeats objectForKey:seatId];
+        [seatsView updateSeatWithId:seatId info:seat];
+    }
+}
+
+- (void)updateSeatsWithNotification:(NSNotification *)note
+{
+    [self updateSeatsWithInfo:[note userInfo]];
+}
+
+- (void)updateSeats
+{
+    NSDictionary *seats = [[[self orderController] event] seats];
+    [self updateSeatsWithInfo:seats];
 }
 
 @end

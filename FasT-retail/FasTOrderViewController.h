@@ -14,11 +14,9 @@
 @interface FasTOrderViewController : UIViewController
 {
     FasTOrder *order;
-    FasTEvent *event;
 	UINavigationController *nvc;
     int currentStepIndex;
-    NSMutableArray *stepControllers;
-    NSArray *stepControllerClasses;
+    NSArray *stepControllers;
     
 	IBOutlet UIButton *nextBtn;
 	IBOutlet UIButton *prevBtn;

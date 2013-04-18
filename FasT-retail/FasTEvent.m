@@ -10,29 +10,36 @@
 
 @implementation FasTEvent
 
-@synthesize name, dates, ticketTypes;
+@synthesize name, dates, ticketTypes, seats;
 
-- (id)initWithInfo:(NSDictionary *)info
+- (id)init
 {
     self = [super init];
     if (self) {
-        name = [[info objectForKey:@"name"] retain];
-        
-        NSMutableArray *tmpDates = [NSMutableArray array];
-        for (NSNumber *dateTimestamp in [info objectForKey:@"dates"]) {
-            [tmpDates addObject:[NSDate dateWithTimeIntervalSince1970:[dateTimestamp integerValue]]];
-        }
-        dates = [[NSArray arrayWithArray:tmpDates] retain];
-        
-        ticketTypes = [[info objectForKey:@"ticket_types"] retain];
+        seats = [[NSMutableDictionary dictionary] retain];
     }
     return self;
+}
+
+- (void)updateWithInfo:(NSDictionary *)info
+{
+    [self setName:[info objectForKey:@"name"]];
+    
+    NSMutableArray *tmpDates = [NSMutableArray array];
+    for (NSNumber *dateTimestamp in [info objectForKey:@"dates"]) {
+        [tmpDates addObject:[NSDate dateWithTimeIntervalSince1970:[dateTimestamp integerValue]]];
+    }
+    [self setDates:[NSArray arrayWithArray:tmpDates]];
+    
+    [self setTicketTypes:[info objectForKey:@"ticket_types"]];
 }
 
 - (void)dealloc
 {
     [name release];
     [dates release];
+    [ticketTypes release];
+    [seats release];
     [super dealloc];
 }
 

@@ -11,22 +11,12 @@
 #import "FasTDatesViewController.h"
 #import "FasTTicketsViewController.h"
 #import "FasTSeatsViewController.h"
-#import "FasTEvent.h"
-
-
-@implementation NSURLRequest(AllowAllCerts)
-
-+ (BOOL) allowsAnyHTTPSCertificateForHost:(NSString *) host {
-    return YES;
-}
-
-@end
+#import "FasTNode.h"
 
 
 @interface FasTOrderViewController ()
 
 - (void)pushNextStepController;
-- (void)updateEvent;
 
 @end
 
@@ -41,16 +31,24 @@
         nvc = [[UINavigationController alloc] init];
 		[nvc setNavigationBarHidden:YES];
         
+        order = [[FasTOrder alloc] init];
+        
         currentStepIndex = -1;
         
-        stepControllers = [[NSMutableArray array] retain];
-        stepControllerClasses = [[NSArray arrayWithObjects:
+        NSMutableArray *tmpStepControllers = [NSMutableArray array];
+        NSArray *stepControllerClasses = [NSArray arrayWithObjects:
                                   [FasTDatesViewController class],
                                   [FasTTicketsViewController class],
                                   [FasTSeatsViewController class],
-                                nil] retain];
-		
-		order = [[FasTOrder alloc] init];
+                                nil];
+        
+        for (Class klass in stepControllerClasses) {
+            FasTStepViewController *vc = [[[klass alloc] init] autorelease];
+            [vc setOrderController:self];
+            [tmpStepControllers addObject:vc];
+        }
+        
+        stepControllers = [[NSArray arrayWithArray:tmpStepControllers] retain];
     }
     return self;
 }
@@ -58,8 +56,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self updateEvent];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -72,6 +68,8 @@
 	[[self view] addSubview:[nvc view]];
 	[[self view] sendSubviewToBack:[nvc view]];
 	[nvc didMoveToParentViewController:self];
+    
+    [self pushNextStepController];
 }
 
 - (void)didReceiveMemoryWarning
@@ -87,43 +85,20 @@
 	[prevBtn release];
 	[order release];
     [stepControllers release];
-    [event release];
 	[super dealloc];
+}
+
+- (FasTEvent *)event
+{
+    return [[FasTNode defaultNode] event];
 }
 
 #pragma mark class methods
 
 - (void)pushNextStepController
 {
-    FasTStepViewController *nextStepController;
-    @try {
-        nextStepController = [stepControllers objectAtIndex:++currentStepIndex];     
-    }
-    @catch (NSException *exception) {
-        nextStepController = [[[[stepControllerClasses objectAtIndex:currentStepIndex] alloc] init] autorelease];
-        [nextStepController setOrderController:self];
-        [stepControllers insertObject:nextStepController atIndex:currentStepIndex];
-    }
-    @finally {
-        [nvc pushViewController:nextStepController animated:YES];
-    }
-}
-
-- (void)updateEvent
-{
-    NSError *error = nil;
-    NSString *url = @"https://fast.albisigns/api/events/current";
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
-    if (error) NSLog(@"%@", error);
-    
-    NSDictionary *eventInfo = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:&error];
-    if (error) NSLog(@"%@", error);
-    
-    [event release];
-    event = [[FasTEvent alloc] initWithInfo:eventInfo];
-    
-    [self pushNextStepController];
+    FasTStepViewController *nextStepController = [stepControllers objectAtIndex:++currentStepIndex];
+    [nvc pushViewController:nextStepController animated:YES];
 }
 
 #pragma mark actions
@@ -137,6 +112,5 @@
     currentStepIndex--;
 	[nvc popViewControllerAnimated:YES];
 }
-
 
 @end

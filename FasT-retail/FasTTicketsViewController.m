@@ -14,6 +14,7 @@
 
 @interface FasTTicketsViewController ()
 
+- (void)updateTicketTypes;
 - (void)updateTotal;
 
 @end
@@ -24,7 +25,7 @@
 {
     self = [super init];
     if (self) {
-        
+
     }
     return self;
 }
@@ -32,8 +33,33 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-	NSMutableArray *tmpTypeVCs = [NSMutableArray array];
+    [self updateTicketTypes];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+	[typeVCs release];
+    [totalLabel release];
+    [ticketsView release];
+	[super dealloc];
+}
+
+#pragma mark class methods
+
+- (void)updateTicketTypes
+{
+    for (UIViewController *typeVC in typeVCs) {
+        [[typeVC view] removeFromSuperview];
+        [typeVC removeFromParentViewController];
+    }
+    
+    NSMutableArray *tmpTypeVCs = [NSMutableArray array];
 	int i = 0;
 	for (NSDictionary *type in [[[self orderController] event] ticketTypes]) {
 		
@@ -54,26 +80,11 @@
 		
 	}
 	
+    [typeVCs release];
 	typeVCs = [[NSArray arrayWithArray:tmpTypeVCs] retain];
     
     [self updateTotal];
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)dealloc
-{
-	[typeVCs release];
-    [totalLabel release];
-    [ticketsView release];
-	[super dealloc];
-}
-
-#pragma mark class methods
 
 - (void)updateTotal
 {

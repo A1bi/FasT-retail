@@ -12,6 +12,9 @@
 @class FasTSeatsView;
 
 @interface FasTSeatsViewController : FasTStepViewController
+{
+    FasTSeatsView *seatsView;
+}
 
 @property (retain, nonatomic) IBOutlet FasTSeatsView *seatsView;
 

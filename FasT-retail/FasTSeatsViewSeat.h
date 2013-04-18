@@ -10,14 +10,14 @@
 
 @interface FasTSeatsViewSeat : UIView
 {
-	BOOL isAvailable;
-	NSInteger seatId;
+	NSString *seatId;
+    BOOL isAvailable;
 }
 
 @property (nonatomic) BOOL isAvailable;
-@property (nonatomic, readonly) NSInteger seatId;
+@property (nonatomic, readonly) NSString *seatId;
 
-- (id)initWithFrame:(CGRect)frame seatId:(NSInteger)sId availability:(BOOL)available;
-- (void)toggleAvailability;
+- (id)initWithFrame:(CGRect)frame seatId:(NSString *)sId info:(NSDictionary *)info;
+- (void)updateWithInfo:(NSDictionary *)info;
 
 @end

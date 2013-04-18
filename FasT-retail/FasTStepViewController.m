@@ -7,6 +7,8 @@
 //
 
 #import "FasTStepViewController.h"
+#import "FasTOrderViewController.h"
+#import "FasTEvent.h"
 
 @interface FasTStepViewController ()
 

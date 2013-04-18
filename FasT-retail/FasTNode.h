@@ -9,10 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "SocketIO.h"
 
+@class FasTEvent;
+
 @interface FasTNode : NSObject <SocketIODelegate>
 {
     SocketIO *io;
+    FasTEvent *event;
 }
+
+@property (nonatomic, retain) FasTEvent *event;
 
 + (FasTNode *)defaultNode;
 

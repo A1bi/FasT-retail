@@ -10,7 +10,10 @@
 
 @interface FasTSeatsView : UIView
 {
-	NSDictionary *seats;
+	NSMutableDictionary *seats;
+    NSArray *grid, *sizes;
 }
+
+- (void)updateSeatWithId:(NSString *)seatId info:(NSDictionary *)seatInfo;
 
 @end
