@@ -54,11 +54,6 @@
 
 - (void)updateTicketTypes
 {
-    for (UIViewController *typeVC in typeVCs) {
-        [[typeVC view] removeFromSuperview];
-        [typeVC removeFromParentViewController];
-    }
-    
     NSMutableArray *tmpTypeVCs = [NSMutableArray array];
 	int i = 0;
 	for (NSDictionary *type in [[[self orderController] event] ticketTypes]) {
@@ -80,7 +75,6 @@
 		
 	}
 	
-    [typeVCs release];
 	typeVCs = [[NSArray arrayWithArray:tmpTypeVCs] retain];
     
     [self updateTotal];

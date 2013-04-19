@@ -23,9 +23,10 @@
 }
 
 @property (nonatomic, readonly) FasTOrder *order;
-@property (nonatomic, retain) FasTEvent *event;
 
 - (IBAction)nextTapped:(id)sender;
 - (IBAction)prevTapped:(id)sender;
+
+- (FasTEvent *)event;
 
 @end

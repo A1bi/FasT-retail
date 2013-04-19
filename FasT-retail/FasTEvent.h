@@ -21,6 +21,7 @@
 @property (nonatomic, retain) NSArray *ticketTypes;
 @property (nonatomic, readonly) NSMutableDictionary *seats;
 
-- (void)updateWithInfo:(NSDictionary *)info;
+- (id)initWithInfo:(NSDictionary *)info;
+- (void)updateSeats:(NSDictionary *)seatsInfo;
 
 @end

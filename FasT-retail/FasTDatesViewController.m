@@ -59,7 +59,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell * cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"date"] autorelease];
-    NSDate *date = [[[[self orderController] event] dates] objectAtIndex:[indexPath row]];
+    NSDate *date = [[[[[self orderController] event] dates] objectAtIndex:[indexPath row]] objectForKey:@"date"];
 	[[cell textLabel] setText:[NSString stringWithFormat:@"%@", date]];
 	[[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
 	
