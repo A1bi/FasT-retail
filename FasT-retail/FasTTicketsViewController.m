@@ -90,14 +90,11 @@
 {
     float total = 0;
     numberOfTickets = 0;
-    NSMutableDictionary *tickets = [NSMutableDictionary dictionary];
 	for (FasTTicketTypeViewController *typeVC in typeVCs) {
 		total += [typeVC total];
         numberOfTickets += [typeVC number];
-        [tickets setObject:[NSNumber numberWithInteger:[typeVC number]] forKey:[typeVC typeId]];
+        [[orderController order] tickets][[typeVC typeId]] = @([typeVC number]);
 	}
-    
-    [[orderController order] setTickets:[NSDictionary dictionaryWithDictionary:tickets]];
     
     [totalLabel setText:[NSString stringWithFormat:@"Gesamt: %i Karten für %.2f €", (int)numberOfTickets, total]];
     

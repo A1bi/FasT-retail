@@ -18,20 +18,20 @@
     if (self) {
         seats = [[NSMutableDictionary dictionary] retain];
         
-        [self setName:[info objectForKey:@"name"]];
+        [self setName:info[@"name"]];
         
         NSMutableArray *tmpDates = [NSMutableArray array];
-        for (NSDictionary *date in [info objectForKey:@"dates"]) {
+        for (NSDictionary *date in info[@"dates"]) {
             NSMutableDictionary *dateInfo = [NSMutableDictionary dictionaryWithDictionary:date];
-            NSInteger dateTimestamp = [[date objectForKey:@"date"] integerValue];
-            [dateInfo setObject:[NSDate dateWithTimeIntervalSince1970:dateTimestamp] forKey:@"date"];
+            NSInteger dateTimestamp = [date[@"date"] integerValue];
+            dateInfo[@"date"] = [NSDate dateWithTimeIntervalSince1970:dateTimestamp];
             [tmpDates addObject:dateInfo];
         }
         [self setDates:[NSArray arrayWithArray:tmpDates]];
         
-        [self setTicketTypes:[info objectForKey:@"ticketTypes"]];
+        [self setTicketTypes:info[@"ticketTypes"]];
         
-        [self updateSeats:[info objectForKey:@"seats"]];
+        [self updateSeats:info[@"seats"]];
     }
     return self;
 }
@@ -50,15 +50,15 @@
 - (void)updateSeats:(NSDictionary *)seatsInfo
 {
     for (NSString *date in seatsInfo) {
-        NSMutableDictionary *eventDateSeats = [seats objectForKey:date];
+        NSMutableDictionary *eventDateSeats = seats[date];
         if (!eventDateSeats) {
             eventDateSeats = [NSMutableDictionary dictionary];
-            [seats setObject:eventDateSeats forKey:date];
+            seats[date] = eventDateSeats;
         }
         
-        NSDictionary *dateSeats = [seatsInfo objectForKey:date];
+        NSDictionary *dateSeats = seatsInfo[date];
         for (NSString *seatId in dateSeats) {
-            [eventDateSeats setObject:[dateSeats objectForKey:seatId] forKey:seatId];
+            eventDateSeats[seatId] = dateSeats[seatId];
         }
     }
 }

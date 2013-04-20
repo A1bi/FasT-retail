@@ -59,11 +59,11 @@
 
 - (void)updateSeatsWithInfo:(NSDictionary *)seats
 {
-    NSDictionary *dateSeats = [seats objectForKey:[[orderController order] date]];
+    NSDictionary *dateSeats = seats[ [[orderController order] date] ];
     if (!dateSeats) return;
     
     for (NSString *seatId in dateSeats) {
-        NSDictionary *seat = [dateSeats objectForKey:seatId];
+        NSDictionary *seat = dateSeats[seatId];
         [seatsView updateSeatWithId:seatId info:seat];
     }
 }
@@ -75,8 +75,7 @@
 
 - (void)updateSeats
 {
-    NSDictionary *seats = [[orderController event] seats];
-    [self updateSeatsWithInfo:seats];
+    [self updateSeatsWithInfo:[[orderController event] seats]];
 }
 
 @end

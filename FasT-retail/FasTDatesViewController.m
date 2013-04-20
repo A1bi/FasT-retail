@@ -65,7 +65,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell * cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"date"] autorelease];
-    NSDate *date = [[[[orderController event] dates] objectAtIndex:[indexPath row]] objectForKey:@"date"];
+    NSDate *date = [[orderController event] dates][[indexPath row]][@"date"];
 	[[cell textLabel] setText:[NSString stringWithFormat:@"%@", date]];
 	[[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
 	
@@ -108,7 +108,7 @@
 
 - (NSDictionary *)stepInfo
 {
-    return [NSDictionary dictionaryWithObjectsAndKeys:[[orderController order] date], @"date", nil];
+    return @{@"date": [[orderController order] date]};
 }
 
 @end

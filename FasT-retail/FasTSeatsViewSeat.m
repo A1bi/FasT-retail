@@ -42,7 +42,7 @@
 
 - (void)updateWithInfo:(NSDictionary *)info
 {
-    [self setIsAvailable:![[info objectForKey:@"reserved"] boolValue]];
+    [self setIsAvailable:![info[@"reserved"] boolValue]];
 }
 
 - (void)toggleAvailability

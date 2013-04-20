@@ -28,22 +28,16 @@ static float    kSizeFactorsY = 3;
     if (self) {
 		seats = [[NSMutableDictionary dictionary] retain];
         
-        grid = [[NSArray arrayWithObjects:
-                 [NSNumber numberWithFloat:self.frame.size.width / kMaxCellsX],
-                 [NSNumber numberWithFloat:self.frame.size.height / kMaxCellsY],
-                nil] retain];
+        grid = [@[ @(self.frame.size.width / kMaxCellsX), @(self.frame.size.height / kMaxCellsY) ] retain];
         
-        sizes = [[NSArray arrayWithObjects:
-                    [NSNumber numberWithFloat:[[grid objectAtIndex:0] floatValue] * kSizeFactorsX],
-                    [NSNumber numberWithFloat:[[grid objectAtIndex:1] floatValue] * kSizeFactorsY],
-                nil] retain];
+        sizes = [@[ @([grid[0] floatValue] * kSizeFactorsX), @([grid[1] floatValue] * kSizeFactorsY) ] retain];
     }
     return self;
 }
 
 - (void)updateSeatWithId:(NSString *)seatId info:(NSDictionary *)seatInfo
 {
-    FasTSeatsViewSeat *seat = [seats objectForKey:seatId];
+    FasTSeatsViewSeat *seat = seats[seatId];
     if (!seat) {
         [self addSeatWithId:seatId info:seatInfo];
     } else {
@@ -56,13 +50,13 @@ static float    kSizeFactorsY = 3;
     NSDictionary *gridPos = [seatInfo objectForKey:@"grid"];
     
 	CGRect frame;
-	frame.size.width = [[sizes objectAtIndex:0] floatValue];
-	frame.size.height = [[sizes objectAtIndex:1] floatValue];
-	frame.origin.x = [[grid objectAtIndex:0] floatValue] * [[gridPos objectForKey:@"x"] intValue];
-	frame.origin.y = [[grid objectAtIndex:1] floatValue] * [[gridPos objectForKey:@"y"] intValue];
+	frame.size.width = [sizes[0] floatValue];
+	frame.size.height = [sizes[1] floatValue];
+	frame.origin.x = [grid[0] floatValue] * [gridPos[@"x"] intValue];
+	frame.origin.y = [grid[1] floatValue] * [gridPos[@"y"] intValue];
 	
 	FasTSeatsViewSeat *seat = [[[FasTSeatsViewSeat alloc] initWithFrame:frame seatId:seatId info:seatInfo] autorelease];
-    [seats setObject:seat forKey:seatId];
+    seats[seatId] = seat;
 	[self addSubview:seat];
 }
 

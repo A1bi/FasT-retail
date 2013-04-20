@@ -11,11 +11,11 @@
 @interface FasTOrder : NSObject
 {
 	NSString *date;
-	NSDictionary *tickets;
+	NSMutableDictionary *tickets;
 	NSMutableArray *seats;
 }
 
 @property (nonatomic, retain) NSString *date;
-@property (nonatomic, retain) NSDictionary *tickets;
+@property (nonatomic, readonly) NSMutableDictionary *tickets;
 
 @end

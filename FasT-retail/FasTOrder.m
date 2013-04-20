@@ -16,7 +16,8 @@
 {
 	self = [super init];
 	if (self) {
-
+        tickets = [[NSMutableDictionary alloc] init];
+        seats = [[NSMutableArray alloc] init];
 	}
 	return self;
 }

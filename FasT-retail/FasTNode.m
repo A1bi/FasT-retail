@@ -62,17 +62,17 @@ static NSString *kNodeUrl = @"fast.albisigns";
 
 - (void)socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet
 {
-    NSDictionary *info = [[[packet dataAsJSON] objectForKey:@"args"] objectAtIndex:0];
+    NSDictionary *info = [packet dataAsJSON][@"args"][0];
     
     if ([[packet name] isEqualToString:@"updateSeats"]) {
-        NSDictionary *seats = [info objectForKey:@"seats"];
+        NSDictionary *seats = info[@"seats"];
         [event updateSeats:seats];
         
         NSNotification *notification = [NSNotification notificationWithName:@"updateSeats" object:self userInfo:seats];
         [[NSNotificationCenter defaultCenter] postNotification:notification];
     
     } else if ([[packet name] isEqualToString:@"updateEvent"]) {
-        [self setEvent:[[FasTEvent alloc] initWithInfo:[info objectForKey:@"event"]]];
+        [self setEvent:[[FasTEvent alloc] initWithInfo:info[@"event"]]];
     }
 }
 
@@ -80,9 +80,7 @@ static NSString *kNodeUrl = @"fast.albisigns";
 
 - (void)updateOrderWithStep:(NSString *)step info:(NSDictionary *)info callback:(void (^)(NSDictionary *))callback
 {
-    NSDictionary *orderInfo = [NSDictionary dictionaryWithObjectsAndKeys:step, @"step", info, @"info", nil];
-    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:orderInfo, @"order", nil];
-    
+    NSDictionary *data = @{ @"order": @{@"step": step, @"info": info} };
     [io sendEvent:@"updateOrder" withData:data andAcknowledge:callback];
 }
 

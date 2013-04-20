@@ -22,7 +22,7 @@
     self = [super init];
     if (self) {
         typeInfo = [tI retain];
-        typeId = [[tI objectForKey:@"id"] retain];
+        typeId = [tI[@"id"] retain];
 		total = 0;
     }
     return self;
@@ -38,7 +38,7 @@
     
 	[nameLabel setText:[typeInfo objectForKey:@"name"]];
 	[infoLabel setText:info];
-	[priceLabel setText:[NSString stringWithFormat:@"je %.2f €", [[typeInfo objectForKey:@"price"] floatValue]]];
+	[priceLabel setText:[NSString stringWithFormat:@"je %.2f €", [typeInfo[@"price"] floatValue]]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,7 +64,7 @@
 
 - (IBAction)numberChanged:(UIStepper *)stepper {
 	number = (int)[stepper value];
-	total = number * [[typeInfo objectForKey:@"price"] floatValue];
+	total = number * [typeInfo[@"price"] floatValue];
 	
 	[numberLabel setText:[NSString stringWithFormat:@"%i", number]];
 	[totalLabel setText:[NSString stringWithFormat:@"%.2f €", total]];

@@ -88,11 +88,7 @@
     currentStepIndex = -1;
     
     NSMutableArray *tmpStepControllers = [NSMutableArray array];
-    NSArray *stepControllerClasses = [NSArray arrayWithObjects:
-                                      [FasTDatesViewController class],
-                                      [FasTTicketsViewController class],
-                                      [FasTSeatsViewController class],
-                                      nil];
+    NSArray *stepControllerClasses = @[ [FasTDatesViewController class], [FasTTicketsViewController class], [FasTSeatsViewController class] ];
     
     for (Class klass in stepControllerClasses) {
         FasTStepViewController *vc = [[[klass alloc] initWithOrderController:self] autorelease];
@@ -109,7 +105,7 @@
 - (void)updateOrder
 {
     SocketIOCallback callback = ^(NSDictionary *response) {
-        if ([(NSNumber *)[response objectForKey:@"ok"] boolValue]) {
+        if ([(NSNumber *)response[@"ok"] boolValue]) {
             [self pushNextStepController];
         }
     };
@@ -119,7 +115,7 @@
 
 - (void)pushNextStepController
 {
-    currentStepController = [stepControllers objectAtIndex:++currentStepIndex];
+    currentStepController = stepControllers[++currentStepIndex];
     [self updateButtons];
     [nvc pushViewController:currentStepController animated:YES];
 }
