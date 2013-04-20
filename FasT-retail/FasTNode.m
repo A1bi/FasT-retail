@@ -76,4 +76,14 @@ static NSString *kNodeUrl = @"fast.albisigns";
     }
 }
 
+#pragma mark class methods
+
+- (void)updateOrderWithStep:(NSString *)step info:(NSDictionary *)info callback:(void (^)(NSDictionary *))callback
+{
+    NSDictionary *orderInfo = [NSDictionary dictionaryWithObjectsAndKeys:step, @"step", info, @"info", nil];
+    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:orderInfo, @"order", nil];
+    
+    [io sendEvent:@"updateOrder" withData:data andAcknowledge:callback];
+}
+
 @end

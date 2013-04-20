@@ -106,4 +106,9 @@
     return [[orderController order] date] != nil;
 }
 
+- (NSDictionary *)stepInfo
+{
+    return [NSDictionary dictionaryWithObjectsAndKeys:[[orderController order] date], @"date", nil];
+}
+
 @end

@@ -20,6 +20,7 @@
 - (void)pushNextStepController;
 - (void)popStepController;
 - (void)updateButtons;
+- (void)updateOrder;
 
 @end
 
@@ -105,6 +106,17 @@
     [self pushNextStepController];
 }
 
+- (void)updateOrder
+{
+    SocketIOCallback callback = ^(NSDictionary *response) {
+        if ([(NSNumber *)[response objectForKey:@"ok"] boolValue]) {
+            [self pushNextStepController];
+        }
+    };
+
+    [[FasTNode defaultNode] updateOrderWithStep:[currentStepController stepName] info:[currentStepController stepInfo] callback:callback];
+}
+
 - (void)pushNextStepController
 {
     currentStepController = [stepControllers objectAtIndex:++currentStepIndex];
@@ -138,7 +150,7 @@
 
 - (IBAction)nextTapped:(id)sender {
     if ([currentStepController isValid]) {
-        [self pushNextStepController];
+        [self updateOrder];
     }
 }
 

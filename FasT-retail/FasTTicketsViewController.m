@@ -109,6 +109,11 @@
     return numberOfTickets > 0;
 }
 
+- (NSDictionary *)stepInfo
+{
+    return [NSDictionary dictionaryWithObjectsAndKeys:[[orderController order] tickets], @"tickets", nil];
+}
+
 #pragma mark delegate methods
 
 - (void)changedTotalOfTicketType:(FasTTicketTypeViewController *)t

@@ -16,8 +16,11 @@
     FasTOrderViewController *orderController;
 }
 
+@property (nonatomic, readonly) NSString *stepName;
+
 - (id)initWithStepName:(NSString *)name orderController:(FasTOrderViewController *)oc;
 - (id)initWithOrderController:(FasTOrderViewController *)oc;
 - (BOOL)isValid;
+- (NSDictionary *)stepInfo;
 
 @end

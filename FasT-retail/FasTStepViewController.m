@@ -16,6 +16,8 @@
 
 @implementation FasTStepViewController
 
+@synthesize stepName;
+
 - (id)initWithStepName:(NSString *)name orderController:(FasTOrderViewController *)oc
 {
     self = [super init];
@@ -54,6 +56,11 @@
 - (BOOL)isValid
 {
     return YES;
+}
+
+- (NSDictionary *)stepInfo
+{
+    return [NSDictionary dictionary];
 }
 
 @end
