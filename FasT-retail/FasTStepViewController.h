@@ -11,7 +11,13 @@
 @class FasTOrderViewController;
 
 @interface FasTStepViewController : UIViewController
+{
+    NSString *stepName;
+    FasTOrderViewController *orderController;
+}
 
-@property (nonatomic, assign) FasTOrderViewController *orderController;
+- (id)initWithStepName:(NSString *)name orderController:(FasTOrderViewController *)oc;
+- (id)initWithOrderController:(FasTOrderViewController *)oc;
+- (BOOL)isValid;
 
 @end

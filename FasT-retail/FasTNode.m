@@ -45,7 +45,7 @@ static NSString *kNodeUrl = @"fast.albisigns";
 	if (self) {
         io = [[SocketIO alloc] initWithDelegate:self];
         [io setUseSecure:YES];
-        [io connectToHost:kNodeUrl onPort:0 withParams:nil withNamespace:@"/purchase"];
+        [io connectToHost:kNodeUrl onPort:0 withParams:nil withNamespace:@"/retail"];
 	}
 	
 	return self;

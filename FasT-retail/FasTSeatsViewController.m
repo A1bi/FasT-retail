@@ -25,9 +25,9 @@
 
 @synthesize seatsView;
 
-- (id)init
+- (id)initWithOrderController:(FasTOrderViewController *)oc
 {
-    self = [super init];
+    self = [super initWithStepName:@"seats" orderController:oc];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSeatsWithNotification:) name:@"updateSeats" object:nil];
     }
@@ -59,7 +59,7 @@
 
 - (void)updateSeatsWithInfo:(NSDictionary *)seats
 {
-    NSDictionary *dateSeats = [seats objectForKey:[[[self orderController] order] date]];
+    NSDictionary *dateSeats = [seats objectForKey:[[orderController order] date]];
     if (!dateSeats) return;
     
     for (NSString *seatId in dateSeats) {
@@ -75,7 +75,7 @@
 
 - (void)updateSeats
 {
-    NSDictionary *seats = [[[self orderController] event] seats];
+    NSDictionary *seats = [[orderController event] seats];
     [self updateSeatsWithInfo:seats];
 }
 

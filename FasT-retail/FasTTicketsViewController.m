@@ -21,9 +21,9 @@
 
 @implementation FasTTicketsViewController
 
-- (id)init
+- (id)initWithOrderController:(FasTOrderViewController *)oc
 {
-    self = [super init];
+    self = [super initWithStepName:@"tickets" orderController:oc];
     if (self) {
 
     }
@@ -34,6 +34,12 @@
 {
     [super viewDidLoad];
     [self updateTicketTypes];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [orderController updateNextButton];
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,7 +62,7 @@
 {
     NSMutableArray *tmpTypeVCs = [NSMutableArray array];
 	int i = 0;
-	for (NSDictionary *type in [[[self orderController] event] ticketTypes]) {
+	for (NSDictionary *type in [[orderController event] ticketTypes]) {
 		
 		FasTTicketTypeViewController *typeVC = [[FasTTicketTypeViewController alloc] initWithTypeInfo:type];
 		[typeVC setDelegate:self];
@@ -83,17 +89,24 @@
 - (void)updateTotal
 {
     float total = 0;
-    NSInteger totalNumber = 0;
+    numberOfTickets = 0;
     NSMutableDictionary *tickets = [NSMutableDictionary dictionary];
 	for (FasTTicketTypeViewController *typeVC in typeVCs) {
 		total += [typeVC total];
-        totalNumber += [typeVC number];
+        numberOfTickets += [typeVC number];
         [tickets setObject:[NSNumber numberWithInteger:[typeVC number]] forKey:[typeVC typeId]];
 	}
     
-    [[[self orderController] order] setTickets:[NSDictionary dictionaryWithDictionary:tickets]];
+    [[orderController order] setTickets:[NSDictionary dictionaryWithDictionary:tickets]];
     
-    [totalLabel setText:[NSString stringWithFormat:@"Gesamt: %i Karten für %.2f €", totalNumber, total]];
+    [totalLabel setText:[NSString stringWithFormat:@"Gesamt: %i Karten für %.2f €", (int)numberOfTickets, total]];
+    
+    [orderController updateNextButton];
+}
+
+- (BOOL)isValid
+{
+    return numberOfTickets > 0;
 }
 
 #pragma mark delegate methods

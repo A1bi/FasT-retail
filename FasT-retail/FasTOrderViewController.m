@@ -18,6 +18,8 @@
 
 - (void)initSteps;
 - (void)pushNextStepController;
+- (void)popStepController;
+- (void)updateButtons;
 
 @end
 
@@ -92,8 +94,7 @@
                                       nil];
     
     for (Class klass in stepControllerClasses) {
-        FasTStepViewController *vc = [[[klass alloc] init] autorelease];
-        [vc setOrderController:self];
+        FasTStepViewController *vc = [[[klass alloc] initWithOrderController:self] autorelease];
         [tmpStepControllers addObject:vc];
     }
     
@@ -106,20 +107,43 @@
 
 - (void)pushNextStepController
 {
-    FasTStepViewController *nextStepController = [stepControllers objectAtIndex:++currentStepIndex];
-    [nvc pushViewController:nextStepController animated:YES];
+    currentStepController = [stepControllers objectAtIndex:++currentStepIndex];
+    [self updateButtons];
+    [nvc pushViewController:currentStepController animated:YES];
+}
+
+- (void)popStepController
+{
+    if (currentStepIndex <= 0) return;
+    currentStepIndex--;
+    
+    [self updateButtons];
+    [nvc popViewControllerAnimated:YES];
+    
+    currentStepController = (FasTStepViewController *)[nvc visibleViewController];
+}
+
+- (void)updateButtons
+{
+    [nextBtn setEnabled:YES];
+    [prevBtn setEnabled:(currentStepIndex > 0)];
+}
+
+- (void)updateNextButton
+{
+    [nextBtn setEnabled:[currentStepController isValid]];
 }
 
 #pragma mark actions
 
 - (IBAction)nextTapped:(id)sender {
-    [self pushNextStepController];
+    if ([currentStepController isValid]) {
+        [self pushNextStepController];
+    }
 }
 
 - (IBAction)prevTapped:(id)sender {
-    if (currentStepIndex <= 0) return;
-    currentStepIndex--;
-	[nvc popViewControllerAnimated:YES];
+    [self popStepController];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context

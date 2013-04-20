@@ -14,6 +14,8 @@
 @interface FasTTicketsViewController : FasTStepViewController
 {
 	NSArray *typeVCs;
+    NSInteger numberOfTickets;
+    
     IBOutlet UILabel *totalLabel;
     IBOutlet UIView *ticketsView;
 }

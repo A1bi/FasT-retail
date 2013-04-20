@@ -20,9 +20,9 @@
 
 @synthesize datesTable;
 
-- (id)init
+- (id)initWithOrderController:(FasTOrderViewController *)oc
 {
-    self = [super init];
+    self = [super initWithStepName:@"date" orderController:oc];
     if (self) {
         
     }
@@ -36,6 +36,12 @@
 	[datesTable setDataSource:self];
     [datesTable setDelegate:self];
 	[datesTable setRowHeight:60.0f];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [orderController updateNextButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -59,7 +65,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell * cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"date"] autorelease];
-    NSDate *date = [[[[[self orderController] event] dates] objectAtIndex:[indexPath row]] objectForKey:@"date"];
+    NSDate *date = [[[[orderController event] dates] objectAtIndex:[indexPath row]] objectForKey:@"date"];
 	[[cell textLabel] setText:[NSString stringWithFormat:@"%@", date]];
 	[[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
 	
@@ -68,7 +74,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [[[[self orderController] event] dates] count];
+	return [[[orderController event] dates] count];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -80,7 +86,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	[[[self orderController] order] setDate:[NSString stringWithFormat:@"%i", [indexPath row] + 1]];
+	[[orderController order] setDate:[NSString stringWithFormat:@"%i", [indexPath row] + 1]];
+    
+    [orderController updateNextButton];
 }
 
 #pragma mark actions
@@ -89,6 +97,13 @@
 	FasTSeatsViewController *seatsVC = [[[FasTSeatsViewController alloc] init] autorelease];
 	
 	[[self navigationController] pushViewController:seatsVC animated:YES];
+}
+
+#pragma mark class methods
+
+- (BOOL)isValid
+{
+    return [[orderController order] date] != nil;
 }
 
 @end

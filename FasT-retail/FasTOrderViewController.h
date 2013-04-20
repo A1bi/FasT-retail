@@ -10,6 +10,7 @@
 
 @class FasTOrder;
 @class FasTEvent;
+@class FasTStepViewController;
 
 @interface FasTOrderViewController : UIViewController
 {
@@ -17,6 +18,7 @@
 	UINavigationController *nvc;
     int currentStepIndex;
     NSArray *stepControllers;
+    FasTStepViewController *currentStepController;
     
 	IBOutlet UIButton *nextBtn;
 	IBOutlet UIButton *prevBtn;
@@ -28,5 +30,6 @@
 - (IBAction)prevTapped:(id)sender;
 
 - (FasTEvent *)event;
+- (void)updateNextButton;
 
 @end

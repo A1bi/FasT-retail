@@ -16,15 +16,19 @@
 
 @implementation FasTStepViewController
 
-@synthesize orderController;
-
-- (id)init
+- (id)initWithStepName:(NSString *)name orderController:(FasTOrderViewController *)oc
 {
     self = [super init];
     if (self) {
-        // Custom initialization
+        stepName = [name retain];
+        orderController = oc;
     }
     return self;
+}
+
+- (id)initWithOrderController:(FasTOrderViewController *)oc
+{
+    return nil;
 }
 
 - (void)viewDidLoad
@@ -37,6 +41,19 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+    [stepName release];
+    [super dealloc];
+}
+
+#pragma mark class methods
+
+- (BOOL)isValid
+{
+    return YES;
 }
 
 @end
