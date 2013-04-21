@@ -22,5 +22,6 @@
 + (FasTNode *)defaultNode;
 
 - (void)updateOrderWithStep:(NSString *)step info:(NSDictionary *)info callback:(void (^)(NSDictionary *))callback;
+- (void)reserveSeatWithId:(NSString *)seatId;
 
 @end

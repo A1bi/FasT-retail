@@ -15,8 +15,8 @@
 		6114205B1717399F0067D3F3 /* FasTDatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 611420591717399F0067D3F3 /* FasTDatesViewController.m */; };
 		6114205C1717399F0067D3F3 /* FasTDatesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6114205A1717399F0067D3F3 /* FasTDatesViewController.xib */; };
 		6114206117174D130067D3F3 /* FasTSeatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6114205F17174D130067D3F3 /* FasTSeatsViewController.xib */; };
-		6114206417174D8B0067D3F3 /* FasTSeatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114206317174D8B0067D3F3 /* FasTSeatsView.m */; };
-		6114206717174E4E0067D3F3 /* FasTSeatsViewSeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114206617174E4E0067D3F3 /* FasTSeatsViewSeat.m */; };
+		6114206417174D8B0067D3F3 /* FasTSeatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114206317174D8B0067D3F3 /* FasTSeatingView.m */; };
+		6114206717174E4E0067D3F3 /* FasTSeatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114206617174E4E0067D3F3 /* FasTSeatView.m */; };
 		6114206B1717636B0067D3F3 /* FasTTicketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 611420691717636A0067D3F3 /* FasTTicketsViewController.m */; };
 		6114206C1717636B0067D3F3 /* FasTTicketsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6114206A1717636A0067D3F3 /* FasTTicketsViewController.xib */; };
 		61B79A6E171B3A250096179B /* FasTOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A6D171B3A250096179B /* FasTOrderViewController.m */; };
@@ -58,10 +58,10 @@
 		6114205D17174D120067D3F3 /* FasTSeatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTSeatsViewController.h; sourceTree = "<group>"; };
 		6114205E17174D130067D3F3 /* FasTSeatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTSeatsViewController.m; sourceTree = "<group>"; };
 		6114205F17174D130067D3F3 /* FasTSeatsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTSeatsViewController.xib; sourceTree = "<group>"; };
-		6114206217174D8B0067D3F3 /* FasTSeatsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTSeatsView.h; sourceTree = "<group>"; };
-		6114206317174D8B0067D3F3 /* FasTSeatsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTSeatsView.m; sourceTree = "<group>"; };
-		6114206517174E4E0067D3F3 /* FasTSeatsViewSeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTSeatsViewSeat.h; sourceTree = "<group>"; };
-		6114206617174E4E0067D3F3 /* FasTSeatsViewSeat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTSeatsViewSeat.m; sourceTree = "<group>"; };
+		6114206217174D8B0067D3F3 /* FasTSeatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTSeatingView.h; sourceTree = "<group>"; };
+		6114206317174D8B0067D3F3 /* FasTSeatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTSeatingView.m; sourceTree = "<group>"; };
+		6114206517174E4E0067D3F3 /* FasTSeatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTSeatView.h; sourceTree = "<group>"; };
+		6114206617174E4E0067D3F3 /* FasTSeatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTSeatView.m; sourceTree = "<group>"; };
 		611420681717636A0067D3F3 /* FasTTicketsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTTicketsViewController.h; sourceTree = "<group>"; };
 		611420691717636A0067D3F3 /* FasTTicketsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTTicketsViewController.m; sourceTree = "<group>"; };
 		6114206A1717636A0067D3F3 /* FasTTicketsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTTicketsViewController.xib; sourceTree = "<group>"; };
@@ -204,10 +204,10 @@
 				6114205D17174D120067D3F3 /* FasTSeatsViewController.h */,
 				6114205E17174D130067D3F3 /* FasTSeatsViewController.m */,
 				6114205F17174D130067D3F3 /* FasTSeatsViewController.xib */,
-				6114206217174D8B0067D3F3 /* FasTSeatsView.h */,
-				6114206317174D8B0067D3F3 /* FasTSeatsView.m */,
-				6114206517174E4E0067D3F3 /* FasTSeatsViewSeat.h */,
-				6114206617174E4E0067D3F3 /* FasTSeatsViewSeat.m */,
+				6114206217174D8B0067D3F3 /* FasTSeatingView.h */,
+				6114206317174D8B0067D3F3 /* FasTSeatingView.m */,
+				6114206517174E4E0067D3F3 /* FasTSeatView.h */,
+				6114206617174E4E0067D3F3 /* FasTSeatView.m */,
 			);
 			name = Seating;
 			sourceTree = "<group>";
@@ -394,8 +394,8 @@
 				611420411714BE3E0067D3F3 /* FasTAppDelegate.m in Sources */,
 				6114205B1717399F0067D3F3 /* FasTDatesViewController.m in Sources */,
 				61B79E46171F49F30096179B /* FasTSeatsViewController.m in Sources */,
-				6114206417174D8B0067D3F3 /* FasTSeatsView.m in Sources */,
-				6114206717174E4E0067D3F3 /* FasTSeatsViewSeat.m in Sources */,
+				6114206417174D8B0067D3F3 /* FasTSeatingView.m in Sources */,
+				6114206717174E4E0067D3F3 /* FasTSeatView.m in Sources */,
 				6114206B1717636B0067D3F3 /* FasTTicketsViewController.m in Sources */,
 				61B79A6E171B3A250096179B /* FasTOrderViewController.m in Sources */,
 				61B79A71171B3C9D0096179B /* FasTOrder.m in Sources */,

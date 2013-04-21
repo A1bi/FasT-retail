@@ -8,14 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "FasTStepViewController.h"
+#import "FasTSeatingView.h"
 
-@class FasTSeatsView;
+@class FasTSeatingView;
 
-@interface FasTSeatsViewController : FasTStepViewController
+@interface FasTSeatsViewController : FasTStepViewController <FasTSeatingViewDelegate>
 {
-    FasTSeatsView *seatsView;
+    FasTSeatingView *seatsView;
 }
 
-@property (retain, nonatomic) IBOutlet FasTSeatsView *seatsView;
+@property (retain, nonatomic) IBOutlet FasTSeatingView *seatsView;
 
 @end

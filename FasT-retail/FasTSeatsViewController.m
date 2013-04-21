@@ -7,11 +7,11 @@
 //
 
 #import "FasTSeatsViewController.h"
-#import "FasTSeatsView.h"
-#import "FasTSeatsViewSeat.h"
+#import "FasTSeatView.h"
 #import "FasTOrderViewController.h"
 #import "FasTEvent.h"
 #import "FasTOrder.h"
+#import "FasTNode.h"
 
 @interface FasTSeatsViewController ()
 
@@ -76,6 +76,13 @@
 - (void)updateSeats
 {
     [self updateSeatsWithInfo:[[orderController event] seats]];
+}
+
+#pragma mark seating delegate methods
+
+- (void)didSelectSeatView:(FasTSeatView *)seatView
+{
+    [[FasTNode defaultNode] reserveSeatWithId:[seatView seatId]];
 }
 
 @end

@@ -84,4 +84,10 @@ static NSString *kNodeUrl = @"fast.albisigns";
     [io sendEvent:@"updateOrder" withData:data andAcknowledge:callback];
 }
 
+- (void)reserveSeatWithId:(NSString *)seatId
+{
+    NSDictionary *data = @{ @"seatId": seatId };
+    [io sendEvent:@"reserveSeat" withData:data];
+}
+
 @end

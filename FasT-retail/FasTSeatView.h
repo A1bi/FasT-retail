@@ -7,15 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FasTSeatingView.h"
 
-@interface FasTSeatsViewSeat : UIView
+typedef enum {
+    FasTSeatViewStateAvailable,
+    FasTSeatViewStateReserved,
+    FasTSeatViewStateSelected
+} FasTSeatViewState;
+
+@interface FasTSeatView : UIView
 {
 	NSString *seatId;
-    BOOL isAvailable;
+    FasTSeatViewState state;
 }
 
-@property (nonatomic) BOOL isAvailable;
+@property (nonatomic) FasTSeatViewState state;
 @property (nonatomic, readonly) NSString *seatId;
+@property (nonatomic, assign) id<FasTSeatingViewDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame seatId:(NSString *)sId info:(NSDictionary *)info;
 - (void)updateWithInfo:(NSDictionary *)info;

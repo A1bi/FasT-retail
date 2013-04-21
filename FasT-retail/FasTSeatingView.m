@@ -6,21 +6,23 @@
 //  Copyright (c) 2013 Albisigns. All rights reserved.
 //
 
-#import "FasTSeatsView.h"
-#import "FasTSeatsViewSeat.h"
+#import "FasTSeatingView.h"
+#import "FasTSeatView.h"
 
-static int      kMaxCellsX = 100;
+static int      kMaxCellsX = 115;
 static int      kMaxCellsY = 60;
 static float    kSizeFactorsX = 3.5;
 static float    kSizeFactorsY = 3;
 
-@interface FasTSeatsView ()
+@interface FasTSeatingView ()
 
 - (void)addSeatWithId:(NSString *)seatId info:(NSDictionary *)seatInfo;
 
 @end
 
-@implementation FasTSeatsView
+@implementation FasTSeatingView
+
+@synthesize delegate;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -37,7 +39,7 @@ static float    kSizeFactorsY = 3;
 
 - (void)updateSeatWithId:(NSString *)seatId info:(NSDictionary *)seatInfo
 {
-    FasTSeatsViewSeat *seat = seats[seatId];
+    FasTSeatView *seat = seats[seatId];
     if (!seat) {
         [self addSeatWithId:seatId info:seatInfo];
     } else {
@@ -55,7 +57,8 @@ static float    kSizeFactorsY = 3;
 	frame.origin.x = [grid[0] floatValue] * [gridPos[@"x"] intValue];
 	frame.origin.y = [grid[1] floatValue] * [gridPos[@"y"] intValue];
 	
-	FasTSeatsViewSeat *seat = [[[FasTSeatsViewSeat alloc] initWithFrame:frame seatId:seatId info:seatInfo] autorelease];
+	FasTSeatView *seat = [[[FasTSeatView alloc] initWithFrame:frame seatId:seatId info:seatInfo] autorelease];
+    [seat setDelegate:[self delegate]];
     seats[seatId] = seat;
 	[self addSubview:seat];
 }
