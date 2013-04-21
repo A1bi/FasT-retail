@@ -14,6 +14,8 @@
 
 @interface FasTDatesViewController ()
 
+- (NSArray *)dates;
+
 @end
 
 @implementation FasTDatesViewController
@@ -65,7 +67,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell * cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"date"] autorelease];
-    NSDate *date = [[orderController event] dates][[indexPath row]][@"date"];
+    NSDate *date = [self dates][ [indexPath row] ][@"date"];
 	[[cell textLabel] setText:[NSString stringWithFormat:@"%@", date]];
 	[[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
 	
@@ -74,7 +76,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [[[orderController event] dates] count];
+	return [[self dates] count];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -86,7 +88,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	[[orderController order] setDate:[NSString stringWithFormat:@"%i", [indexPath row] + 1]];
+	[[orderController order] setDate:[self dates][ [indexPath row] ]];
     
     [orderController updateNextButton];
 }
@@ -108,7 +110,12 @@
 
 - (NSDictionary *)stepInfo
 {
-    return @{@"date": [[orderController order] date]};
+    return @{@"date": [[orderController order] date][@"id"]};
+}
+
+- (NSArray *)dates
+{
+    return [[orderController event] dates];
 }
 
 @end

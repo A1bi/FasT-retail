@@ -15,15 +15,14 @@
 
 @implementation FasTTicketTypeViewController
 
-@synthesize typeId, total, number, delegate;
+@synthesize typeId, typeInfo, delegate;
 
 - (id)initWithTypeInfo:(NSDictionary *)tI
 {
     self = [super init];
     if (self) {
-        typeInfo = [tI retain];
-        typeId = [tI[@"id"] retain];
-		total = 0;
+        typeInfo = [[NSMutableDictionary dictionaryWithDictionary:tI] retain];
+        typeId = tI[@"id"];
     }
     return self;
 }
@@ -50,7 +49,6 @@
 - (void)dealloc
 {
 	[typeInfo release];
-    [typeId release];
     
 	[nameLabel release];
 	[infoLabel release];
@@ -63,8 +61,11 @@
 #pragma mark actions
 
 - (IBAction)numberChanged:(UIStepper *)stepper {
-	number = (int)[stepper value];
-	total = number * [typeInfo[@"price"] floatValue];
+	NSInteger number = (int)[stepper value];
+	float total = number * [typeInfo[@"price"] floatValue];
+    
+    typeInfo[@"number"] = @(number);
+    typeInfo[@"total"] = @(total);
 	
 	[numberLabel setText:[NSString stringWithFormat:@"%i", number]];
 	[totalLabel setText:[NSString stringWithFormat:@"%.2f €", total]];

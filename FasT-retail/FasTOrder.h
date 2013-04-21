@@ -10,12 +10,16 @@
 
 @interface FasTOrder : NSObject
 {
-	NSString *date;
+	NSDictionary *date;
 	NSMutableDictionary *tickets;
 	NSMutableArray *seats;
+    NSInteger numberOfTickets;
+    float total;
 }
 
-@property (nonatomic, retain) NSString *date;
+@property (nonatomic, retain) NSDictionary *date;
 @property (nonatomic, readonly) NSMutableDictionary *tickets;
+@property (nonatomic, assign) NSInteger numberOfTickets;
+@property (nonatomic, assign) float total;
 
 @end

@@ -11,6 +11,7 @@
 #import "FasTDatesViewController.h"
 #import "FasTTicketsViewController.h"
 #import "FasTSeatsViewController.h"
+#import "FasTConfirmStepViewController.h"
 #import "FasTNode.h"
 
 
@@ -88,7 +89,7 @@
     currentStepIndex = -1;
     
     NSMutableArray *tmpStepControllers = [NSMutableArray array];
-    NSArray *stepControllerClasses = @[ [FasTDatesViewController class], [FasTTicketsViewController class], [FasTSeatsViewController class] ];
+    NSArray *stepControllerClasses = @[ [FasTDatesViewController class], [FasTTicketsViewController class], [FasTSeatsViewController class],  [FasTConfirmStepViewController class] ];
     
     for (Class klass in stepControllerClasses) {
         FasTStepViewController *vc = [[[klass alloc] initWithOrderController:self] autorelease];

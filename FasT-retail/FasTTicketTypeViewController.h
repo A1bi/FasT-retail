@@ -10,9 +10,7 @@
 
 @interface FasTTicketTypeViewController : UIViewController
 {
-	NSDictionary *typeInfo;
-	NSInteger number;
-	float total;
+	NSMutableDictionary *typeInfo;
     NSString *typeId;
 	
 	IBOutlet UILabel *nameLabel;
@@ -23,8 +21,7 @@
 }
 
 @property (nonatomic, readonly) NSString *typeId;
-@property (nonatomic, readonly) float total;
-@property (nonatomic, readonly) NSInteger number;
+@property (nonatomic, readonly) NSMutableDictionary *typeInfo;
 @property (nonatomic, assign) id delegate;
 
 - (IBAction)numberChanged:(UIStepper *)stepper;

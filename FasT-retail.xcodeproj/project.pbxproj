@@ -19,6 +19,9 @@
 		6114206717174E4E0067D3F3 /* FasTSeatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114206617174E4E0067D3F3 /* FasTSeatView.m */; };
 		6114206B1717636B0067D3F3 /* FasTTicketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 611420691717636A0067D3F3 /* FasTTicketsViewController.m */; };
 		6114206C1717636B0067D3F3 /* FasTTicketsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6114206A1717636A0067D3F3 /* FasTTicketsViewController.xib */; };
+		612633371724503900F66E78 /* FasTConfirmStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 612633351724503800F66E78 /* FasTConfirmStepViewController.m */; };
+		612633381724503900F66E78 /* FasTConfirmStepViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 612633361724503800F66E78 /* FasTConfirmStepViewController.xib */; };
+		6126333B1724933300F66E78 /* FasTConfirmTicketTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6126333A1724933300F66E78 /* FasTConfirmTicketTypeView.xib */; };
 		61B79A6E171B3A250096179B /* FasTOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A6D171B3A250096179B /* FasTOrderViewController.m */; };
 		61B79A71171B3C9D0096179B /* FasTOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A70171B3C9D0096179B /* FasTOrder.m */; };
 		61B79A74171B3FC80096179B /* FasTStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A73171B3FC80096179B /* FasTStepViewController.m */; };
@@ -65,6 +68,10 @@
 		611420681717636A0067D3F3 /* FasTTicketsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTTicketsViewController.h; sourceTree = "<group>"; };
 		611420691717636A0067D3F3 /* FasTTicketsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTTicketsViewController.m; sourceTree = "<group>"; };
 		6114206A1717636A0067D3F3 /* FasTTicketsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTTicketsViewController.xib; sourceTree = "<group>"; };
+		612633341724503800F66E78 /* FasTConfirmStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTConfirmStepViewController.h; sourceTree = "<group>"; };
+		612633351724503800F66E78 /* FasTConfirmStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTConfirmStepViewController.m; sourceTree = "<group>"; };
+		612633361724503800F66E78 /* FasTConfirmStepViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTConfirmStepViewController.xib; sourceTree = "<group>"; };
+		6126333A1724933300F66E78 /* FasTConfirmTicketTypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTConfirmTicketTypeView.xib; sourceTree = "<group>"; };
 		61B79A6C171B3A250096179B /* FasTOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTOrderViewController.h; sourceTree = "<group>"; };
 		61B79A6D171B3A250096179B /* FasTOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTOrderViewController.m; sourceTree = "<group>"; };
 		61B79A6F171B3C9D0096179B /* FasTOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTOrder.h; sourceTree = "<group>"; };
@@ -183,6 +190,7 @@
 				61B79A79171B49C50096179B /* Dates */,
 				61B79A78171B49BC0096179B /* Tickets */,
 				61B79A77171B49AD0096179B /* Seating */,
+				612633391724504000F66E78 /* Confirmation */,
 			);
 			path = "FasT-retail";
 			sourceTree = "<group>";
@@ -196,6 +204,17 @@
 				6114203E1714BE3E0067D3F3 /* FasT-retail-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		612633391724504000F66E78 /* Confirmation */ = {
+			isa = PBXGroup;
+			children = (
+				612633341724503800F66E78 /* FasTConfirmStepViewController.h */,
+				612633351724503800F66E78 /* FasTConfirmStepViewController.m */,
+				612633361724503800F66E78 /* FasTConfirmStepViewController.xib */,
+				6126333A1724933300F66E78 /* FasTConfirmTicketTypeView.xib */,
+			);
+			name = Confirmation;
 			sourceTree = "<group>";
 		};
 		61B79A77171B49AD0096179B /* Seating */ = {
@@ -380,6 +399,8 @@
 				6114206C1717636B0067D3F3 /* FasTTicketsViewController.xib in Resources */,
 				61B79A76171B46D80096179B /* FasTOrderViewController.xib in Resources */,
 				61B79A83171C51110096179B /* FasTTicketTypeViewController.xib in Resources */,
+				612633381724503900F66E78 /* FasTConfirmStepViewController.xib in Resources */,
+				6126333B1724933300F66E78 /* FasTConfirmTicketTypeView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +432,7 @@
 				61B79DFB171F38480096179B /* base64.c in Sources */,
 				61B79DFC171F38480096179B /* NSData+SRB64Additions.m in Sources */,
 				61B79DFD171F38480096179B /* SRWebSocket.m in Sources */,
+				612633371724503900F66E78 /* FasTConfirmStepViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

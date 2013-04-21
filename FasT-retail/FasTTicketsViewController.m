@@ -25,7 +25,7 @@
 {
     self = [super initWithStepName:@"tickets" orderController:oc];
     if (self) {
-
+        numberOfTickets = 1;
     }
     return self;
 }
@@ -90,13 +90,16 @@
 {
     float total = 0;
     numberOfTickets = 0;
-	for (FasTTicketTypeViewController *typeVC in typeVCs) {
-		total += [typeVC total];
-        numberOfTickets += [typeVC number];
-        [[orderController order] tickets][[typeVC typeId]] = @([typeVC number]);
+	for (NSString *typeId in [[orderController order] tickets]) {
+        NSMutableDictionary *ticketType = [[orderController order] tickets][typeId];
+		total += [ticketType[@"total"] floatValue];
+        numberOfTickets += [ticketType[@"number"] intValue];
 	}
     
-    [totalLabel setText:[NSString stringWithFormat:@"Gesamt: %i Karten für %.2f €", (int)numberOfTickets, total]];
+    [[orderController order] setNumberOfTickets:numberOfTickets];
+    [[orderController order] setTotal:total];
+    
+    [totalLabel setText:[NSString stringWithFormat:@"Gesamt: %i Karten für %.2f €", numberOfTickets, total]];
     
     [orderController updateNextButton];
 }
@@ -108,13 +111,18 @@
 
 - (NSDictionary *)stepInfo
 {
-    return [NSDictionary dictionaryWithObjectsAndKeys:[[orderController order] tickets], @"tickets", nil];
+    NSMutableDictionary *tickets = [NSMutableDictionary dictionary];
+    for (NSString *typeId in [[orderController order] tickets]) {
+        tickets[typeId] = [[orderController order] tickets][typeId][@"number"];
+    }
+    return @{@"tickets": tickets};
 }
 
 #pragma mark delegate methods
 
 - (void)changedTotalOfTicketType:(FasTTicketTypeViewController *)t
 {
+    [[orderController order] tickets][[t typeId]] = [t typeInfo];
 	[self updateTotal];
 }
 

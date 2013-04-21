@@ -10,7 +10,7 @@
 
 @implementation FasTOrder
 
-@synthesize date, tickets;
+@synthesize date, tickets, numberOfTickets, total;
 
 - (id)init
 {
@@ -26,6 +26,7 @@
 {
 	[tickets release];
 	[seats release];
+    [date release];
 	[super dealloc];
 }
 
