@@ -12,6 +12,7 @@
 #import "FasTTicketsViewController.h"
 #import "FasTSeatsViewController.h"
 #import "FasTConfirmStepViewController.h"
+#import "FasTFinishViewController.h"
 #import "FasTNode.h"
 
 
@@ -89,7 +90,7 @@
     currentStepIndex = -1;
     
     NSMutableArray *tmpStepControllers = [NSMutableArray array];
-    NSArray *stepControllerClasses = @[ [FasTDatesViewController class], [FasTTicketsViewController class], [FasTSeatsViewController class],  [FasTConfirmStepViewController class] ];
+    NSArray *stepControllerClasses = @[ [FasTDatesViewController class], [FasTTicketsViewController class], [FasTSeatsViewController class],  [FasTConfirmStepViewController class], [FasTFinishViewController class] ];
     
     for (Class klass in stepControllerClasses) {
         FasTStepViewController *vc = [[[klass alloc] initWithOrderController:self] autorelease];
@@ -116,6 +117,7 @@
 
 - (void)pushNextStepController
 {
+    if (currentStepIndex+1 >= [stepControllers count]) return;
     currentStepController = stepControllers[++currentStepIndex];
     [self updateButtons];
     [nvc pushViewController:currentStepController animated:YES];

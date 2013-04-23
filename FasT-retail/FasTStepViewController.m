@@ -30,7 +30,7 @@
 
 - (id)initWithOrderController:(FasTOrderViewController *)oc
 {
-    return nil;
+    return [self initWithStepName:nil orderController:oc];
 }
 
 - (void)viewDidLoad

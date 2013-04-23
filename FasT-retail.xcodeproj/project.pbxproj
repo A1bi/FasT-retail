@@ -22,6 +22,8 @@
 		612633371724503900F66E78 /* FasTConfirmStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 612633351724503800F66E78 /* FasTConfirmStepViewController.m */; };
 		612633381724503900F66E78 /* FasTConfirmStepViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 612633361724503800F66E78 /* FasTConfirmStepViewController.xib */; };
 		6126333B1724933300F66E78 /* FasTConfirmTicketTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6126333A1724933300F66E78 /* FasTConfirmTicketTypeView.xib */; };
+		6126333F1726FCF700F66E78 /* FasTFinishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6126333D1726FCF600F66E78 /* FasTFinishViewController.m */; };
+		612633401726FCF700F66E78 /* FasTFinishViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6126333E1726FCF600F66E78 /* FasTFinishViewController.xib */; };
 		61B79A6E171B3A250096179B /* FasTOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A6D171B3A250096179B /* FasTOrderViewController.m */; };
 		61B79A71171B3C9D0096179B /* FasTOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A70171B3C9D0096179B /* FasTOrder.m */; };
 		61B79A74171B3FC80096179B /* FasTStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A73171B3FC80096179B /* FasTStepViewController.m */; };
@@ -72,6 +74,9 @@
 		612633351724503800F66E78 /* FasTConfirmStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTConfirmStepViewController.m; sourceTree = "<group>"; };
 		612633361724503800F66E78 /* FasTConfirmStepViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTConfirmStepViewController.xib; sourceTree = "<group>"; };
 		6126333A1724933300F66E78 /* FasTConfirmTicketTypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTConfirmTicketTypeView.xib; sourceTree = "<group>"; };
+		6126333C1726FCF600F66E78 /* FasTFinishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTFinishViewController.h; sourceTree = "<group>"; };
+		6126333D1726FCF600F66E78 /* FasTFinishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTFinishViewController.m; sourceTree = "<group>"; };
+		6126333E1726FCF600F66E78 /* FasTFinishViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTFinishViewController.xib; sourceTree = "<group>"; };
 		61B79A6C171B3A250096179B /* FasTOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTOrderViewController.h; sourceTree = "<group>"; };
 		61B79A6D171B3A250096179B /* FasTOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTOrderViewController.m; sourceTree = "<group>"; };
 		61B79A6F171B3C9D0096179B /* FasTOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTOrder.h; sourceTree = "<group>"; };
@@ -191,6 +196,7 @@
 				61B79A78171B49BC0096179B /* Tickets */,
 				61B79A77171B49AD0096179B /* Seating */,
 				612633391724504000F66E78 /* Confirmation */,
+				612633411726FD0000F66E78 /* Finish */,
 			);
 			path = "FasT-retail";
 			sourceTree = "<group>";
@@ -215,6 +221,16 @@
 				6126333A1724933300F66E78 /* FasTConfirmTicketTypeView.xib */,
 			);
 			name = Confirmation;
+			sourceTree = "<group>";
+		};
+		612633411726FD0000F66E78 /* Finish */ = {
+			isa = PBXGroup;
+			children = (
+				6126333C1726FCF600F66E78 /* FasTFinishViewController.h */,
+				6126333D1726FCF600F66E78 /* FasTFinishViewController.m */,
+				6126333E1726FCF600F66E78 /* FasTFinishViewController.xib */,
+			);
+			name = Finish;
 			sourceTree = "<group>";
 		};
 		61B79A77171B49AD0096179B /* Seating */ = {
@@ -401,6 +417,7 @@
 				61B79A83171C51110096179B /* FasTTicketTypeViewController.xib in Resources */,
 				612633381724503900F66E78 /* FasTConfirmStepViewController.xib in Resources */,
 				6126333B1724933300F66E78 /* FasTConfirmTicketTypeView.xib in Resources */,
+				612633401726FCF700F66E78 /* FasTFinishViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +450,7 @@
 				61B79DFC171F38480096179B /* NSData+SRB64Additions.m in Sources */,
 				61B79DFD171F38480096179B /* SRWebSocket.m in Sources */,
 				612633371724503900F66E78 /* FasTConfirmStepViewController.m in Sources */,
+				6126333F1726FCF700F66E78 /* FasTFinishViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

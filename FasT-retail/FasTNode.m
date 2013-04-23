@@ -15,6 +15,8 @@ static NSString *kNodeUrl = @"fast.albisigns";
 
 @interface FasTNode ()
 
+- (void)connect;
+
 @end
 
 @implementation FasTNode
@@ -44,8 +46,8 @@ static NSString *kNodeUrl = @"fast.albisigns";
 	self = [super init];
 	if (self) {
         io = [[SocketIO alloc] initWithDelegate:self];
-        [io setUseSecure:YES];
-        [io connectToHost:kNodeUrl onPort:0 withParams:nil withNamespace:@"/retail"];
+        
+        [self connect];
 	}
 	
 	return self;
@@ -88,6 +90,12 @@ static NSString *kNodeUrl = @"fast.albisigns";
 {
     NSDictionary *data = @{ @"seatId": seatId };
     [io sendEvent:@"reserveSeat" withData:data];
+}
+
+- (void)connect
+{
+    [io setUseSecure:YES];
+    [io connectToHost:kNodeUrl onPort:0 withParams:@{@"retailId": @"1"} withNamespace:@"/retail"];
 }
 
 @end
