@@ -16,6 +16,7 @@ static NSString *kNodeUrl = @"fast.albisigns";
 @interface FasTNode ()
 
 - (void)connect;
+- (void)postNotificationWithName:(NSString *)name info:(NSDictionary *)info;
 
 @end
 
@@ -70,11 +71,13 @@ static NSString *kNodeUrl = @"fast.albisigns";
         NSDictionary *seats = info[@"seats"];
         [event updateSeats:seats];
         
-        NSNotification *notification = [NSNotification notificationWithName:@"updateSeats" object:self userInfo:seats];
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        [self postNotificationWithName:[packet name] info:seats];
     
     } else if ([[packet name] isEqualToString:@"updateEvent"]) {
         [self setEvent:[[FasTEvent alloc] initWithInfo:info[@"event"]]];
+    
+    } else if ([[packet name] isEqualToString:@"orderPlaced"]) {
+        [self postNotificationWithName:[packet name] info:info];
     }
 }
 
@@ -96,6 +99,12 @@ static NSString *kNodeUrl = @"fast.albisigns";
 {
     [io setUseSecure:YES];
     [io connectToHost:kNodeUrl onPort:0 withParams:@{@"retailId": @"1"} withNamespace:@"/retail"];
+}
+
+- (void)postNotificationWithName:(NSString *)name info:(NSDictionary *)info
+{
+    NSNotification *notification = [NSNotification notificationWithName:name object:self userInfo:info];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 @end

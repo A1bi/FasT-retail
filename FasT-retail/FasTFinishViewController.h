@@ -10,5 +10,9 @@
 #import "FasTStepViewController.h"
 
 @interface FasTFinishViewController : FasTStepViewController
+{
+    IBOutlet UIActivityIndicatorView *spinnerView;
+    IBOutlet UILabel *statusLabel;
+}
 
 @end
