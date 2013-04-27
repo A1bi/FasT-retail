@@ -24,6 +24,8 @@
 		6126333B1724933300F66E78 /* FasTConfirmTicketTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6126333A1724933300F66E78 /* FasTConfirmTicketTypeView.xib */; };
 		6126333F1726FCF700F66E78 /* FasTFinishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6126333D1726FCF600F66E78 /* FasTFinishViewController.m */; };
 		612633401726FCF700F66E78 /* FasTFinishViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6126333E1726FCF600F66E78 /* FasTFinishViewController.xib */; };
+		6135F1A6172C376300E608CF /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6135F1A5172C376300E608CF /* logo.png */; };
+		6135F1A9172C378300E608CF /* FasTTicketPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6135F1A8172C378300E608CF /* FasTTicketPrinter.m */; };
 		61B79A6E171B3A250096179B /* FasTOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A6D171B3A250096179B /* FasTOrderViewController.m */; };
 		61B79A71171B3C9D0096179B /* FasTOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A70171B3C9D0096179B /* FasTOrder.m */; };
 		61B79A74171B3FC80096179B /* FasTStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A73171B3FC80096179B /* FasTStepViewController.m */; };
@@ -70,6 +72,11 @@
 		611420681717636A0067D3F3 /* FasTTicketsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTTicketsViewController.h; sourceTree = "<group>"; };
 		611420691717636A0067D3F3 /* FasTTicketsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTTicketsViewController.m; sourceTree = "<group>"; };
 		6114206A1717636A0067D3F3 /* FasTTicketsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTTicketsViewController.xib; sourceTree = "<group>"; };
+		6119EC93172C0384006B944A /* PKJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKJob.h; sourceTree = "<group>"; };
+		6119EC94172C0384006B944A /* PKPaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPaper.h; sourceTree = "<group>"; };
+		6119EC95172C0384006B944A /* PKPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPrinter.h; sourceTree = "<group>"; };
+		6119EC96172C0384006B944A /* PKPrinterBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPrinterBrowser.h; sourceTree = "<group>"; };
+		6119EC97172C0384006B944A /* PKPrintSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPrintSettings.h; sourceTree = "<group>"; };
 		612633341724503800F66E78 /* FasTConfirmStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTConfirmStepViewController.h; sourceTree = "<group>"; };
 		612633351724503800F66E78 /* FasTConfirmStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTConfirmStepViewController.m; sourceTree = "<group>"; };
 		612633361724503800F66E78 /* FasTConfirmStepViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTConfirmStepViewController.xib; sourceTree = "<group>"; };
@@ -77,6 +84,9 @@
 		6126333C1726FCF600F66E78 /* FasTFinishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTFinishViewController.h; sourceTree = "<group>"; };
 		6126333D1726FCF600F66E78 /* FasTFinishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTFinishViewController.m; sourceTree = "<group>"; };
 		6126333E1726FCF600F66E78 /* FasTFinishViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTFinishViewController.xib; sourceTree = "<group>"; };
+		6135F1A5172C376300E608CF /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		6135F1A7172C378300E608CF /* FasTTicketPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTTicketPrinter.h; sourceTree = "<group>"; };
+		6135F1A8172C378300E608CF /* FasTTicketPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTTicketPrinter.m; sourceTree = "<group>"; };
 		61B79A6C171B3A250096179B /* FasTOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTOrderViewController.h; sourceTree = "<group>"; };
 		61B79A6D171B3A250096179B /* FasTOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTOrderViewController.m; sourceTree = "<group>"; };
 		61B79A6F171B3C9D0096179B /* FasTOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTOrder.h; sourceTree = "<group>"; };
@@ -164,6 +174,7 @@
 		6114202F1714BE3E0067D3F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6119EC90172C0384006B944A /* PrintKit */,
 				61B79A8A171F38460096179B /* socket.IO */,
 				61B79E43171F3E5E0096179B /* Security.framework */,
 				61B79E41171F3E530096179B /* CFNetwork.framework */,
@@ -187,6 +198,8 @@
 				61B79A85171CA2350096179B /* FasTEvent.m */,
 				61B79A6F171B3C9D0096179B /* FasTOrder.h */,
 				61B79A70171B3C9D0096179B /* FasTOrder.m */,
+				6135F1A7172C378300E608CF /* FasTTicketPrinter.h */,
+				6135F1A8172C378300E608CF /* FasTTicketPrinter.m */,
 				61B79A6C171B3A250096179B /* FasTOrderViewController.h */,
 				61B79A6D171B3A250096179B /* FasTOrderViewController.m */,
 				61B79A75171B46D80096179B /* FasTOrderViewController.xib */,
@@ -204,12 +217,25 @@
 		611420371714BE3E0067D3F3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6135F19F172C259D00E608CF /* assets */,
 				611420561714C4370067D3F3 /* FasT-retail-Info.plist */,
 				611420391714BE3E0067D3F3 /* InfoPlist.strings */,
 				6114203C1714BE3E0067D3F3 /* main.m */,
 				6114203E1714BE3E0067D3F3 /* FasT-retail-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6119EC90172C0384006B944A /* PrintKit */ = {
+			isa = PBXGroup;
+			children = (
+				6119EC93172C0384006B944A /* PKJob.h */,
+				6119EC94172C0384006B944A /* PKPaper.h */,
+				6119EC95172C0384006B944A /* PKPrinter.h */,
+				6119EC96172C0384006B944A /* PKPrinterBrowser.h */,
+				6119EC97172C0384006B944A /* PKPrintSettings.h */,
+			);
+			path = PrintKit;
 			sourceTree = "<group>";
 		};
 		612633391724504000F66E78 /* Confirmation */ = {
@@ -231,6 +257,14 @@
 				6126333E1726FCF600F66E78 /* FasTFinishViewController.xib */,
 			);
 			name = Finish;
+			sourceTree = "<group>";
+		};
+		6135F19F172C259D00E608CF /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				6135F1A5172C376300E608CF /* logo.png */,
+			);
+			path = assets;
 			sourceTree = "<group>";
 		};
 		61B79A77171B49AD0096179B /* Seating */ = {
@@ -418,6 +452,7 @@
 				612633381724503900F66E78 /* FasTConfirmStepViewController.xib in Resources */,
 				6126333B1724933300F66E78 /* FasTConfirmTicketTypeView.xib in Resources */,
 				612633401726FCF700F66E78 /* FasTFinishViewController.xib in Resources */,
+				6135F1A6172C376300E608CF /* logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +486,7 @@
 				61B79DFD171F38480096179B /* SRWebSocket.m in Sources */,
 				612633371724503900F66E78 /* FasTConfirmStepViewController.m in Sources */,
 				6126333F1726FCF700F66E78 /* FasTFinishViewController.m in Sources */,
+				6135F1A9172C378300E608CF /* FasTTicketPrinter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,7 +530,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-force_flat_namespace",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -519,7 +558,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-force_flat_namespace",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
