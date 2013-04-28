@@ -30,6 +30,7 @@ static const double kRotationRadians = -90 * M_PI / 180;
 - (CGSize)drawText:(NSString *)text withFont:(UIFont *)font;
 - (CGSize)drawText:(NSString *)text withFontSize:(NSString *)size;
 - (CGSize)drawText:(NSString *)text withFontSize:(NSString *)size andIncreaseY:(BOOL)incY;
+- (void)drawHorizontalArrayOfTexts:(NSArray *)texts withFontSize:(NSString *)fontSize margin:(CGFloat)margin;
 - (NSDictionary *)infoWithId:(NSString *)iId fromArray:(NSArray *)array;
 
 @end
@@ -153,19 +154,13 @@ static const double kRotationRadians = -90 * M_PI / 180;
 
 - (void)drawSeatInfoWithInfo:(NSDictionary *)info
 {
-    CGFloat tmpX = posX;
+    NSArray *texts = @[
+                       [NSString stringWithFormat:NSLocalizedStringByKey(@"blockName"), info[@"block"]],
+                       [NSString stringWithFormat:NSLocalizedStringByKey(@"rowNumber"), info[@"row"]],
+                       [NSString stringWithFormat:NSLocalizedStringByKey(@"seatNumber"), info[@"number"]]
+                       ];
+    [self drawHorizontalArrayOfTexts:texts withFontSize:@"small" margin:8];
     
-    CGSize size = [self drawText:[NSString stringWithFormat:@"Block: %@", info[@"block"]] withFontSize:@"small" andIncreaseY:NO];
-    posX += 8;
-    [self drawSeparatorWithSize:CGSizeMake(.3, size.height)];
-    posX += 8.3;
-    size = [self drawText:[NSString stringWithFormat:@"Reihe: %@", info[@"row"]] withFontSize:@"small" andIncreaseY:NO];
-    posX += 8;
-    [self drawSeparatorWithSize:CGSizeMake(.3, size.height)];
-    posX += 8.3;
-    [self drawText:[NSString stringWithFormat:@"Sitz: %@", info[@"number"]] withFontSize:@"small" andIncreaseY:NO];
-    
-    posX = tmpX;
     posY -= 25;
 }
 
@@ -195,15 +190,12 @@ static const double kRotationRadians = -90 * M_PI / 180;
     posY += 4;
     posX += 5;
     
-    CGSize size = [self drawText:[NSString stringWithFormat:@"Ticket: %@", info[@"number"]] withFontSize:@"tiny" andIncreaseY:NO];
-    posX += 15;
-    [self drawSeparatorWithSize:CGSizeMake(.3, size.height)];
-    posX += 15.3;
-    size = [self drawText:[NSString stringWithFormat:@"Order: %@", orderInfo[@"number"]] withFontSize:@"tiny" andIncreaseY:NO];
-    posX += 15;
-    [self drawSeparatorWithSize:CGSizeMake(.3, size.height)];
-    posX += 15.3;
-    [self drawText:@"www.theater-kaisersesch.de" withFontSize:@"tiny"];
+    NSArray *texts = @[
+                       [NSString stringWithFormat:NSLocalizedStringByKey(@"ticketNumber"), info[@"number"]],
+                       [NSString stringWithFormat:NSLocalizedStringByKey(@"orderNumber"), orderInfo[@"number"]],
+                       NSLocalizedStringByKey(@"websiteUrl")
+                       ];
+    [self drawHorizontalArrayOfTexts:texts withFontSize:@"tiny" margin:15];
 }
 
 - (void)drawSeparatorWithSize:(CGSize)size
@@ -234,6 +226,27 @@ static const double kRotationRadians = -90 * M_PI / 180;
     }
     
     return textSize;
+}
+
+- (void)drawHorizontalArrayOfTexts:(NSArray *)texts withFontSize:(NSString *)fontSize margin:(CGFloat)margin
+{
+    CGFloat tmpX = posX;
+    CGFloat separatorWidth = .3;
+    CGSize size;
+    
+    int i = 0;
+    for (NSString *text in texts) {
+        size = [self drawText:text withFontSize:fontSize andIncreaseY:NO];
+        
+        i++;
+        if (i < [texts count]) {
+            posX += margin;
+            [self drawSeparatorWithSize:CGSizeMake(separatorWidth, size.height)];
+            posX += margin + separatorWidth;
+        }
+    }
+    
+    posX = tmpX;
 }
 
 - (NSDictionary *)infoWithId:(NSString *)iId fromArray:(NSArray *)array
