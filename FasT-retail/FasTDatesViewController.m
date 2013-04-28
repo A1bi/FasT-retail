@@ -11,6 +11,7 @@
 #import "FasTOrderViewController.h"
 #import "FasTOrder.h"
 #import "FasTEvent.h"
+#import "FasTFormatter.h"
 
 @interface FasTDatesViewController ()
 
@@ -67,9 +68,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell * cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"date"] autorelease];
+    [[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
+    
     NSDate *date = [self dates][ [indexPath row] ][@"date"];
-	[[cell textLabel] setText:[NSString stringWithFormat:@"%@", date]];
-	[[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
+	[[cell textLabel] setText:[FasTFormatter stringForEventDate:date]];
 	
 	return cell;
 }

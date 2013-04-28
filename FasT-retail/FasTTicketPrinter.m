@@ -7,6 +7,7 @@
 //
 
 #import "FasTTicketPrinter.h"
+#import "FasTFormatter.h"
 #import "FasTEvent.h"
 #import "PKPrinter.h"
 #import "PKPrintSettings.h"
@@ -75,7 +76,7 @@
 {
     [self generatePDFWithOrderInfo:info];
 
-    //[printer printURL:[NSURL fileURLWithPath:ticketsPath] ofType:@"application/pdf" printSettings:printSettings];
+    [printer printURL:[NSURL fileURLWithPath:ticketsPath] ofType:@"application/pdf" printSettings:printSettings];
     
     [[NSFileManager defaultManager] removeItemAtPath:ticketsPath error:nil];
 }
@@ -136,7 +137,7 @@
     posY += size.height + 5;
     
     NSDate *date = [self infoWithId:info[@"date"] fromArray:[event dates]][@"date"];
-    [self drawText:[NSString stringWithFormat:@"%@", date] withFontSize:@"normal" andIncreaseY:YES];
+    [self drawText:[FasTFormatter stringForEventDate:date] withFontSize:@"normal" andIncreaseY:YES];
     
     [self drawText:@"Einlass ab 19.00 Uhr" withFontSize:@"small" andIncreaseY:YES];
     posY += 10;
@@ -156,7 +157,7 @@
     posX = ticketWidth - size.width - 50;
     [self drawText:printString withFontSize:@"normal" andIncreaseY:YES];
     
-    printString = [NSString stringWithFormat:@"%.2f €", [ticketType[@"price"] floatValue]];
+    printString = [FasTFormatter stringForPrice:[ticketType[@"price"] floatValue]];
     size = [printString sizeWithFont:font];
     posX = ticketWidth - size.width - 50;
     [self drawText:printString withFontSize:@"normal" andIncreaseY:YES];

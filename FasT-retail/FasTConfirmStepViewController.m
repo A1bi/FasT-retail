@@ -10,6 +10,7 @@
 #import "FasTOrderViewController.h"
 #import "FasTOrder.h"
 #import "FasTEvent.h"
+#import "FasTFormatter.h"
 
 @interface FasTConfirmStepViewController ()
 
@@ -58,7 +59,7 @@
 - (void)updateDate
 {
     NSDate *date = [[orderController order] date][@"date"];
-    [dateLabel setText:[NSString stringWithFormat:@"%@", date]];
+    [dateLabel setText:[FasTFormatter stringForEventDate:date]];
 }
 
 - (void)updateTickets
@@ -83,7 +84,11 @@
         y += frame.size.height;
         typeView.frame = frame;
         
-        NSArray *strings = @[ [NSString stringWithFormat:@"%i %@", [ticket[@"number"] intValue], ticket[@"name"]], [NSString stringWithFormat:@"je %.2f", [ticket[@"price"] floatValue]], [NSString stringWithFormat:@"%.2f €", [ticket[@"total"] floatValue]] ];
+        NSArray *strings = @[
+                             [NSString stringWithFormat:@"%i %@", [ticket[@"number"] intValue], ticket[@"name"]],
+                             [NSString stringWithFormat:NSLocalizedStringByKey(@"ticketPriceEach"), [FasTFormatter stringForPrice:[ticket[@"price"] floatValue]]],
+                             [FasTFormatter stringForPrice:[ticket[@"total"] floatValue]]
+                             ];
         int i = 1;
         for (NSString *string in strings) {
             [(UILabel *)[typeView viewWithTag:i] setText:string];
@@ -91,7 +96,7 @@
         }
     }
     
-    [totalLabel setText:[NSString stringWithFormat:@"Insgesamt %i Karten für %.2f €", [[orderController order] numberOfTickets], [[orderController order] total]]];
+    [totalLabel setText:[NSString stringWithFormat:NSLocalizedStringByKey(@"finalPriceAndNumberOfTickets"), [[orderController order] numberOfTickets], [FasTFormatter stringForPrice:[[orderController order] total]]]];
 }
 
 @end

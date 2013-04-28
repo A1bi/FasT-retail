@@ -11,6 +11,7 @@
 #import "FasTOrderViewController.h"
 #import "FasTOrder.h"
 #import "FasTEvent.h"
+#import "FasTFormatter.h"
 
 @interface FasTTicketsViewController ()
 
@@ -99,7 +100,9 @@
     [[orderController order] setNumberOfTickets:numberOfTickets];
     [[orderController order] setTotal:total];
     
-    [totalLabel setText:[NSString stringWithFormat:@"Gesamt: %i Karten für %.2f €", numberOfTickets, total]];
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [totalLabel setText:[NSString stringWithFormat:NSLocalizedStringByKey(@"totalNumberOfTickets"), numberOfTickets, [FasTFormatter stringForPrice:total]]];
     
     [orderController updateNextButton];
 }

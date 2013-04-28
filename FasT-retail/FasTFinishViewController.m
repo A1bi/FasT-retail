@@ -50,7 +50,7 @@
 {
     NSDictionary *response = [note userInfo];
     if (![response[@"ok"] boolValue]) {
-        [statusLabel setText:@"Es ist ein Fehler aufgetreten"];
+        [statusLabel setText:NSLocalizedStringByKey(@"unknownErrorOccurred")];
     } else {
         [noteLabel setHidden:NO];
     }

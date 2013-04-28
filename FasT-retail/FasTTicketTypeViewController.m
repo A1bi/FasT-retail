@@ -8,6 +8,7 @@
 
 #import "FasTTicketTypeViewController.h"
 #import "FasTTicketsViewController.h"
+#import "FasTFormatter.h"
 
 @interface FasTTicketTypeViewController ()
 
@@ -37,7 +38,7 @@
     
 	[nameLabel setText:[typeInfo objectForKey:@"name"]];
 	[infoLabel setText:info];
-	[priceLabel setText:[NSString stringWithFormat:@"je %.2f €", [typeInfo[@"price"] floatValue]]];
+	[priceLabel setText:[NSString stringWithFormat:NSLocalizedStringByKey(@"ticketPriceEach"), [FasTFormatter stringForPrice:[typeInfo[@"price"] floatValue]]]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,7 +69,7 @@
     typeInfo[@"total"] = @(total);
 	
 	[numberLabel setText:[NSString stringWithFormat:@"%i", number]];
-	[totalLabel setText:[NSString stringWithFormat:@"%.2f €", total]];
+	[totalLabel setText:[FasTFormatter stringForPrice:total]];
 	
 	[(FasTTicketsViewController *)delegate changedTotalOfTicketType:self];
 }
