@@ -14,6 +14,7 @@
 #import "PKPaper.h"
 
 #define kPointsToMilimetersFactor 35.28
+static const double kRotationRadians = -90 * M_PI / 180;
 
 @interface FasTTicketPrinter ()
 
@@ -52,7 +53,7 @@
         
         ticketsPath = [[NSString stringWithFormat:@"%@tickets.pdf", NSTemporaryDirectory()] retain];
         
-        PKPaper *ticketPaper = [[[PKPaper alloc] initWithWidth:ticketWidth * kPointsToMilimetersFactor Height:ticketHeight * kPointsToMilimetersFactor + 450 Left:0 Top:0 Right:0 Bottom:0 localizedName:nil codeName:nil] autorelease];
+        PKPaper *ticketPaper = [[[PKPaper alloc] initWithWidth:ticketHeight * kPointsToMilimetersFactor Height:ticketWidth * kPointsToMilimetersFactor + 450 Left:0 Top:0 Right:0 Bottom:0 localizedName:nil codeName:nil] autorelease];
         printSettings = [[PKPrintSettings default] retain];
         [printSettings setPaper:ticketPaper];
         
@@ -83,7 +84,7 @@
 
 - (void)generatePDFWithOrderInfo:(NSDictionary *)info
 {
-    UIGraphicsBeginPDFContextToFile(ticketsPath, CGRectMake(0, 0, ticketWidth, ticketHeight), nil);
+    UIGraphicsBeginPDFContextToFile(ticketsPath, CGRectMake(0, 0, ticketHeight, ticketWidth), nil);
     context = UIGraphicsGetCurrentContext();
     
     CGContextSetFillColorWithColor(context, [[UIColor blackColor] CGColor]);
@@ -101,6 +102,9 @@
 {
     posX = 0, posY = 0;
     UIGraphicsBeginPDFPage();
+    // rotate pdf 90 degrees so the printer can print in portrait mode
+    CGContextTranslateCTM(context, 0, ticketWidth);
+    CGContextRotateCTM (context, kRotationRadians);
     
     [self drawBarcodeWithContent:nil];
     [self drawLogo];
