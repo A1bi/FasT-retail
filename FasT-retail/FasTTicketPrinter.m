@@ -23,6 +23,7 @@ static const double kRotationRadians = -90 * M_PI / 180;
 - (void)drawBarcodeWithContent:(NSString *)content;
 - (void)drawLogo;
 - (void)drawEventInfoWithInfo:(NSDictionary *)info;
+- (void)drawSeatInfoWithInfo:(NSDictionary *)info;
 - (void)drawTicketTypeInfoWithId:(NSString *)typeId;
 - (void)drawBottomInfoWithInfo:(NSDictionary *)info;
 - (void)drawSeparatorWithSize:(CGSize)size;
@@ -109,6 +110,7 @@ static const double kRotationRadians = -90 * M_PI / 180;
     [self drawBarcodeWithContent:nil];
     [self drawLogo];
     [self drawEventInfoWithInfo:info];
+    [self drawSeatInfoWithInfo:info[@"seat"]];
     [self drawTicketTypeInfoWithId:info[@"type"]];
     [self drawBottomInfoWithInfo:info];
 }
@@ -146,7 +148,25 @@ static const double kRotationRadians = -90 * M_PI / 180;
     [self drawText:@"Einlass ab 19.00 Uhr" withFontSize:@"small" andIncreaseY:YES];
     posY += 10;
     [self drawText:@"Historischer Ortskern, Kaisersesch" withFontSize:@"small" andIncreaseY:YES];
-    posY += 5;
+    posY += 30;
+}
+
+- (void)drawSeatInfoWithInfo:(NSDictionary *)info
+{
+    CGFloat tmpX = posX;
+    
+    CGSize size = [self drawText:[NSString stringWithFormat:@"Block: %@", info[@"block"]] withFontSize:@"small" andIncreaseY:NO];
+    posX += 8;
+    [self drawSeparatorWithSize:CGSizeMake(.3, size.height)];
+    posX += 8.3;
+    size = [self drawText:[NSString stringWithFormat:@"Reihe: %@", info[@"row"]] withFontSize:@"small" andIncreaseY:NO];
+    posX += 8;
+    [self drawSeparatorWithSize:CGSizeMake(.3, size.height)];
+    posX += 8.3;
+    [self drawText:[NSString stringWithFormat:@"Sitz: %@", info[@"number"]] withFontSize:@"small" andIncreaseY:NO];
+    
+    posX = tmpX;
+    posY -= 25;
 }
 
 - (void)drawTicketTypeInfoWithId:(NSString *)typeId
@@ -165,8 +185,8 @@ static const double kRotationRadians = -90 * M_PI / 180;
     size = [printString sizeWithFont:font];
     posX = ticketWidth - size.width - 50;
     [self drawText:printString withFontSize:@"normal" andIncreaseY:YES];
-    posY += size.height + 5;
     posX = tmpX;
+    posY += 23;
 }
 
 - (void)drawBottomInfoWithInfo:(NSDictionary *)info
