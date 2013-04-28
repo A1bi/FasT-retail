@@ -11,6 +11,7 @@
 @class FasTOrder;
 @class FasTEvent;
 @class FasTStepViewController;
+@class FasTTicketPrinter;
 
 @interface FasTOrderViewController : UIViewController
 {
@@ -19,6 +20,7 @@
     int currentStepIndex;
     NSArray *stepControllers;
     FasTStepViewController *currentStepController;
+    FasTTicketPrinter *ticketPrinter;
     
 	IBOutlet UIButton *nextBtn;
 	IBOutlet UIButton *prevBtn;

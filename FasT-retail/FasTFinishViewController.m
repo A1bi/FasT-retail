@@ -40,6 +40,7 @@
 - (void)dealloc {
     [statusLabel release];
     [spinnerView release];
+    [noteLabel release];
     [super dealloc];
 }
 
@@ -50,6 +51,8 @@
     NSDictionary *response = [note userInfo];
     if (![response[@"ok"] boolValue]) {
         [statusLabel setText:@"Es ist ein Fehler aufgetreten"];
+    } else {
+        [noteLabel setHidden:NO];
     }
     [spinnerView setHidden:YES];
 }

@@ -7,6 +7,7 @@
 //
 
 #import "FasTTicketPrinter.h"
+#import "FasTEvent.h"
 #import "PKPrinter.h"
 #import "PKPrintSettings.h"
 #import "PKPaper.h"
@@ -15,27 +16,30 @@
 
 @interface FasTTicketPrinter ()
 
-- (void)generatePDFWithTicketInfo:(NSDictionary *)info;
+- (void)generatePDFWithOrderInfo:(NSDictionary *)info;
 - (void)generateTicketWithInfo:(NSDictionary *)info;
 - (void)drawBarcodeWithContent:(NSString *)content;
 - (void)drawLogo;
 - (void)drawEventInfoWithInfo:(NSDictionary *)info;
-- (void)drawTicketInfoWithInfo:(NSDictionary *)info;
+- (void)drawTicketTypeInfoWithId:(NSString *)typeId;
 - (void)drawBottomInfoWithInfo:(NSDictionary *)info;
 - (void)drawSeparatorWithSize:(CGSize)size;
 - (CGSize)drawText:(NSString *)text withFont:(UIFont *)font;
 - (CGSize)drawText:(NSString *)text withFontSize:(NSString *)size;
 - (CGSize)drawText:(NSString *)text withFontSize:(NSString *)size andIncreaseY:(BOOL)incY;
+- (NSDictionary *)infoWithId:(NSString *)iId fromArray:(NSArray *)array;
 
 @end
 
 @implementation FasTTicketPrinter
 
-- (id)init
+- (id)initWithEvent:(FasTEvent *)e
 {
     self = [super init];
     if (self) {
-        ticketWidth = 595, ticketHeight = 270;
+        event = [e retain];
+        
+        ticketWidth = 595, ticketHeight = 240;
         
         NSString *fontName = @"Avenir";
         NSMutableDictionary *tmpFonts = [NSMutableDictionary dictionary];
@@ -43,34 +47,51 @@
         for (NSString *fontSize in fontSizes) {
             tmpFonts[fontSize] = [UIFont fontWithName:fontName size:[fontSizes[fontSize] floatValue]];
         }
-        fonts = [NSDictionary dictionaryWithDictionary:tmpFonts];
+        fonts = [[NSDictionary dictionaryWithDictionary:tmpFonts] retain];
         
-        ticketsPath = [NSString stringWithFormat:@"%@tickets.pdf", NSTemporaryDirectory()];
+        ticketsPath = [[NSString stringWithFormat:@"%@tickets.pdf", NSTemporaryDirectory()] retain];
         
-        PKPaper *ticketPaper = [[[PKPaper alloc] initWithWidth:ticketWidth * kPointsToMilimetersFactor Height:ticketHeight * kPointsToMilimetersFactor Left:0 Top:0 Right:0 Bottom:0 localizedName:nil codeName:nil] autorelease];
-        printSettings = [PKPrintSettings default];
+        PKPaper *ticketPaper = [[[PKPaper alloc] initWithWidth:ticketWidth * kPointsToMilimetersFactor Height:ticketHeight * kPointsToMilimetersFactor + 450 Left:0 Top:0 Right:0 Bottom:0 localizedName:nil codeName:nil] autorelease];
+        printSettings = [[PKPrintSettings default] retain];
         [printSettings setPaper:ticketPaper];
         
-        printer = [PKPrinter printerWithName:@"HP P1102w 3._ipp._tcp.local."];
+        printer = [[PKPrinter printerWithName:@"HP P1102w 3._ipp._tcp.local."] retain];
     }
     return self;
 }
 
-- (void)printTicketsWithInfo:(NSDictionary *)info
+- (void)dealloc
 {
-    [self generatePDFWithTicketInfo:info];
-
-    [printer printURL:[NSURL fileURLWithPath:ticketsPath] ofType:@"application/pdf" printSettings:printSettings];
+    [fonts release];
+    [ticketsPath release];
+    [printSettings release];
+    [printer release];
+    [orderInfo release];
+    [event release];
+    [super dealloc];
 }
 
-- (void)generatePDFWithTicketInfo:(NSDictionary *)info
+- (void)printTicketsForOrderWithInfo:(NSDictionary *)info
+{
+    [self generatePDFWithOrderInfo:info];
+
+    //[printer printURL:[NSURL fileURLWithPath:ticketsPath] ofType:@"application/pdf" printSettings:printSettings];
+    
+    [[NSFileManager defaultManager] removeItemAtPath:ticketsPath error:nil];
+}
+
+- (void)generatePDFWithOrderInfo:(NSDictionary *)info
 {
     UIGraphicsBeginPDFContextToFile(ticketsPath, CGRectMake(0, 0, ticketWidth, ticketHeight), nil);
     context = UIGraphicsGetCurrentContext();
     
     CGContextSetFillColorWithColor(context, [[UIColor blackColor] CGColor]);
     
-    [self generateTicketWithInfo:nil];
+    [orderInfo release];
+    orderInfo = [@{@"number": info[@"number"]} retain];
+    for (NSDictionary *ticket in info[@"tickets"]) {
+        [self generateTicketWithInfo:ticket];
+    }
     
     UIGraphicsEndPDFContext();
 }
@@ -82,9 +103,9 @@
     
     [self drawBarcodeWithContent:nil];
     [self drawLogo];
-    [self drawEventInfoWithInfo:nil];
-    [self drawTicketInfoWithInfo:nil];
-    [self drawBottomInfoWithInfo:nil];
+    [self drawEventInfoWithInfo:info];
+    [self drawTicketTypeInfoWithId:info[@"type"]];
+    [self drawBottomInfoWithInfo:info];
 }
 
 - (void)drawBarcodeWithContent:(NSString *)content
@@ -96,7 +117,7 @@
     
     [self drawSeparatorWithSize:CGSizeMake(.5, ticketHeight - posY * 2)];
     posX += 30;
-    posY += 9;
+    posY += 4;
 }
 
 - (void)drawLogo
@@ -111,49 +132,53 @@
 - (void)drawEventInfoWithInfo:(NSDictionary *)info
 {
     UIFont *eventTitleFont = [UIFont fontWithName:@"SnellRoundhand" size:40];
-    CGSize size = [self drawText:@"Example" withFont:eventTitleFont];
-    posY += size.height + 10;
+    CGSize size = [self drawText:[event name] withFont:eventTitleFont];
+    posY += size.height + 5;
     
-    [self drawText:@"31. August 2013, 20.00 Uhr" withFontSize:@"normal" andIncreaseY:YES];
+    NSDate *date = [self infoWithId:info[@"date"] fromArray:[event dates]][@"date"];
+    [self drawText:[NSString stringWithFormat:@"%@", date] withFontSize:@"normal" andIncreaseY:YES];
+    
     [self drawText:@"Einlass ab 19.00 Uhr" withFontSize:@"small" andIncreaseY:YES];
     posY += 10;
     [self drawText:@"Historischer Ortskern, Kaisersesch" withFontSize:@"small" andIncreaseY:YES];
     posY += 5;
 }
 
-- (void)drawTicketInfoWithInfo:(NSDictionary *)info
+- (void)drawTicketTypeInfoWithId:(NSString *)typeId
 {
     CGFloat tmpX = posX;
     UIFont *font = fonts[@"normal"];
     
-    NSString *printString = @"Erwachsener";
+    NSDictionary *ticketType = [self infoWithId:typeId fromArray:[event ticketTypes]];
+    
+    NSString *printString = ticketType[@"name"];
     CGSize size = [printString sizeWithFont:font];
     posX = ticketWidth - size.width - 50;
     [self drawText:printString withFontSize:@"normal" andIncreaseY:YES];
     
-    printString = @"12,00 €";
+    printString = [NSString stringWithFormat:@"%.2f €", [ticketType[@"price"] floatValue]];
     size = [printString sizeWithFont:font];
     posX = ticketWidth - size.width - 50;
     [self drawText:printString withFontSize:@"normal" andIncreaseY:YES];
-    posY += size.height + 15;
+    posY += size.height + 5;
     posX = tmpX;
 }
 
 - (void)drawBottomInfoWithInfo:(NSDictionary *)info
 {
     [self drawSeparatorWithSize:CGSizeMake(ticketWidth-posX-40, .5)];
-    posY += 9;
+    posY += 4;
     posX += 5;
     
-    CGSize size = [self drawText:@"Ticket: 162534" withFontSize:@"tiny" andIncreaseY:NO];
+    CGSize size = [self drawText:[NSString stringWithFormat:@"Ticket: %@", info[@"number"]] withFontSize:@"tiny" andIncreaseY:NO];
     posX += 15;
     [self drawSeparatorWithSize:CGSizeMake(.3, size.height)];
     posX += 15.3;
-    size = [self drawText:@"Order: 162534" withFontSize:@"tiny" andIncreaseY:NO];
+    size = [self drawText:[NSString stringWithFormat:@"Order: %@", orderInfo[@"number"]] withFontSize:@"tiny" andIncreaseY:NO];
     posX += 15;
     [self drawSeparatorWithSize:CGSizeMake(.3, size.height)];
     posX += 15.3;
-    [self drawText:@"www.example.com" withFontSize:@"tiny"];
+    [self drawText:@"www.theater-kaisersesch.de" withFontSize:@"tiny"];
 }
 
 - (void)drawSeparatorWithSize:(CGSize)size
@@ -184,6 +209,14 @@
     }
     
     return textSize;
+}
+
+- (NSDictionary *)infoWithId:(NSString *)iId fromArray:(NSArray *)array
+{
+    for (NSDictionary *info in array) {
+        if ([info[@"id"] isEqualToString:iId]) return info;
+    }
+    return nil;
 }
 
 @end

@@ -13,6 +13,7 @@
 {
     IBOutlet UIActivityIndicatorView *spinnerView;
     IBOutlet UILabel *statusLabel;
+    IBOutlet UILabel *noteLabel;
 }
 
 @end
