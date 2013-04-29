@@ -16,8 +16,7 @@
 {
 	self = [super init];
 	if (self) {
-        tickets = [[NSMutableDictionary alloc] init];
-        seats = [[NSMutableArray alloc] init];
+        
 	}
 	return self;
 }
@@ -25,7 +24,6 @@
 - (void)dealloc
 {
 	[tickets release];
-	[seats release];
     [date release];
 	[super dealloc];
 }

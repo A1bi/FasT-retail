@@ -28,6 +28,9 @@
 		6135F1A9172C378300E608CF /* FasTTicketPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6135F1A8172C378300E608CF /* FasTTicketPrinter.m */; };
 		6135F1B3172D613000E608CF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6135F1B5172D613000E608CF /* Localizable.strings */; };
 		6135F1B9172D77DC00E608CF /* FasTFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6135F1B8172D77DB00E608CF /* FasTFormatter.m */; };
+		6135F1BE172EFA2800E608CF /* FasTEventDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6135F1BD172EFA2700E608CF /* FasTEventDate.m */; };
+		6135F1C1172EFBA600E608CF /* FasTTicketType.m in Sources */ = {isa = PBXBuildFile; fileRef = 6135F1C0172EFBA600E608CF /* FasTTicketType.m */; };
+		6135F1C4172F108100E608CF /* FasTSeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 6135F1C3172F108100E608CF /* FasTSeat.m */; };
 		61B79A6E171B3A250096179B /* FasTOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A6D171B3A250096179B /* FasTOrderViewController.m */; };
 		61B79A71171B3C9D0096179B /* FasTOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A70171B3C9D0096179B /* FasTOrder.m */; };
 		61B79A74171B3FC80096179B /* FasTStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A73171B3FC80096179B /* FasTStepViewController.m */; };
@@ -89,9 +92,15 @@
 		6135F1A5172C376300E608CF /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		6135F1A7172C378300E608CF /* FasTTicketPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTTicketPrinter.h; sourceTree = "<group>"; };
 		6135F1A8172C378300E608CF /* FasTTicketPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTTicketPrinter.m; sourceTree = "<group>"; };
-		6135F1B4172D613000E608CF /* de */ = {isa = PBXFileReference; lastKnownFileType = file; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6135F1B4172D613000E608CF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6135F1B7172D77DB00E608CF /* FasTFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTFormatter.h; sourceTree = "<group>"; };
 		6135F1B8172D77DB00E608CF /* FasTFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTFormatter.m; sourceTree = "<group>"; };
+		6135F1BC172EFA2700E608CF /* FasTEventDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTEventDate.h; sourceTree = "<group>"; };
+		6135F1BD172EFA2700E608CF /* FasTEventDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTEventDate.m; sourceTree = "<group>"; };
+		6135F1BF172EFBA600E608CF /* FasTTicketType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTTicketType.h; sourceTree = "<group>"; };
+		6135F1C0172EFBA600E608CF /* FasTTicketType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTTicketType.m; sourceTree = "<group>"; };
+		6135F1C2172F108000E608CF /* FasTSeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTSeat.h; sourceTree = "<group>"; };
+		6135F1C3172F108100E608CF /* FasTSeat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTSeat.m; sourceTree = "<group>"; };
 		61B79A6C171B3A250096179B /* FasTOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTOrderViewController.h; sourceTree = "<group>"; };
 		61B79A6D171B3A250096179B /* FasTOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTOrderViewController.m; sourceTree = "<group>"; };
 		61B79A6F171B3C9D0096179B /* FasTOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTOrder.h; sourceTree = "<group>"; };
@@ -199,8 +208,7 @@
 				611420371714BE3E0067D3F3 /* Supporting Files */,
 				61B79A87171F38200096179B /* FasTNode.h */,
 				61B79A88171F38200096179B /* FasTNode.m */,
-				61B79A84171CA2350096179B /* FasTEvent.h */,
-				61B79A85171CA2350096179B /* FasTEvent.m */,
+				6135F1C5172F1D9500E608CF /* Event */,
 				61B79A6F171B3C9D0096179B /* FasTOrder.h */,
 				61B79A70171B3C9D0096179B /* FasTOrder.m */,
 				6135F1A7172C378300E608CF /* FasTTicketPrinter.h */,
@@ -273,6 +281,21 @@
 				6135F1A5172C376300E608CF /* logo.png */,
 			);
 			path = assets;
+			sourceTree = "<group>";
+		};
+		6135F1C5172F1D9500E608CF /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				61B79A84171CA2350096179B /* FasTEvent.h */,
+				61B79A85171CA2350096179B /* FasTEvent.m */,
+				6135F1BC172EFA2700E608CF /* FasTEventDate.h */,
+				6135F1BD172EFA2700E608CF /* FasTEventDate.m */,
+				6135F1BF172EFBA600E608CF /* FasTTicketType.h */,
+				6135F1C0172EFBA600E608CF /* FasTTicketType.m */,
+				6135F1C2172F108000E608CF /* FasTSeat.h */,
+				6135F1C3172F108100E608CF /* FasTSeat.m */,
+			);
+			name = Event;
 			sourceTree = "<group>";
 		};
 		61B79A77171B49AD0096179B /* Seating */ = {
@@ -497,6 +520,9 @@
 				6126333F1726FCF700F66E78 /* FasTFinishViewController.m in Sources */,
 				6135F1A9172C378300E608CF /* FasTTicketPrinter.m in Sources */,
 				6135F1B9172D77DC00E608CF /* FasTFormatter.m in Sources */,
+				6135F1BE172EFA2800E608CF /* FasTEventDate.m in Sources */,
+				6135F1C1172EFBA600E608CF /* FasTTicketType.m in Sources */,
+				6135F1C4172F108100E608CF /* FasTSeat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

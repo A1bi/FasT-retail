@@ -11,7 +11,7 @@
 #import "FasTOrderViewController.h"
 #import "FasTOrder.h"
 #import "FasTEvent.h"
-#import "FasTFormatter.h"
+#import "FasTEventDate.h"
 
 @interface FasTDatesViewController ()
 
@@ -70,8 +70,8 @@
 	UITableViewCell * cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"date"] autorelease];
     [[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
     
-    NSDate *date = [self dates][ [indexPath row] ][@"date"];
-	[[cell textLabel] setText:[FasTFormatter stringForEventDate:date]];
+    NSString *date = [[self dates][ [indexPath row] ] localizedString];
+	[[cell textLabel] setText:date];
 	
 	return cell;
 }
@@ -112,7 +112,7 @@
 
 - (NSDictionary *)stepInfo
 {
-    return @{@"date": [[orderController order] date][@"id"]};
+    return @{@"date": [[[orderController order] date] dateId]};
 }
 
 - (NSArray *)dates

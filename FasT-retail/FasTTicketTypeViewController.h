@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class FasTTicketType;
+
 @interface FasTTicketTypeViewController : UIViewController
 {
-	NSMutableDictionary *typeInfo;
-    NSString *typeId;
+	FasTTicketType *type;
+    NSInteger number;
+    float total;
 	
 	IBOutlet UILabel *nameLabel;
 	IBOutlet UILabel *infoLabel;
@@ -20,12 +23,13 @@
 	IBOutlet UILabel *totalLabel;
 }
 
-@property (nonatomic, readonly) NSString *typeId;
-@property (nonatomic, readonly) NSMutableDictionary *typeInfo;
+@property (nonatomic, readonly) FasTTicketType *type;
+@property (nonatomic, readonly) NSInteger number;
+@property (nonatomic, readonly) float total;
 @property (nonatomic, assign) id delegate;
 
 - (IBAction)numberChanged:(UIStepper *)stepper;
 
-- (id)initWithTypeInfo:(NSDictionary *)tI;
+- (id)initWithType:(FasTTicketType *)t;
 
 @end

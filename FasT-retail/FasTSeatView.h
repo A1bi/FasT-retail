@@ -25,7 +25,6 @@ typedef enum {
 @property (nonatomic, readonly) NSString *seatId;
 @property (nonatomic, assign) id<FasTSeatingViewDelegate> delegate;
 
-- (id)initWithFrame:(CGRect)frame seatId:(NSString *)sId info:(NSDictionary *)info;
-- (void)updateWithInfo:(NSDictionary *)info;
+- (id)initWithFrame:(CGRect)frame seatId:(NSString *)sId;
 
 @end

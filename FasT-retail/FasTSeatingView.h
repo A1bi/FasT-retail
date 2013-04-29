@@ -10,6 +10,7 @@
 
 @class FasTSeatingView;
 @class FasTSeatView;
+@class FasTSeat;
 
 @protocol FasTSeatingViewDelegate <NSObject>
 
@@ -19,12 +20,12 @@
 
 @interface FasTSeatingView : UIView
 {
-	NSMutableDictionary *seats;
+	NSMutableDictionary *seatViews;
     NSArray *grid, *sizes;
 }
 
 @property (nonatomic, assign) IBOutlet id<FasTSeatingViewDelegate> delegate;
 
-- (void)updateSeatWithId:(NSString *)seatId info:(NSDictionary *)seatInfo;
+- (void)updatedSeat:(FasTSeat *)seat;
 
 @end

@@ -10,6 +10,8 @@
 #import "FasTOrderViewController.h"
 #import "FasTOrder.h"
 #import "FasTEvent.h"
+#import "FasTEventDate.h"
+#import "FasTTicketType.h"
 #import "FasTFormatter.h"
 
 @interface FasTConfirmStepViewController ()
@@ -58,8 +60,7 @@
 
 - (void)updateDate
 {
-    NSDate *date = [[orderController order] date][@"date"];
-    [dateLabel setText:[FasTFormatter stringForEventDate:date]];
+    [dateLabel setText:[[[orderController order] date] localizedString]];
 }
 
 - (void)updateTickets
@@ -70,9 +71,11 @@
     [ticketTypeViews removeAllObjects];
     
     int y = ticketTypesView.frame.origin.y;
-    for (NSString *typeId in [[orderController order] tickets]) {
-        NSDictionary *ticket = [[orderController order] tickets][typeId];
-        if ([ticket[@"total"] intValue] < 1) continue;
+    for (NSDictionary *typeInfo in [[orderController order] tickets]) {
+        NSInteger number = [typeInfo[@"number"] intValue];
+        FasTTicketType *type = typeInfo[@"type"];
+        
+        if (number < 1) continue;
         
         UIView *typeView = [[[NSBundle mainBundle] loadNibNamed:@"FasTConfirmTicketTypeView" owner:nil options:nil] objectAtIndex:0];
         [ticketTypeViews addObject:typeView];
@@ -85,9 +88,9 @@
         typeView.frame = frame;
         
         NSArray *strings = @[
-                             [NSString stringWithFormat:@"%i %@", [ticket[@"number"] intValue], ticket[@"name"]],
-                             [NSString stringWithFormat:NSLocalizedStringByKey(@"ticketPriceEach"), [FasTFormatter stringForPrice:[ticket[@"price"] floatValue]]],
-                             [FasTFormatter stringForPrice:[ticket[@"total"] floatValue]]
+                             [NSString stringWithFormat:@"%i %@", number, [type name]],
+                             [NSString stringWithFormat:NSLocalizedStringByKey(@"ticketPriceEach"), [type localizedPrice]],
+                             [FasTFormatter stringForPrice:[typeInfo[@"total"] floatValue]]
                              ];
         int i = 1;
         for (NSString *string in strings) {

@@ -7,6 +7,9 @@
 //
 
 #import "FasTEvent.h"
+#import "FasTEventDate.h"
+#import "FasTTicketType.h"
+#import "FasTSeat.h"
 
 @implementation FasTEvent
 
@@ -16,21 +19,23 @@
 {
     self = [super init];
     if (self) {
-        seats = [[NSMutableDictionary dictionary] retain];
-        
         [self setName:info[@"name"]];
         
-        NSMutableArray *tmpDates = [NSMutableArray array];
-        for (NSDictionary *date in info[@"dates"]) {
-            NSMutableDictionary *dateInfo = [NSMutableDictionary dictionaryWithDictionary:date];
-            NSInteger dateTimestamp = [date[@"date"] integerValue];
-            dateInfo[@"date"] = [NSDate dateWithTimeIntervalSince1970:dateTimestamp];
-            [tmpDates addObject:dateInfo];
+        NSMutableArray *tmp = [NSMutableArray array];
+        for (NSDictionary *dateInfo in info[@"dates"]) {
+            FasTEventDate *date = [[[FasTEventDate alloc] initWithInfo:dateInfo] autorelease];
+            [tmp addObject:date];
         }
-        [self setDates:[NSArray arrayWithArray:tmpDates]];
+        [self setDates:[NSArray arrayWithArray:tmp]];
         
-        [self setTicketTypes:info[@"ticketTypes"]];
+        tmp = [NSMutableArray array];
+        for (NSDictionary *typeInfo in info[@"ticketTypes"]) {
+            FasTTicketType *type = [[[FasTTicketType alloc] initWithInfo:typeInfo] autorelease];
+            [tmp addObject:type];
+        }
+        [self setTicketTypes:[NSArray arrayWithArray:tmp]];
         
+        seats = [[NSMutableDictionary dictionary] retain];
         [self updateSeats:info[@"seats"]];
     }
     return self;
@@ -49,16 +54,22 @@
 
 - (void)updateSeats:(NSDictionary *)seatsInfo
 {
-    for (NSString *date in seatsInfo) {
-        NSMutableDictionary *eventDateSeats = seats[date];
+    for (NSString *dateId in seatsInfo) {
+        NSMutableDictionary *eventDateSeats = seats[dateId];
         if (!eventDateSeats) {
             eventDateSeats = [NSMutableDictionary dictionary];
-            seats[date] = eventDateSeats;
+            seats[dateId] = eventDateSeats;
         }
         
-        NSDictionary *dateSeats = seatsInfo[date];
+        NSDictionary *dateSeats = seatsInfo[dateId];
         for (NSString *seatId in dateSeats) {
-            eventDateSeats[seatId] = dateSeats[seatId];
+            FasTSeat *seat = eventDateSeats[seatId];
+            if (!seat) {
+                seat = [[FasTSeat alloc] initWithId:seatId andInfo:dateSeats[seatId]];
+                eventDateSeats[seatId] = seat;
+            } else {
+                [seat updateWithInfo:dateSeats[seatId]];
+            }
         }
     }
 }

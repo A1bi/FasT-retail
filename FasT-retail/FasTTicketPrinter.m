@@ -7,8 +7,9 @@
 //
 
 #import "FasTTicketPrinter.h"
-#import "FasTFormatter.h"
 #import "FasTEvent.h"
+#import "FasTEventDate.h"
+#import "FasTTicketType.h"
 #import "PKPrinter.h"
 #import "PKPrintSettings.h"
 #import "PKPaper.h"
@@ -31,7 +32,7 @@ static const double kRotationRadians = -90 * M_PI / 180;
 - (CGSize)drawText:(NSString *)text withFontSize:(NSString *)size;
 - (CGSize)drawText:(NSString *)text withFontSize:(NSString *)size andIncreaseY:(BOOL)incY;
 - (void)drawHorizontalArrayOfTexts:(NSArray *)texts withFontSize:(NSString *)fontSize margin:(CGFloat)margin;
-- (NSDictionary *)infoWithId:(NSString *)iId fromArray:(NSArray *)array;
+- (id)objectFromEventArray:(NSString *)arrayName withId:(NSString *)objId usingIdName:(NSString *)idName;
 
 @end
 
@@ -143,8 +144,8 @@ static const double kRotationRadians = -90 * M_PI / 180;
     CGSize size = [self drawText:[event name] withFont:eventTitleFont];
     posY += size.height + 5;
     
-    NSDate *date = [self infoWithId:info[@"date"] fromArray:[event dates]][@"date"];
-    [self drawText:[FasTFormatter stringForEventDate:date] withFontSize:@"normal" andIncreaseY:YES];
+    FasTEventDate *date = [self objectFromEventArray:@"dates" withId:info[@"date"] usingIdName:@"date"];
+    [self drawText:[date localizedString] withFontSize:@"normal" andIncreaseY:YES];
     
     [self drawText:@"Einlass ab 19.00 Uhr" withFontSize:@"small" andIncreaseY:YES];
     posY += 10;
@@ -169,14 +170,14 @@ static const double kRotationRadians = -90 * M_PI / 180;
     CGFloat tmpX = posX;
     UIFont *font = fonts[@"normal"];
     
-    NSDictionary *ticketType = [self infoWithId:typeId fromArray:[event ticketTypes]];
+    FasTTicketType *ticketType = [self objectFromEventArray:@"ticketTypes" withId:typeId usingIdName:@"type"];
     
-    NSString *printString = ticketType[@"name"];
+    NSString *printString = [ticketType name];
     CGSize size = [printString sizeWithFont:font];
     posX = ticketWidth - size.width - 50;
     [self drawText:printString withFontSize:@"normal" andIncreaseY:YES];
     
-    printString = [FasTFormatter stringForPrice:[ticketType[@"price"] floatValue]];
+    printString = [ticketType localizedPrice];
     size = [printString sizeWithFont:font];
     posX = ticketWidth - size.width - 50;
     [self drawText:printString withFontSize:@"normal" andIncreaseY:YES];
@@ -249,10 +250,12 @@ static const double kRotationRadians = -90 * M_PI / 180;
     posX = tmpX;
 }
 
-- (NSDictionary *)infoWithId:(NSString *)iId fromArray:(NSArray *)array
+- (id)objectFromEventArray:(NSString *)arrayName withId:(NSString *)objId usingIdName:(NSString *)idName
 {
-    for (NSDictionary *info in array) {
-        if ([info[@"id"] isEqualToString:iId]) return info;
+    NSArray *array = [event performSelector:NSSelectorFromString(arrayName)];
+    for (id obj in array) {
+        NSString *foundObjId = [obj performSelector:NSSelectorFromString([NSString stringWithFormat:@"%@Id", idName])];
+        if ([foundObjId isEqualToString:objId]) return obj;
     }
     return nil;
 }

@@ -19,12 +19,11 @@
 
 @synthesize state, seatId, delegate;
 
-- (id)initWithFrame:(CGRect)frame seatId:(NSString *)sId info:(NSDictionary *)info
+- (id)initWithFrame:(CGRect)frame seatId:(NSString *)sId
 {
     self = [super initWithFrame:frame];
     if (self) {
 		seatId = [sId retain];
-        [self updateWithInfo:info];
 		
 		UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)] autorelease];
 		[self addGestureRecognizer:tapRecognizer];
@@ -39,17 +38,6 @@
 }
 
 #pragma mark class methods
-
-- (void)updateWithInfo:(NSDictionary *)info
-{
-    FasTSeatViewState newState = FasTSeatViewStateAvailable;
-    if ([info[@"selected"] boolValue]) {
-        newState = FasTSeatViewStateSelected;
-    } else if ([info[@"reserved"] boolValue]) {
-        newState = FasTSeatViewStateReserved;
-    }
-    [self setState:newState];
-}
 
 - (void)reserve
 {

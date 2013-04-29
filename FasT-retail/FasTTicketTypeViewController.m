@@ -8,6 +8,7 @@
 
 #import "FasTTicketTypeViewController.h"
 #import "FasTTicketsViewController.h"
+#import "FasTTicketType.h"
 #import "FasTFormatter.h"
 
 @interface FasTTicketTypeViewController ()
@@ -16,14 +17,13 @@
 
 @implementation FasTTicketTypeViewController
 
-@synthesize typeId, typeInfo, delegate;
+@synthesize type, number, total, delegate;
 
-- (id)initWithTypeInfo:(NSDictionary *)tI
+- (id)initWithType:(FasTTicketType *)t
 {
     self = [super init];
     if (self) {
-        typeInfo = [[NSMutableDictionary dictionaryWithDictionary:tI] retain];
-        typeId = tI[@"id"];
+        type = [t retain];
     }
     return self;
 }
@@ -32,13 +32,9 @@
 {
     [super viewDidLoad];
     
-    // TODO: NSNull should be nil (JSONSerialization)
-    NSString *info = [typeInfo objectForKey:@"info"];
-    if ([info isKindOfClass:[NSNull class]]) info = nil;
-    
-	[nameLabel setText:[typeInfo objectForKey:@"name"]];
-	[infoLabel setText:info];
-	[priceLabel setText:[NSString stringWithFormat:NSLocalizedStringByKey(@"ticketPriceEach"), [FasTFormatter stringForPrice:[typeInfo[@"price"] floatValue]]]];
+    [nameLabel setText:[type name]];
+	[infoLabel setText:[type info]];
+	[priceLabel setText:[NSString stringWithFormat:NSLocalizedStringByKey(@"ticketPriceEach"), [type localizedPrice]]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,7 +45,7 @@
 
 - (void)dealloc
 {
-	[typeInfo release];
+	[type release];
     
 	[nameLabel release];
 	[infoLabel release];
@@ -62,11 +58,8 @@
 #pragma mark actions
 
 - (IBAction)numberChanged:(UIStepper *)stepper {
-	NSInteger number = (int)[stepper value];
-	float total = number * [typeInfo[@"price"] floatValue];
-    
-    typeInfo[@"number"] = @(number);
-    typeInfo[@"total"] = @(total);
+	number = (NSInteger)[stepper value];
+	total = number * [type price];
 	
 	[numberLabel setText:[NSString stringWithFormat:@"%i", number]];
 	[totalLabel setText:[FasTFormatter stringForPrice:total]];

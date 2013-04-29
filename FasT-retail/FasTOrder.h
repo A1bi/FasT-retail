@@ -8,17 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+@class FasTEventDate;
+
 @interface FasTOrder : NSObject
 {
-	NSDictionary *date;
-	NSMutableDictionary *tickets;
-	NSMutableArray *seats;
+	FasTEventDate *date;
+	NSArray *tickets;
     NSInteger numberOfTickets;
     float total;
 }
 
-@property (nonatomic, retain) NSDictionary *date;
-@property (nonatomic, readonly) NSMutableDictionary *tickets;
+@property (nonatomic, retain) FasTEventDate *date;
+@property (nonatomic, retain) NSArray *tickets;
 @property (nonatomic, assign) NSInteger numberOfTickets;
 @property (nonatomic, assign) float total;
 

@@ -10,6 +10,8 @@
 #import "FasTSeatView.h"
 #import "FasTOrderViewController.h"
 #import "FasTEvent.h"
+#import "FasTEventDate.h"
+#import "FasTSeat.h"
 #import "FasTOrder.h"
 #import "FasTNode.h"
 
@@ -59,12 +61,16 @@
 
 - (void)updateSeatsWithInfo:(NSDictionary *)seats
 {
-    NSDictionary *dateSeats = seats[ [[orderController order] date][@"id"] ];
+    NSString *dateId = [[[orderController order] date] dateId];
+    NSDictionary *dateSeats = seats[dateId];
     if (!dateSeats) return;
     
     for (NSString *seatId in dateSeats) {
-        NSDictionary *seat = dateSeats[seatId];
-        [seatsView updateSeatWithId:seatId info:seat];
+        FasTSeat *seat = dateSeats[seatId];
+        if (![seat isKindOfClass:[FasTSeat class]]) {
+            seat = [[orderController event] seats][dateId][seatId];
+        }
+        [seatsView updatedSeat:seat];
     }
 }
 

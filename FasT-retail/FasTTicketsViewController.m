@@ -11,6 +11,7 @@
 #import "FasTOrderViewController.h"
 #import "FasTOrder.h"
 #import "FasTEvent.h"
+#import "FasTTicketType.h"
 #import "FasTFormatter.h"
 
 @interface FasTTicketsViewController ()
@@ -26,7 +27,7 @@
 {
     self = [super initWithStepName:@"tickets" orderController:oc];
     if (self) {
-        numberOfTickets = 1;
+        
     }
     return self;
 }
@@ -63,9 +64,9 @@
 {
     NSMutableArray *tmpTypeVCs = [NSMutableArray array];
 	int i = 0;
-	for (NSDictionary *type in [[orderController event] ticketTypes]) {
+	for (FasTTicketType *type in [[orderController event] ticketTypes]) {
 		
-		FasTTicketTypeViewController *typeVC = [[FasTTicketTypeViewController alloc] initWithTypeInfo:type];
+		FasTTicketTypeViewController *typeVC = [[FasTTicketTypeViewController alloc] initWithType:type];
 		[typeVC setDelegate:self];
 		[tmpTypeVCs addObject:typeVC];
 		[self addChildViewController:typeVC];
@@ -91,17 +92,19 @@
 {
     float total = 0;
     numberOfTickets = 0;
-	for (NSString *typeId in [[orderController order] tickets]) {
-        NSMutableDictionary *ticketType = [[orderController order] tickets][typeId];
-		total += [ticketType[@"total"] floatValue];
-        numberOfTickets += [ticketType[@"number"] intValue];
+    NSMutableArray *types = [NSMutableArray array];
+    
+	for (FasTTicketTypeViewController *tvc in typeVCs) {
+		total += [tvc total];
+        numberOfTickets += [tvc number];
+        
+        [types addObject:@{@"type": [tvc type], @"number": @([tvc number]), @"total": @([tvc total])}];
 	}
     
+    [[orderController order] setTickets:[NSArray arrayWithArray:types]];
     [[orderController order] setNumberOfTickets:numberOfTickets];
     [[orderController order] setTotal:total];
     
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [totalLabel setText:[NSString stringWithFormat:NSLocalizedStringByKey(@"totalNumberOfTickets"), numberOfTickets, [FasTFormatter stringForPrice:total]]];
     
     [orderController updateNextButton];
@@ -115,8 +118,8 @@
 - (NSDictionary *)stepInfo
 {
     NSMutableDictionary *tickets = [NSMutableDictionary dictionary];
-    for (NSString *typeId in [[orderController order] tickets]) {
-        tickets[typeId] = [[orderController order] tickets][typeId][@"number"];
+    for (NSDictionary *type in [[orderController order] tickets]) {
+        tickets[[type[@"type"] typeId]] = type[@"number"];
     }
     return @{@"tickets": tickets};
 }
@@ -125,7 +128,6 @@
 
 - (void)changedTotalOfTicketType:(FasTTicketTypeViewController *)t
 {
-    [[orderController order] tickets][[t typeId]] = [t typeInfo];
 	[self updateTotal];
 }
 

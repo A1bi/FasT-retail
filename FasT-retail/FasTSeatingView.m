@@ -8,6 +8,7 @@
 
 #import "FasTSeatingView.h"
 #import "FasTSeatView.h"
+#import "FasTSeat.h"
 
 static int      kMaxCellsX = 115;
 static int      kMaxCellsY = 60;
@@ -16,7 +17,7 @@ static float    kSizeFactorsY = 3;
 
 @interface FasTSeatingView ()
 
-- (void)addSeatWithId:(NSString *)seatId info:(NSDictionary *)seatInfo;
+- (FasTSeatView *)addSeat:(FasTSeat *)seat;
 
 @end
 
@@ -28,7 +29,7 @@ static float    kSizeFactorsY = 3;
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-		seats = [[NSMutableDictionary dictionary] retain];
+		seatViews = [[NSMutableDictionary dictionary] retain];
         
         grid = [@[ @(self.frame.size.width / kMaxCellsX), @(self.frame.size.height / kMaxCellsY) ] retain];
         
@@ -37,37 +38,43 @@ static float    kSizeFactorsY = 3;
     return self;
 }
 
-- (void)updateSeatWithId:(NSString *)seatId info:(NSDictionary *)seatInfo
+- (void)updatedSeat:(FasTSeat *)seat
 {
-    FasTSeatView *seat = seats[seatId];
-    if (!seat) {
-        [self addSeatWithId:seatId info:seatInfo];
-    } else {
-        [seat updateWithInfo:seatInfo];
+    FasTSeatView *seatView = seatViews[[seat seatId]];
+    if (!seatView) {
+        seatView = [self addSeat:seat];
     }
+    
+    FasTSeatViewState newState = FasTSeatViewStateAvailable;
+    if ([seat selected]) {
+        newState = FasTSeatViewStateSelected;
+    } else if ([seat reserved]) {
+        newState = FasTSeatViewStateReserved;
+    }
+    [seatView setState:newState];
 }
 
-- (void)addSeatWithId:(NSString *)seatId info:(NSDictionary *)seatInfo
+- (FasTSeatView *)addSeat:(FasTSeat *)seat
 {
-    NSDictionary *gridPos = [seatInfo objectForKey:@"grid"];
-    
-	CGRect frame;
+    CGRect frame;
 	frame.size.width = [sizes[0] floatValue];
 	frame.size.height = [sizes[1] floatValue];
-	frame.origin.x = [grid[0] floatValue] * [gridPos[@"x"] intValue];
-	frame.origin.y = [grid[1] floatValue] * [gridPos[@"y"] intValue];
+	frame.origin.x = [grid[0] floatValue] * [seat posX];
+	frame.origin.y = [grid[1] floatValue] * [seat posY];
 	
-	FasTSeatView *seat = [[[FasTSeatView alloc] initWithFrame:frame seatId:seatId info:seatInfo] autorelease];
-    [seat setDelegate:[self delegate]];
-    seats[seatId] = seat;
-	[self addSubview:seat];
+	FasTSeatView *seatView = [[[FasTSeatView alloc] initWithFrame:frame seatId:[seat seatId]] autorelease];
+    [seatView setDelegate:[self delegate]];
+    seatViews[[seat seatId]] = seatView;
+	[self addSubview:seatView];
+    
+    return seatView;
 }
 
 - (void)dealloc
 {
     [grid release];
     [sizes release];
-    [seats release];
+    [seatViews release];
     [super dealloc];
 }
 
