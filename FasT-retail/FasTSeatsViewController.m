@@ -13,7 +13,7 @@
 #import "FasTEventDate.h"
 #import "FasTSeat.h"
 #import "FasTOrder.h"
-#import "FasTNode.h"
+#import "FasTApi.h"
 
 @interface FasTSeatsViewController ()
 
@@ -88,7 +88,7 @@
 
 - (void)didSelectSeatView:(FasTSeatView *)seatView
 {
-    [[FasTNode defaultNode] reserveSeatWithId:[seatView seatId]];
+    [[FasTApi defaultApi] reserveSeatWithId:[seatView seatId]];
 }
 
 @end

@@ -13,7 +13,7 @@
 #import "FasTSeatsViewController.h"
 #import "FasTConfirmStepViewController.h"
 #import "FasTFinishViewController.h"
-#import "FasTNode.h"
+#import "FasTApi.h"
 #import "FasTTicketPrinter.h"
 
 
@@ -39,7 +39,7 @@
         nvc = [[UINavigationController alloc] init];
 		[nvc setNavigationBarHidden:YES];
         
-        [[FasTNode defaultNode] addObserver:self forKeyPath:@"event" options:0 context:nil];
+        [[FasTApi defaultApi] addObserver:self forKeyPath:@"event" options:0 context:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(printTicketsWithNotification:) name:@"orderPlaced" object:nil];
     }
@@ -82,7 +82,7 @@
 
 - (FasTEvent *)event
 {
-    return [[FasTNode defaultNode] event];
+    return [[FasTApi defaultApi] event];
 }
 
 #pragma mark class methods
@@ -117,7 +117,7 @@
         }
     };
 
-    [[FasTNode defaultNode] updateOrderWithStep:[currentStepController stepName] info:[currentStepController stepInfo] callback:callback];
+    [[FasTApi defaultApi] updateOrderWithStep:[currentStepController stepName] info:[currentStepController stepInfo] callback:callback];
 }
 
 - (void)pushNextStepController
