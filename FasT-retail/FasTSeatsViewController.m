@@ -53,6 +53,7 @@
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [seatsView release];
     [super dealloc];
 }

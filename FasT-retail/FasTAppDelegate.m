@@ -23,7 +23,7 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     [self.window makeKeyAndVisible];
     
-    [[FasTApi defaultApi] init];
+    [[FasTApi defaultApi] initWithClientType:@"retail"];
 	
 	FasTOrderViewController *ovc = [[FasTOrderViewController alloc] init];
 	self.window.rootViewController = ovc;

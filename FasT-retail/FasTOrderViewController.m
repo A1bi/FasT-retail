@@ -14,7 +14,6 @@
 #import "FasTConfirmStepViewController.h"
 #import "FasTFinishViewController.h"
 #import "FasTApi.h"
-#import "FasTTicketPrinter.h"
 
 
 @interface FasTOrderViewController ()
@@ -24,7 +23,6 @@
 - (void)popStepController;
 - (void)updateButtons;
 - (void)updateOrder;
-- (void)printTicketsWithNotification:(NSNotification *)note;
 
 @end
 
@@ -39,9 +37,9 @@
         nvc = [[UINavigationController alloc] init];
 		[nvc setNavigationBarHidden:YES];
         
-        [[FasTApi defaultApi] addObserver:self forKeyPath:@"event" options:0 context:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(printTicketsWithNotification:) name:@"orderPlaced" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserverForName:@"ready" object:[FasTApi defaultApi] queue:nil usingBlock:^(NSNotification *note) {
+            [self initSteps];
+        }];
     }
     return self;
 }
@@ -71,12 +69,12 @@
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 	[nvc release];
 	[nextBtn release];
 	[prevBtn release];
 	[order release];
     [stepControllers release];
-    [ticketPrinter release];
 	[super dealloc];
 }
 
@@ -160,26 +158,6 @@
 
 - (IBAction)prevTapped:(id)sender {
     [self popStepController];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if ([keyPath isEqualToString:@"event"]) {
-        [self initSteps];
-        
-        [ticketPrinter release];
-        ticketPrinter = [[FasTTicketPrinter alloc] initWithEvent:[self event]];
-    }
-}
-
-#pragma mark notification methods
-
-- (void)printTicketsWithNotification:(NSNotification *)note
-{
-    NSDictionary *response = [note userInfo];
-    if ([response[@"ok"] boolValue]) {
-        [ticketPrinter printTicketsForOrderWithInfo:response[@"order"]];
-    }
 }
 
 @end

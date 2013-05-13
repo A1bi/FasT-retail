@@ -7,6 +7,8 @@
 //
 
 #import "FasTFinishViewController.h"
+#import "FasTOrderViewController.h"
+#import "FasTOrder.h"
 
 @interface FasTFinishViewController ()
 
@@ -38,9 +40,11 @@
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [statusLabel release];
     [spinnerView release];
     [noteLabel release];
+    [queueNumberLabel release];
     [super dealloc];
 }
 
@@ -52,6 +56,9 @@
     if (![response[@"ok"] boolValue]) {
         [statusLabel setText:NSLocalizedStringByKey(@"unknownErrorOccurred")];
     } else {
+        FasTOrder *order = [[[FasTOrder alloc] initWithInfo:response[@"order"] event:[orderController event]] autorelease];
+        [queueNumberLabel setHidden:NO];
+        [queueNumberLabel setText:[order queueNumber]];
         [noteLabel setHidden:NO];
     }
     [spinnerView setHidden:YES];
