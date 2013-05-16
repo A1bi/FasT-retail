@@ -37,7 +37,7 @@
         nvc = [[UINavigationController alloc] init];
 		[nvc setNavigationBarHidden:YES];
         
-        [[NSNotificationCenter defaultCenter] addObserverForName:@"ready" object:[FasTApi defaultApi] queue:nil usingBlock:^(NSNotification *note) {
+        [[NSNotificationCenter defaultCenter] addObserverForName:FasTApiIsReadyNotification object:[FasTApi defaultApi] queue:nil usingBlock:^(NSNotification *note) {
             [self initSteps];
         }];
     }

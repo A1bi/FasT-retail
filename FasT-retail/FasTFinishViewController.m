@@ -9,6 +9,7 @@
 #import "FasTFinishViewController.h"
 #import "FasTOrderViewController.h"
 #import "FasTOrder.h"
+#import "FasTApi.h"
 
 @interface FasTFinishViewController ()
 
@@ -22,7 +23,7 @@
 {
     self = [super initWithOrderController:oc];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrderStatusWithNotification:) name:@"orderPlaced" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrderStatusWithNotification:) name:FasTApiPlacedOrderNotification object:nil];
     }
     return self;
 }

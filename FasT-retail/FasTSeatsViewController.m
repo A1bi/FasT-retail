@@ -31,7 +31,7 @@
 {
     self = [super initWithStepName:@"seats" orderController:oc];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSeatsWithNotification:) name:@"updateSeats" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSeatsWithNotification:) name:FasTApiUpdatedSeatsNotification object:nil];
     }
     return self;
 }

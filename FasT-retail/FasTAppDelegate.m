@@ -25,7 +25,7 @@
     
     [[FasTApi defaultApi] initWithClientType:@"retail"];
 	
-	FasTOrderViewController *ovc = [[FasTOrderViewController alloc] init];
+	FasTOrderViewController *ovc = [[[FasTOrderViewController alloc] init] autorelease];
 	self.window.rootViewController = ovc;
 	
     return YES;
