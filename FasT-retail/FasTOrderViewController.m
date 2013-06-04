@@ -14,6 +14,8 @@
 #import "FasTConfirmStepViewController.h"
 #import "FasTFinishViewController.h"
 #import "FasTApi.h"
+#import "FasTExpirationView.h"
+#import "MBProgressHUD.h"
 
 
 @interface FasTOrderViewController ()
@@ -23,6 +25,10 @@
 - (void)popStepController;
 - (void)updateButtons;
 - (void)updateOrder;
+- (void)expireOrder;
+- (void)resetOrder;
+- (void)disconnected;
+- (void)showLocalizedHUDMessageWithKey:(NSString *)key;
 
 @end
 
@@ -37,9 +43,23 @@
         nvc = [[UINavigationController alloc] init];
 		[nvc setNavigationBarHidden:YES];
         
-        [[NSNotificationCenter defaultCenter] addObserverForName:FasTApiIsReadyNotification object:[FasTApi defaultApi] queue:nil usingBlock:^(NSNotification *note) {
-            [self initSteps];
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserverForName:FasTApiIsReadyNotification object:[FasTApi defaultApi] queue:nil usingBlock:^(NSNotification *note) {
+            [self resetOrder];
         }];
+        [center addObserver:self selector:@selector(expireOrder) name:FasTApiOrderExpiredNotification object:nil];
+        [center addObserver:self selector:@selector(disconnected) name:FasTApiDisconnectedNotification object:nil];
+        [center addObserverForName:FasTApiAboutToExpireNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+            [expirationView startWithNumberOfSeconds:[[note userInfo][@"secondsLeft"] intValue]];
+        }];
+        
+        hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [hud setMode:MBProgressHUDModeCustomView];
+        [hud setMinSize:CGSizeMake(self.view.bounds.size.width * .5, self.view.bounds.size.height * .3)];
+        [hud setLabelFont:[UIFont systemFontOfSize:25]];
+        [hud setDetailsLabelFont:[UIFont systemFontOfSize:20]];
+        [hud setOpacity:.9];
+        [self.view addSubview:hud];
     }
     return self;
 }
@@ -71,10 +91,12 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 	[nvc release];
+    [hud release];
 	[nextBtn release];
 	[prevBtn release];
 	[order release];
     [stepControllers release];
+    [expirationView release];
 	[super dealloc];
 }
 
@@ -109,6 +131,8 @@
 
 - (void)updateOrder
 {
+    [self resetExpiration];
+    
     SocketIOCallback callback = ^(NSDictionary *response) {
         if ([(NSNumber *)response[@"ok"] boolValue]) {
             [self pushNextStepController];
@@ -116,6 +140,13 @@
     };
 
     [[FasTApi defaultApi] updateOrderWithStep:[currentStepController stepName] info:[currentStepController stepInfo] callback:callback];
+}
+
+- (void)resetOrder
+{
+    [self initSteps];
+    [hud hide:NO];
+    [expirationView stopAndHide];
 }
 
 - (void)pushNextStepController
@@ -146,6 +177,33 @@
 - (void)updateNextButton
 {
     [nextBtn setEnabled:[currentStepController isValid]];
+}
+
+- (void)expireOrder
+{
+    [expirationView stopAndHide];
+    [self showLocalizedHUDMessageWithKey:@"orderExpiredMessage"];
+}
+
+- (void)disconnected
+{
+    [expirationView stopAndHide];
+    [self showLocalizedHUDMessageWithKey:@"disconnectedMessage"];
+}
+
+- (void)showLocalizedHUDMessageWithKey:(NSString *)key
+{
+    [nextBtn setEnabled:NO];
+    [prevBtn setEnabled:NO];
+    
+    [hud setLabelText:NSLocalizedStringByKey(key)];
+    [hud setDetailsLabelText:NSLocalizedStringByKey(([NSString stringWithFormat:@"%@Details", key]))];
+    [hud show:YES];
+}
+
+- (void)resetExpiration
+{
+    [expirationView stopAndHide];
 }
 
 #pragma mark actions

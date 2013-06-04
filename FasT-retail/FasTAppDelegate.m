@@ -9,11 +9,14 @@
 #import "FasTAppDelegate.h"
 #import "FasTOrderViewController.h"
 #import "FasTApi.h"
+#import "MBProgressHUD.h"
 
 @implementation FasTAppDelegate
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [hud release];
 	[_window release];
     [super dealloc];
 }
@@ -27,6 +30,21 @@
 	
 	FasTOrderViewController *ovc = [[[FasTOrderViewController alloc] init] autorelease];
 	self.window.rootViewController = ovc;
+    
+    hud = [[MBProgressHUD showHUDAddedTo:self.window animated:YES] retain];
+    [hud setLabelFont:[UIFont systemFontOfSize:28]];
+    [hud setDetailsLabelFont:[UIFont systemFontOfSize:23]];
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserverForName:FasTApiIsReadyNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        [hud hide:YES];
+    }];
+    [center addObserverForName:FasTApiCannotConnectNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        [hud setMode:MBProgressHUDModeText];
+        [hud setLabelText:NSLocalizedStringByKey(@"outOfOrder")];
+        [hud setDetailsLabelText:NSLocalizedStringByKey(@"outOfOrderDetails")];
+        [hud show:YES];
+    }];
 	
     return YES;
 }
@@ -48,7 +66,9 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-
+    [hud setMode:MBProgressHUDModeIndeterminate];
+    [hud setLabelText:NSLocalizedStringByKey(@"connecting")];
+    [hud show:NO];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

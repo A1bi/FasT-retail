@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class MBProgressHUD;
+
 @interface FasTAppDelegate : UIResponder <UIApplicationDelegate>
+{
+    MBProgressHUD *hud;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 

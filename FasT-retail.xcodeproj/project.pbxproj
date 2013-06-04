@@ -24,6 +24,8 @@
 		6126333F1726FCF700F66E78 /* FasTFinishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6126333D1726FCF600F66E78 /* FasTFinishViewController.m */; };
 		612633401726FCF700F66E78 /* FasTFinishViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6126333E1726FCF600F66E78 /* FasTFinishViewController.xib */; };
 		613CC02B17415E67002818E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6135F1B5172D613000E608CF /* Localizable.strings */; };
+		615E4D4E175DCB3C00C02646 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 615E4D36175DCB3C00C02646 /* MBProgressHUD.m */; };
+		615E4D5A175E450900C02646 /* FasTExpirationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 615E4D59175E450900C02646 /* FasTExpirationView.m */; };
 		6175CBEB174555200095B806 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611420391714BE3E0067D3F3 /* InfoPlist.strings */; };
 		61B79A6E171B3A250096179B /* FasTOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A6D171B3A250096179B /* FasTOrderViewController.m */; };
 		61B79A74171B3FC80096179B /* FasTStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B79A73171B3FC80096179B /* FasTStepViewController.m */; };
@@ -97,6 +99,10 @@
 		6126333D1726FCF600F66E78 /* FasTFinishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTFinishViewController.m; sourceTree = "<group>"; };
 		6126333E1726FCF600F66E78 /* FasTFinishViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTFinishViewController.xib; sourceTree = "<group>"; };
 		6135F1B4172D613000E608CF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		615E4D35175DCB3C00C02646 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		615E4D36175DCB3C00C02646 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		615E4D58175E450800C02646 /* FasTExpirationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTExpirationView.h; sourceTree = "<group>"; };
+		615E4D59175E450900C02646 /* FasTExpirationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTExpirationView.m; sourceTree = "<group>"; };
 		61B79A6C171B3A250096179B /* FasTOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTOrderViewController.h; sourceTree = "<group>"; };
 		61B79A6D171B3A250096179B /* FasTOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTOrderViewController.m; sourceTree = "<group>"; };
 		61B79A72171B3FC80096179B /* FasTStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTStepViewController.h; sourceTree = "<group>"; };
@@ -206,6 +212,7 @@
 		6114202F1714BE3E0067D3F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				615E4D18175DCB3C00C02646 /* MBProgressHUD */,
 				61E9DA1A173BDA75007A5F55 /* MKNetworkKit */,
 				61E9D3771739A7C8007A5F55 /* socket.IO */,
 				6119EC90172C0384006B944A /* PrintKit */,
@@ -229,6 +236,8 @@
 				61B79A6C171B3A250096179B /* FasTOrderViewController.h */,
 				61B79A6D171B3A250096179B /* FasTOrderViewController.m */,
 				61B79A75171B46D80096179B /* FasTOrderViewController.xib */,
+				615E4D58175E450800C02646 /* FasTExpirationView.h */,
+				615E4D59175E450900C02646 /* FasTExpirationView.m */,
 				61B79A72171B3FC80096179B /* FasTStepViewController.h */,
 				61B79A73171B3FC80096179B /* FasTStepViewController.m */,
 				61B79A79171B49C50096179B /* Dates */,
@@ -291,6 +300,16 @@
 			children = (
 			);
 			path = assets;
+			sourceTree = "<group>";
+		};
+		615E4D18175DCB3C00C02646 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				615E4D35175DCB3C00C02646 /* MBProgressHUD.h */,
+				615E4D36175DCB3C00C02646 /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
+			path = submodules/MBProgressHUD;
 			sourceTree = "<group>";
 		};
 		61B79A77171B49AD0096179B /* Seating */ = {
@@ -546,6 +565,8 @@
 				61E9DA3A173BDA75007A5F55 /* MKNetworkOperation.m in Sources */,
 				61E9DA3B173BDA75007A5F55 /* Reachability.m in Sources */,
 				6109F1C117415C9600F4AB2C /* FasTTicket.m in Sources */,
+				615E4D4E175DCB3C00C02646 /* MBProgressHUD.m in Sources */,
+				615E4D5A175E450900C02646 /* FasTExpirationView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

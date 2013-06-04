@@ -11,6 +11,8 @@
 @class FasTOrder;
 @class FasTEvent;
 @class FasTStepViewController;
+@class FasTExpirationView;
+@class MBProgressHUD;
 
 @interface FasTOrderViewController : UIViewController
 {
@@ -19,9 +21,11 @@
     int currentStepIndex;
     NSArray *stepControllers;
     FasTStepViewController *currentStepController;
+    MBProgressHUD *hud;
     
 	IBOutlet UIButton *nextBtn;
 	IBOutlet UIButton *prevBtn;
+    IBOutlet FasTExpirationView *expirationView;
 }
 
 @property (nonatomic, readonly) FasTOrder *order;
@@ -31,5 +35,6 @@
 
 - (FasTEvent *)event;
 - (void)updateNextButton;
+- (void)resetExpiration;
 
 @end

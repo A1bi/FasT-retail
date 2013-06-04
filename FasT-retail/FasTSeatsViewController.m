@@ -89,6 +89,8 @@
 
 - (void)didSelectSeatView:(FasTSeatView *)seatView
 {
+    [orderController resetExpiration];
+    
     [[FasTApi defaultApi] reserveSeatWithId:[seatView seatId]];
 }
 
