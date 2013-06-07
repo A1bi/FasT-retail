@@ -15,6 +15,7 @@
 #import "FasTFinishViewController.h"
 #import "FasTApi.h"
 #import "FasTExpirationView.h"
+#import "FasTIdleViewController.h"
 #import "MBProgressHUD.h"
 
 
@@ -29,6 +30,9 @@
 - (void)resetOrder;
 - (void)disconnected;
 - (void)showLocalizedHUDMessageWithKey:(NSString *)key;
+- (void)showIdleController;
+- (void)showIdleControllerDelayed;
+- (void)toggleBtn:(UIButton *)btn enabled:(BOOL)enabled;
 
 @end
 
@@ -60,6 +64,8 @@
         [hud setDetailsLabelFont:[UIFont systemFontOfSize:20]];
         [hud setOpacity:.9];
         [self.view addSubview:hud];
+        
+        idleController = [[FasTIdleViewController alloc] init];
     }
     return self;
 }
@@ -96,6 +102,7 @@
 	[prevBtn release];
 	[order release];
     [stepControllers release];
+    [idleController release];
     [expirationView release];
 	[super dealloc];
 }
@@ -170,31 +177,33 @@
 
 - (void)updateButtons
 {
-    [nextBtn setEnabled:YES];
-    [prevBtn setEnabled:(currentStepIndex > 0)];
+    [self toggleBtn:nextBtn enabled:YES];
+    [self toggleBtn:prevBtn enabled:(currentStepIndex > 0)];
 }
 
 - (void)updateNextButton
 {
-    [nextBtn setEnabled:[currentStepController isValid]];
+    [self toggleBtn:nextBtn enabled:[currentStepController isValid]];
 }
 
 - (void)expireOrder
 {
     [expirationView stopAndHide];
     [self showLocalizedHUDMessageWithKey:@"orderExpiredMessage"];
+    [self showIdleControllerDelayed];
 }
 
 - (void)disconnected
 {
     [expirationView stopAndHide];
     [self showLocalizedHUDMessageWithKey:@"disconnectedMessage"];
+    [self showIdleControllerDelayed];
 }
 
 - (void)showLocalizedHUDMessageWithKey:(NSString *)key
 {
-    [nextBtn setEnabled:NO];
-    [prevBtn setEnabled:NO];
+    [self toggleBtn:nextBtn enabled:NO];
+    [self toggleBtn:prevBtn enabled:NO];
     
     [hud setLabelText:NSLocalizedStringByKey(key)];
     [hud setDetailsLabelText:NSLocalizedStringByKey(([NSString stringWithFormat:@"%@Details", key]))];
@@ -204,6 +213,28 @@
 - (void)resetExpiration
 {
     [expirationView stopAndHide];
+}
+
+- (void)showIdleController
+{
+    [self presentViewController:idleController animated:YES completion:nil];
+}
+
+- (void)showIdleControllerDelayed
+{
+    [self performSelector:@selector(showIdleController) withObject:nil afterDelay:10];
+}
+
+- (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion
+{
+    [self resetOrder];
+    //RESTART ORDER
+    [super dismissViewControllerAnimated:flag completion:completion];
+}
+
+- (void)toggleBtn:(UIButton *)btn enabled:(BOOL)enabled
+{
+    [btn setHidden:!enabled];
 }
 
 #pragma mark actions

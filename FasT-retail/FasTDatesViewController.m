@@ -68,10 +68,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell * cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"date"] autorelease];
-    [[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
+    UILabel *dateLabel = [cell textLabel];
+    [dateLabel setTextAlignment:NSTextAlignmentCenter];
+    [dateLabel setFont:[UIFont systemFontOfSize:31]];
     
     NSString *date = [[self dates][ [indexPath row] ] localizedString];
-	[[cell textLabel] setText:date];
+	[dateLabel setText:date];
 	
 	return cell;
 }
@@ -84,6 +86,11 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 	return 1;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return [[[UIView alloc] init] autorelease];
 }
 
 #pragma mark table view delegate

@@ -11,6 +11,7 @@
 @class FasTOrder;
 @class FasTEvent;
 @class FasTStepViewController;
+@class FasTIdleViewController;
 @class FasTExpirationView;
 @class MBProgressHUD;
 
@@ -21,6 +22,7 @@
     int currentStepIndex;
     NSArray *stepControllers;
     FasTStepViewController *currentStepController;
+    FasTIdleViewController *idleController;
     MBProgressHUD *hud;
     
 	IBOutlet UIButton *nextBtn;

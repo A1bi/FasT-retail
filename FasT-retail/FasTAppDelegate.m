@@ -26,6 +26,10 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     [self.window makeKeyAndVisible];
     
+    UIApplication *app = [UIApplication sharedApplication];
+    [app setIdleTimerDisabled:YES];
+    [app setStatusBarHidden:YES];
+    
     [[FasTApi defaultApi] initWithClientType:@"retail"];
 	
 	FasTOrderViewController *ovc = [[[FasTOrderViewController alloc] init] autorelease];

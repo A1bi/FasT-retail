@@ -36,6 +36,8 @@
 		61B79E42171F3E530096179B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B79E41171F3E530096179B /* CFNetwork.framework */; };
 		61B79E44171F3E5E0096179B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B79E43171F3E5E0096179B /* Security.framework */; };
 		61B79E46171F49F30096179B /* FasTSeatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114205E17174D130067D3F3 /* FasTSeatsViewController.m */; };
+		61DB8347176148190037AF6E /* FasTIdleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61DB8345176148190037AF6E /* FasTIdleViewController.m */; };
+		61DB8348176148190037AF6E /* FasTIdleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61DB8346176148190037AF6E /* FasTIdleViewController.xib */; };
 		61E9D3511739A619007A5F55 /* FasTEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E9D33E1739A619007A5F55 /* FasTEvent.m */; };
 		61E9D3521739A619007A5F55 /* FasTEventDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E9D3401739A619007A5F55 /* FasTEventDate.m */; };
 		61E9D3531739A619007A5F55 /* FasTFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E9D3421739A619007A5F55 /* FasTFormatter.m */; };
@@ -114,6 +116,9 @@
 		61B79E3F171F3E4D0096179B /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		61B79E41171F3E530096179B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		61B79E43171F3E5E0096179B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		61DB8344176148190037AF6E /* FasTIdleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasTIdleViewController.h; sourceTree = "<group>"; };
+		61DB8345176148190037AF6E /* FasTIdleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FasTIdleViewController.m; sourceTree = "<group>"; };
+		61DB8346176148190037AF6E /* FasTIdleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FasTIdleViewController.xib; sourceTree = "<group>"; };
 		61E9D33E1739A619007A5F55 /* FasTEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FasTEvent.m; path = "submodules/FasT-objc-common/FasTEvent.m"; sourceTree = "<group>"; };
 		61E9D33F1739A619007A5F55 /* FasTEventDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FasTEventDate.h; path = "submodules/FasT-objc-common/FasTEventDate.h"; sourceTree = "<group>"; };
 		61E9D3401739A619007A5F55 /* FasTEventDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FasTEventDate.m; path = "submodules/FasT-objc-common/FasTEventDate.m"; sourceTree = "<group>"; };
@@ -236,6 +241,9 @@
 				61B79A6C171B3A250096179B /* FasTOrderViewController.h */,
 				61B79A6D171B3A250096179B /* FasTOrderViewController.m */,
 				61B79A75171B46D80096179B /* FasTOrderViewController.xib */,
+				61DB8344176148190037AF6E /* FasTIdleViewController.h */,
+				61DB8345176148190037AF6E /* FasTIdleViewController.m */,
+				61DB8346176148190037AF6E /* FasTIdleViewController.xib */,
 				615E4D58175E450800C02646 /* FasTExpirationView.h */,
 				615E4D59175E450900C02646 /* FasTExpirationView.m */,
 				61B79A72171B3FC80096179B /* FasTStepViewController.h */,
@@ -518,6 +526,7 @@
 				612633401726FCF700F66E78 /* FasTFinishViewController.xib in Resources */,
 				6175CBEB174555200095B806 /* InfoPlist.strings in Resources */,
 				613CC02B17415E67002818E0 /* Localizable.strings in Resources */,
+				61DB8348176148190037AF6E /* FasTIdleViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,6 +576,7 @@
 				6109F1C117415C9600F4AB2C /* FasTTicket.m in Sources */,
 				615E4D4E175DCB3C00C02646 /* MBProgressHUD.m in Sources */,
 				615E4D5A175E450900C02646 /* FasTExpirationView.m in Sources */,
+				61DB8347176148190037AF6E /* FasTIdleViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
