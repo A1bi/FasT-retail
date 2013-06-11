@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Albisigns. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "FasTSeatsViewController.h"
 #import "FasTSeatView.h"
 #import "FasTOrderViewController.h"
@@ -14,6 +15,7 @@
 #import "FasTSeat.h"
 #import "FasTOrder.h"
 #import "FasTApi.h"
+#import "FasTSeatView.h"
 
 @interface FasTSeatsViewController ()
 
@@ -39,6 +41,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    for (int i = 10; i <= 12 ; i++) {
+        FasTSeatViewState state = FasTSeatViewStateAvailable;
+        if (i == 11) {
+            state = FasTSeatViewStateReserved;
+        } else if (i == 12) {
+            state = FasTSeatViewStateSelected;
+        }
+        [(FasTSeatView *)[[self view] viewWithTag:i] setState:state];
+    }
+    
+    seatsView.layer.cornerRadius = 5;
+    seatsView.layer.masksToBounds = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated

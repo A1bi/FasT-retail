@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6102DF5617677B5600338D8B /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6102DF5517677B5600338D8B /* Settings.bundle */; };
 		6109F1C117415C9600F4AB2C /* FasTTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6109F1C017415C9600F4AB2C /* FasTTicket.m */; };
 		611420311714BE3E0067D3F3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 611420301714BE3E0067D3F3 /* UIKit.framework */; };
 		611420331714BE3E0067D3F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 611420321714BE3E0067D3F3 /* Foundation.framework */; };
@@ -67,6 +68,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6102DF5517677B5600338D8B /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		6109F1BF17415C9600F4AB2C /* FasTTicket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FasTTicket.h; path = "submodules/FasT-objc-common/FasTTicket.h"; sourceTree = "<group>"; };
 		6109F1C017415C9600F4AB2C /* FasTTicket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FasTTicket.m; path = "submodules/FasT-objc-common/FasTTicket.m"; sourceTree = "<group>"; };
 		6114202D1714BE3E0067D3F3 /* FasT-retail.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FasT-retail.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -266,6 +268,7 @@
 				6114203C1714BE3E0067D3F3 /* main.m */,
 				6114203E1714BE3E0067D3F3 /* FasT-retail-Prefix.pch */,
 				6135F1B5172D613000E608CF /* Localizable.strings */,
+				6102DF5517677B5600338D8B /* Settings.bundle */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				6175CBEB174555200095B806 /* InfoPlist.strings in Resources */,
 				613CC02B17415E67002818E0 /* Localizable.strings in Resources */,
 				61DB8348176148190037AF6E /* FasTIdleViewController.xib in Resources */,
+				6102DF5617677B5600338D8B /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

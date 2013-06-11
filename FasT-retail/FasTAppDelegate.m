@@ -30,10 +30,8 @@
     [app setIdleTimerDisabled:YES];
     [app setStatusBarHidden:YES];
     
-    [[FasTApi defaultApi] initWithClientType:@"retail"];
-	
-	FasTOrderViewController *ovc = [[[FasTOrderViewController alloc] init] autorelease];
-	self.window.rootViewController = ovc;
+    FasTOrderViewController *ovc = [[[FasTOrderViewController alloc] init] autorelease];
+    self.window.rootViewController = ovc;
     
     hud = [[MBProgressHUD showHUDAddedTo:self.window animated:YES] retain];
     [hud setLabelFont:[UIFont systemFontOfSize:28]];
@@ -49,35 +47,23 @@
         [hud setDetailsLabelText:NSLocalizedStringByKey(@"outOfOrderDetails")];
         [hud show:YES];
     }];
+    [center addObserverForName:FasTApiConnectingNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        [hud setMode:MBProgressHUDModeIndeterminate];
+        [hud setLabelText:NSLocalizedStringByKey(@"connecting")];
+        [hud show:NO];
+    }];
+    
+    NSString *retailId = [[NSUserDefaults standardUserDefaults] valueForKey:@"retailId"];
+    if (retailId) {
+        [[FasTApi defaultApi] initWithClientType:@"retail" retailId:retailId];
+    } else {
+        [hud setMode:MBProgressHUDModeText];
+        [hud setLabelText:NSLocalizedStringByKey(@"outOfOrder")];
+        [hud setDetailsLabelText:NSLocalizedStringByKey(@"outOfOrderDetails")];
+        [hud show:NO];
+    }
 	
     return YES;
-}
-
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    [hud setMode:MBProgressHUDModeIndeterminate];
-    [hud setLabelText:NSLocalizedStringByKey(@"connecting")];
-    [hud show:NO];
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-
 }
 
 @end

@@ -27,6 +27,7 @@
         
         label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, halfHeight)];
         [label setTextAlignment:NSTextAlignmentCenter];
+        [label setAdjustsFontSizeToFitWidth:YES];
         [label setText:NSLocalizedStringByKey(@"orderAboutToExpire")];
         
         progressBar = [[UIProgressView alloc] initWithFrame:CGRectMake(0, halfHeight, self.bounds.size.width, halfHeight)];
