@@ -31,8 +31,9 @@
 - (void)disconnected;
 - (void)showLocalizedHUDMessageWithKey:(NSString *)key;
 - (void)showIdleController;
-- (void)showIdleControllerDelayed;
+- (void)showIdleControllerWithDelay:(NSTimeInterval)delay;
 - (void)toggleBtn:(UIButton *)btn enabled:(BOOL)enabled;
+- (void)disableBtns;
 
 @end
 
@@ -55,6 +56,9 @@
         [center addObserver:self selector:@selector(disconnected) name:FasTApiDisconnectedNotification object:nil];
         [center addObserverForName:FasTApiAboutToExpireNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
             [expirationView startWithNumberOfSeconds:[[note userInfo][@"secondsLeft"] intValue]];
+        }];
+        [center addObserverForName:FasTApiPlacedOrderNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+            [self showIdleControllerWithDelay:20];
         }];
         
         hud = [[MBProgressHUD alloc] initWithView:self.view];
@@ -151,6 +155,7 @@
 
 - (void)resetOrder
 {
+    [[FasTApi defaultApi] resetOrder];
     [self initSteps];
     [hud hide:NO];
     [expirationView stopAndHide];
@@ -162,6 +167,10 @@
     currentStepController = stepControllers[++currentStepIndex];
     [self updateButtons];
     [nvc pushViewController:currentStepController animated:YES];
+    
+    if (currentStepController == [stepControllers lastObject]) {
+        [self disableBtns];
+    }
 }
 
 - (void)popStepController
@@ -190,20 +199,19 @@
 {
     [expirationView stopAndHide];
     [self showLocalizedHUDMessageWithKey:@"orderExpiredMessage"];
-    [self showIdleControllerDelayed];
+    [self showIdleControllerWithDelay:10];
 }
 
 - (void)disconnected
 {
     [expirationView stopAndHide];
     [self showLocalizedHUDMessageWithKey:@"disconnectedMessage"];
-    [self showIdleControllerDelayed];
+    [self showIdleControllerWithDelay:10];
 }
 
 - (void)showLocalizedHUDMessageWithKey:(NSString *)key
 {
-    [self toggleBtn:nextBtn enabled:NO];
-    [self toggleBtn:prevBtn enabled:NO];
+    [self disableBtns];
     
     [hud setLabelText:NSLocalizedStringByKey(key)];
     [hud setDetailsLabelText:NSLocalizedStringByKey(([NSString stringWithFormat:@"%@Details", key]))];
@@ -220,21 +228,28 @@
     [self presentViewController:idleController animated:YES completion:nil];
 }
 
-- (void)showIdleControllerDelayed
+- (void)showIdleControllerWithDelay:(NSTimeInterval)delay
 {
-    [self performSelector:@selector(showIdleController) withObject:nil afterDelay:10];
+    SEL selector = @selector(showIdleController);
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:selector object:nil];
+    [self performSelector:selector withObject:nil afterDelay:delay];
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion
 {
     [self resetOrder];
-    //RESTART ORDER
     [super dismissViewControllerAnimated:flag completion:completion];
 }
 
 - (void)toggleBtn:(UIButton *)btn enabled:(BOOL)enabled
 {
     [btn setHidden:!enabled];
+}
+
+- (void)disableBtns
+{
+    [self toggleBtn:nextBtn enabled:NO];
+    [self toggleBtn:prevBtn enabled:NO];
 }
 
 #pragma mark actions
