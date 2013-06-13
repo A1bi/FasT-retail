@@ -108,6 +108,7 @@
     [stepControllers release];
     [idleController release];
     [expirationView release];
+    [loadingView release];
 	[super dealloc];
 }
 
@@ -143,8 +144,11 @@
 - (void)updateOrder
 {
     [self resetExpiration];
+    [self disableBtns];
+    [loadingView startAnimating];
     
     SocketIOCallback callback = ^(NSDictionary *response) {
+        [loadingView stopAnimating];
         if ([(NSNumber *)response[@"ok"] boolValue]) {
             [self pushNextStepController];
         }
@@ -176,12 +180,10 @@
 - (void)popStepController
 {
     if (currentStepIndex <= 0) return;
-    currentStepIndex--;
+    currentStepController = stepControllers[--currentStepIndex];
     
     [self updateButtons];
     [nvc popViewControllerAnimated:YES];
-    
-    currentStepController = (FasTStepViewController *)[nvc visibleViewController];
 }
 
 - (void)updateButtons
@@ -198,8 +200,10 @@
 - (void)expireOrder
 {
     [expirationView stopAndHide];
-    [self showLocalizedHUDMessageWithKey:@"orderExpiredMessage"];
-    [self showIdleControllerWithDelay:10];
+    if (![self presentedViewController]) {
+        [self showLocalizedHUDMessageWithKey:@"orderExpiredMessage"];
+        [self showIdleControllerWithDelay:10];
+    }
 }
 
 - (void)disconnected
@@ -212,6 +216,7 @@
 - (void)showLocalizedHUDMessageWithKey:(NSString *)key
 {
     [self disableBtns];
+    [loadingView stopAnimating];
     
     [hud setLabelText:NSLocalizedStringByKey(key)];
     [hud setDetailsLabelText:NSLocalizedStringByKey(([NSString stringWithFormat:@"%@Details", key]))];

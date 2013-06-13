@@ -102,14 +102,6 @@
     [orderController updateNextButton];
 }
 
-#pragma mark actions
-
-- (IBAction)tappedNext:(UIButton *)sender {
-	FasTSeatsViewController *seatsVC = [[[FasTSeatsViewController alloc] init] autorelease];
-	
-	[[self navigationController] pushViewController:seatsVC animated:YES];
-}
-
 #pragma mark class methods
 
 - (BOOL)isValid

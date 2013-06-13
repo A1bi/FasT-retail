@@ -33,6 +33,8 @@
 {
     self = [super initWithStepName:@"seats" orderController:oc];
     if (self) {
+        selectedSeats = [[NSMutableArray alloc] init];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSeatsWithNotification:) name:FasTApiUpdatedSeatsNotification object:nil];
     }
     return self;
@@ -56,6 +58,12 @@
     seatsView.layer.masksToBounds = YES;
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [errorAlert dismissWithClickedButtonIndex:0 animated:NO];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [self updateSeats];
@@ -69,7 +77,9 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [selectedSeats release];
     [seatsView release];
+    [errorAlert release];
     [super dealloc];
 }
 
@@ -87,6 +97,12 @@
             seat = [[orderController event] seats][dateId][seatId];
         }
         [seatsView updatedSeat:seat];
+        
+        if ([seat selected]) {
+            [selectedSeats addObject:seat];
+        } else {
+            [selectedSeats removeObject:seat];
+        }
     }
 }
 
@@ -98,6 +114,21 @@
 - (void)updateSeats
 {
     [self updateSeatsWithInfo:[[orderController event] seats]];
+}
+
+- (BOOL)isValid
+{
+    NSInteger numberOfTickets = [[orderController order] numberOfTickets];
+    if (numberOfTickets != [selectedSeats count]) {
+        if (!errorAlert) {
+            errorAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedStringByKey(@"notEnoughSeatsErrorTitle") message:[NSString stringWithFormat:NSLocalizedStringByKey(@"notEnoughSeatsErrorMessage"), numberOfTickets] delegate:nil cancelButtonTitle:NSLocalizedStringByKey(@"dismissAlert") otherButtonTitles:nil];
+        }
+        [errorAlert show];
+        
+        return NO;
+    }
+
+    return YES;
 }
 
 #pragma mark seating delegate methods

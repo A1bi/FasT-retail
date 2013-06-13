@@ -28,6 +28,7 @@
 	IBOutlet UIButton *nextBtn;
 	IBOutlet UIButton *prevBtn;
     IBOutlet FasTExpirationView *expirationView;
+    IBOutlet UIActivityIndicatorView *loadingView;
 }
 
 @property (nonatomic, readonly) FasTOrder *order;

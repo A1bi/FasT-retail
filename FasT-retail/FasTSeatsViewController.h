@@ -14,7 +14,10 @@
 
 @interface FasTSeatsViewController : FasTStepViewController <FasTSeatingViewDelegate>
 {
+    NSMutableArray *selectedSeats;
+    
     FasTSeatingView *seatsView;
+    UIAlertView *errorAlert;
 }
 
 @property (retain, nonatomic) IBOutlet FasTSeatingView *seatsView;
