@@ -91,6 +91,13 @@
 	[nvc didMoveToParentViewController:self];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[UIScreen mainScreen] setBrightness:1.0];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

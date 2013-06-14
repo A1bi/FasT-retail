@@ -16,12 +16,15 @@
 @interface FasTDatesViewController ()
 
 - (NSArray *)dates;
+- (void)addDateButtons;
+- (void)dateSelected:(UIButton *)btn;
+- (void)deselectedDate;
+- (void)updateDateButtonWithSelectedButton:(UIButton *)selected;
+- (void)setDate:(FasTEventDate *)date;
 
 @end
 
 @implementation FasTDatesViewController
-
-@synthesize datesTable;
 
 - (id)initWithOrderController:(FasTOrderViewController *)oc
 {
@@ -35,10 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-	[datesTable setDataSource:self];
-    [datesTable setDelegate:self];
-	[datesTable setRowHeight:60.0f];
+    [self addDateButtons];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -55,54 +55,42 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
-	[datesTable release];
+- (void)dealloc
+{
+    [dateButtons release];
 	[super dealloc];
 }
 
-#pragma mark table view data source
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	UITableViewCell * cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"date"] autorelease];
-    UILabel *dateLabel = [cell textLabel];
-    [dateLabel setTextAlignment:NSTextAlignmentCenter];
-    [dateLabel setFont:[UIFont systemFontOfSize:31]];
-    
-    NSString *date = [[self dates][ [indexPath row] ] localizedString];
-	[dateLabel setText:date];
-	
-	return cell;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-	return [[self dates] count];
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-	return 1;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    return [[[UIView alloc] init] autorelease];
-}
-
-#pragma mark table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	[[orderController order] setDate:[self dates][ [indexPath row] ]];
-    
-    [orderController updateNextButton];
-}
-
 #pragma mark class methods
+
+- (void)addDateButtons
+{
+    CGFloat width = self.view.bounds.size.width * .6,
+            height = 55,
+            x = self.view.bounds.size.width / 2 - width / 2,
+            y = 150;
+    
+    NSMutableArray *tmpDateButtons = [NSMutableArray array];
+    
+    for (FasTEventDate *date in [self dates]) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [button setFrame:CGRectMake(x, y, width, height)];
+        [button setTitle:[date localizedString] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(dateSelected:) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(deselectedDate) forControlEvents:UIControlEventTouchUpOutside];
+        [[button titleLabel] setFont:[UIFont systemFontOfSize:25]];
+        
+        [[self view] addSubview:button];
+        [tmpDateButtons addObject:button];
+        
+        y += height + 10;
+    }
+    
+    [dateButtons release];
+    dateButtons = [[NSArray arrayWithArray:tmpDateButtons] retain];
+}
 
 - (BOOL)isValid
 {
@@ -117,6 +105,37 @@
 - (NSArray *)dates
 {
     return [[orderController event] dates];
+}
+
+- (void)setDate:(FasTEventDate *)date
+{
+    [[orderController order] setDate:date];
+    
+    [orderController updateNextButton];
+}
+
+#pragma mark date button
+
+- (void)dateSelected:(UIButton *)btn
+{
+    [self performSelector:@selector(updateDateButtonWithSelectedButton:) withObject:btn afterDelay:0];
+    
+    NSInteger dateIndex = [dateButtons indexOfObject:btn];
+    [self setDate:[self dates][dateIndex]];
+}
+
+- (void)deselectedDate
+{
+    [self performSelector:@selector(updateDateButtonWithSelectedButton:) withObject:nil afterDelay:0];
+    
+    [self setDate:nil];
+}
+
+- (void)updateDateButtonWithSelectedButton:(UIButton *)selected
+{
+    for (UIButton *button in dateButtons) {
+        [button setHighlighted:button == selected];
+    }
 }
 
 @end

@@ -28,4 +28,11 @@
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[UIScreen mainScreen] setBrightness:0.3];
+}
+
 @end

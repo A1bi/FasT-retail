@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "FasTStepViewController.h"
 
-@interface FasTDatesViewController : FasTStepViewController <UITableViewDataSource, UITableViewDelegate>
-
-@property (retain, nonatomic) IBOutlet UITableView *datesTable;
+@interface FasTDatesViewController : FasTStepViewController
+{
+    NSArray *dateButtons;
+}
 
 @end
