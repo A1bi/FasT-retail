@@ -26,10 +26,6 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     [self.window makeKeyAndVisible];
     
-    UIApplication *app = [UIApplication sharedApplication];
-    [app setIdleTimerDisabled:YES];
-    [app setStatusBarHidden:YES];
-    
     FasTOrderViewController *ovc = [[[FasTOrderViewController alloc] init] autorelease];
     self.window.rootViewController = ovc;
     
@@ -64,6 +60,12 @@
     }
 	
     return YES;
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)app
+{
+    [app setIdleTimerDisabled:YES];
+    [app setStatusBarHidden:YES];
 }
 
 @end

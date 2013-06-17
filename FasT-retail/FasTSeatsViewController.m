@@ -44,6 +44,8 @@
 {
     [super viewDidLoad];
     
+    [self updateSeats];
+    
     for (int i = 10; i <= 12 ; i++) {
         FasTSeatViewState state = FasTSeatViewStateAvailable;
         if (i == 11) {
@@ -62,11 +64,6 @@
 {
     [super viewWillDisappear:animated];
     [errorAlert dismissWithClickedButtonIndex:0 animated:NO];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [self updateSeats];
 }
 
 - (void)didReceiveMemoryWarning
