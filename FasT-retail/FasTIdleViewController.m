@@ -18,7 +18,10 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        UIImageView *background = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"idle_background.png"]] autorelease];
+        [[self view] addSubview:background];
         
+        [self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
     }
     return self;
 }

@@ -24,6 +24,7 @@
     FasTStepViewController *currentStepController;
     FasTIdleViewController *idleController;
     MBProgressHUD *hud;
+    BOOL returnedFromIdle;
     
 	IBOutlet UIButton *nextBtn;
 	IBOutlet UIButton *prevBtn;

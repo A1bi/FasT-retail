@@ -30,9 +30,11 @@
 - (void)resetOrder;
 - (void)disconnected;
 - (void)showLocalizedHUDMessageWithKey:(NSString *)key;
+- (void)showIdleController:(BOOL)animated;
 - (void)showIdleController;
 - (void)showIdleControllerWithDelay:(NSTimeInterval)delay;
 - (void)toggleBtn:(UIButton *)btn enabled:(BOOL)enabled;
+- (void)toggleBtns:(BOOL)toggle;
 - (void)disableBtns;
 
 @end
@@ -60,6 +62,9 @@
         [center addObserverForName:FasTApiPlacedOrderNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
             [self showIdleControllerWithDelay:20];
         }];
+        [center addObserverForName:UIApplicationWillResignActiveNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+            [self showIdleController:NO];
+        }];
         
         hud = [[MBProgressHUD alloc] initWithView:self.view];
         [hud setMode:MBProgressHUDModeCustomView];
@@ -69,7 +74,10 @@
         [hud setOpacity:.9];
         [self.view addSubview:hud];
         
+        returnedFromIdle = NO;
         idleController = [[FasTIdleViewController alloc] init];
+        
+        [self disableBtns];
     }
     return self;
 }
@@ -82,13 +90,15 @@
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
-	
 	[self addChildViewController:nvc];
 	nvc.view.frame = self.view.bounds;
 	
 	[[self view] addSubview:[nvc view]];
 	[[self view] sendSubviewToBack:[nvc view]];
 	[nvc didMoveToParentViewController:self];
+    
+    if (!returnedFromIdle) [self showIdleController:NO];
+    returnedFromIdle = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -182,18 +192,21 @@
 
 - (void)popStepController
 {
-    if (currentStepIndex <= 0) return;
-    currentStepController = stepControllers[--currentStepIndex];
-    
-    [self updateButtons];
-    [nvc popViewControllerAnimated:YES];
+    if (currentStepIndex <= 0) {
+        [self showIdleController];
+        
+    } else {
+        currentStepController = stepControllers[--currentStepIndex];
+        
+        [self updateButtons];
+        [nvc popViewControllerAnimated:YES];
+    }
 }
 
 - (void)updateButtons
 {
-    if (currentStepController == [stepControllers lastObject]) {
-        [self disableBtns];
-    } else {
+    BOOL btnToggle = NO;
+    if (currentStepController != [stepControllers lastObject]) {
         NSString *nextBtnTitleKey;
         if (currentStepController == stepControllers[[stepControllers count] - 2]) {
             nextBtnTitleKey = @"buy";
@@ -201,9 +214,10 @@
             nextBtnTitleKey = @"next";
         }
         [nextBtn setTitle:NSLocalizedStringByKey(nextBtnTitleKey) forState:UIControlStateNormal];
-        [self toggleBtn:nextBtn enabled:YES];
-        [self toggleBtn:prevBtn enabled:(currentStepIndex > 0)];
+        [prevBtn setTitle:NSLocalizedStringByKey((currentStepIndex > 0) ? @"back" : @"cancel") forState:UIControlStateNormal];
+        btnToggle = YES;
     }
+    [self toggleBtns:btnToggle];
 }
 
 - (void)updateNextButton
@@ -240,10 +254,15 @@
     [expirationView stopAndHide];
 }
 
-- (void)showIdleController
+- (void)showIdleController:(BOOL)animated
 {
     if ([self presentedViewController]) return;
-    [self presentViewController:idleController animated:YES completion:nil];
+    [self presentViewController:idleController animated:animated completion:nil];
+}
+
+- (void)showIdleController
+{
+    [self showIdleController:YES];
 }
 
 - (void)showIdleControllerWithDelay:(NSTimeInterval)delay
@@ -258,6 +277,7 @@
 {
     [self resetOrder];
     [super dismissViewControllerAnimated:flag completion:completion];
+    returnedFromIdle = YES;
 }
 
 - (void)toggleBtn:(UIButton *)btn enabled:(BOOL)enabled
@@ -265,10 +285,16 @@
     [btn setHidden:!enabled];
 }
 
+- (void)toggleBtns:(BOOL)toggle
+{
+    for (UIButton *btn in @[prevBtn, nextBtn]) {
+        [self toggleBtn:btn enabled:toggle];
+    }
+}
+
 - (void)disableBtns
 {
-    [self toggleBtn:nextBtn enabled:NO];
-    [self toggleBtn:prevBtn enabled:NO];
+    [self toggleBtns:NO];
 }
 
 #pragma mark actions
