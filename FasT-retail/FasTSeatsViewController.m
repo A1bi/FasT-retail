@@ -44,8 +44,6 @@
 {
     [super viewDidLoad];
     
-    [self updateSeats];
-    
     for (int i = 10; i <= 12 ; i++) {
         FasTSeatViewState state = FasTSeatViewStateAvailable;
         if (i == 11) {
@@ -58,6 +56,12 @@
     
     seatsView.layer.cornerRadius = 5;
     seatsView.layer.masksToBounds = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self updateSeats];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -110,6 +114,7 @@
 
 - (void)updateSeats
 {
+    [selectedSeats removeAllObjects];
     [self updateSeatsWithInfo:[[orderController event] seats]];
 }
 
@@ -117,8 +122,11 @@
 {
     NSInteger numberOfTickets = [[orderController order] numberOfTickets];
     if (numberOfTickets != [selectedSeats count]) {
+        NSString *message = [NSString stringWithFormat:NSLocalizedStringByKey(@"notEnoughSeatsErrorMessage"), numberOfTickets];
         if (!errorAlert) {
-            errorAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedStringByKey(@"notEnoughSeatsErrorTitle") message:[NSString stringWithFormat:NSLocalizedStringByKey(@"notEnoughSeatsErrorMessage"), numberOfTickets] delegate:nil cancelButtonTitle:NSLocalizedStringByKey(@"dismissAlert") otherButtonTitles:nil];
+            errorAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedStringByKey(@"notEnoughSeatsErrorTitle") message:message delegate:nil cancelButtonTitle:NSLocalizedStringByKey(@"dismissAlert") otherButtonTitles:nil];
+        } else {
+            [errorAlert setMessage:message];
         }
         [errorAlert show];
         

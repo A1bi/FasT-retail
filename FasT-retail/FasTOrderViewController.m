@@ -178,10 +178,6 @@
     currentStepController = stepControllers[++currentStepIndex];
     [self updateButtons];
     [nvc pushViewController:currentStepController animated:YES];
-    
-    if (currentStepController == [stepControllers lastObject]) {
-        [self disableBtns];
-    }
 }
 
 - (void)popStepController
@@ -195,8 +191,19 @@
 
 - (void)updateButtons
 {
-    [self toggleBtn:nextBtn enabled:YES];
-    [self toggleBtn:prevBtn enabled:(currentStepIndex > 0)];
+    if (currentStepController == [stepControllers lastObject]) {
+        [self disableBtns];
+    } else {
+        NSString *nextBtnTitleKey;
+        if (currentStepController == stepControllers[[stepControllers count] - 2]) {
+            nextBtnTitleKey = @"buy";
+        } else {
+            nextBtnTitleKey = @"next";
+        }
+        [nextBtn setTitle:NSLocalizedStringByKey(nextBtnTitleKey) forState:UIControlStateNormal];
+        [self toggleBtn:nextBtn enabled:YES];
+        [self toggleBtn:prevBtn enabled:(currentStepIndex > 0)];
+    }
 }
 
 - (void)updateNextButton
@@ -207,10 +214,8 @@
 - (void)expireOrder
 {
     [expirationView stopAndHide];
-    if (![self presentedViewController]) {
-        [self showLocalizedHUDMessageWithKey:@"orderExpiredMessage"];
-        [self showIdleControllerWithDelay:10];
-    }
+    [self showLocalizedHUDMessageWithKey:@"orderExpiredMessage"];
+    [self showIdleControllerWithDelay:10];
 }
 
 - (void)disconnected
@@ -237,11 +242,13 @@
 
 - (void)showIdleController
 {
+    if ([self presentedViewController]) return;
     [self presentViewController:idleController animated:YES completion:nil];
 }
 
 - (void)showIdleControllerWithDelay:(NSTimeInterval)delay
 {
+    if ([self presentedViewController]) return;
     SEL selector = @selector(showIdleController);
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:selector object:nil];
     [self performSelector:selector withObject:nil afterDelay:delay];
