@@ -12,8 +12,11 @@
 @interface FasTIdleViewController ()
 
 - (void)fadeInTitle;
+- (void)fadeInTitleDelayed;
 - (void)fadeOutTitle;
-- (void)addAnimation:(CAAnimation *)anim toLayer:(CALayer *)layer;
+- (void)cancelDelayedAnimations;
+- (void)addAnimation:(CAAnimation *)anim withKey:(NSString *)key toLayer:(CALayer *)layer;
+- (void)abortAnimationsWhenInactive;
 - (CABasicAnimation *)opacityAnimationForTiteWithFadeInToggle:(BOOL)toggle duration:(CFTimeInterval)duration;
 
 @end
@@ -47,6 +50,11 @@
         [titleLayer setOpacity:0];
         
         [self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+        
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self selector:@selector(cancelDelayedAnimations) name:UIApplicationWillResignActiveNotification object:nil];
+        [center addObserver:self selector:@selector(abortAnimationsWhenInactive) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [center addObserver:self selector:@selector(fadeInTitleDelayed) name:UIApplicationDidBecomeActiveNotification object:nil];
     }
     return self;
 }
@@ -67,23 +75,21 @@
 {
     [super viewDidAppear:animated];
     
-    [self performSelector:@selector(fadeInTitle) withObject:nil afterDelay:.5];
+    [self fadeInTitleDelayed];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self cancelDelayedAnimations];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     
-    [titleMaskLayer removeAllAnimations];
-    [titleLayer removeAllAnimations];
-    [titleLayer setOpacity:0];
+    [self abortAnimationsWhenInactive];
 }
 
 - (void)dealloc
@@ -93,11 +99,11 @@
     [super dealloc];
 }
 
-- (void)addAnimation:(CAAnimation *)anim toLayer:(CALayer *)layer
+- (void)addAnimation:(CAAnimation *)anim withKey:(NSString *)key toLayer:(CALayer *)layer
 {
     [anim setDelegate:self];
     [anim setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
-    [layer addAnimation:anim forKey:nil];
+    [layer addAnimation:anim forKey:key];
 }
 
 - (CABasicAnimation *)opacityAnimationForTiteWithFadeInToggle:(BOOL)toggle duration:(CFTimeInterval)duration
@@ -107,6 +113,18 @@
     [anim setToValue:@(toggle)];
     [anim setDuration:duration];
     return anim;
+}
+
+- (void)abortAnimationsWhenInactive
+{
+    [titleMaskLayer removeAllAnimations];
+    [titleLayer removeAllAnimations];
+    [titleLayer setOpacity:0];
+}
+
+- (void)cancelDelayedAnimations
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
 - (void)fadeInTitle
@@ -120,7 +138,7 @@
     [anim setFromValue:[NSValue valueWithCGPoint:CGPointMake(-250, 120)]];
     [anim setToValue:[NSValue valueWithCGPoint:CGPointMake(250, 120)]];
     [anim setDuration:4];
-    [self addAnimation:anim toLayer:titleMaskLayer];
+    [self addAnimation:anim withKey:@"fadeIn" toLayer:titleMaskLayer];
     
     CABasicAnimation *anim2 = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     [anim2 setFromValue:@(.5)];
@@ -131,7 +149,12 @@
     CAAnimationGroup *animGroup = [CAAnimationGroup animation];
     [animGroup setAnimations:@[anim2, anim3]];
     [animGroup setDuration:4];
-    [self addAnimation:animGroup toLayer:titleLayer];
+    [self addAnimation:animGroup withKey:@"fadeIn" toLayer:titleLayer];
+}
+
+- (void)fadeInTitleDelayed
+{
+    [self performSelector:@selector(fadeInTitle) withObject:nil afterDelay:.5];
 }
 
 - (void)fadeOutTitle
@@ -139,7 +162,8 @@
     animationsToComplete = 1;
     titleVisible = NO;
     
-    [self addAnimation:[self opacityAnimationForTiteWithFadeInToggle:NO duration:2] toLayer:titleLayer];
+    [titleLayer setOpacity:0];
+    [self addAnimation:[self opacityAnimationForTiteWithFadeInToggle:NO duration:2] withKey:@"fadeOut" toLayer:titleLayer];
 }
 
 #pragma mark animation delegate methods
