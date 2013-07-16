@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface FasTIdleViewController : UIViewController
+{
+    CALayer *titleMaskLayer, *titleLayer;
+    BOOL titleVisible;
+    NSInteger animationsToComplete;
+}
 
 @end
