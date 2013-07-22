@@ -53,7 +53,7 @@
     
     NSString *retailId = [[NSUserDefaults standardUserDefaults] valueForKey:@"retailId"];
     if (retailId) {
-        [[FasTApi defaultApi] initWithClientType:@"retail" retailId:retailId];
+        [[FasTApi defaultApi] initWithClientType:@"seating" retailId:retailId];
     } else {
         [hud setMode:MBProgressHUDModeText];
         [hud setLabelText:NSLocalizedStringByKey(@"outOfOrder")];

@@ -19,6 +19,8 @@
 
 @implementation FasTExpirationView
 
+@synthesize delegate;
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
@@ -76,6 +78,7 @@
     
     if (progress < 0) {
         [timer invalidate];
+        [delegate expirationViewDidExpire:self];
         return;
     }
     

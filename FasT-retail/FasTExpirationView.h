@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class FasTExpirationView;
+
+@protocol FasTExpirationViewDelegate <NSObject>
+
+- (void)expirationViewDidExpire:(FasTExpirationView *)view;
+
+@end
+
 @interface FasTExpirationView : UIView
 {
     NSTimer *timer;
@@ -17,6 +25,8 @@
     UILabel *label;
     UIProgressView *progressBar;
 }
+
+@property (nonatomic, assign) id<FasTExpirationViewDelegate> delegate;
 
 - (void)startWithNumberOfSeconds:(NSInteger)seconds;
 - (void)stopAndHide;

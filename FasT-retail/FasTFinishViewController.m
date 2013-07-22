@@ -10,10 +10,13 @@
 #import "FasTOrderViewController.h"
 #import "FasTOrder.h"
 #import "FasTApi.h"
+#import "FasTEventDate.h"
+#import "FasTTicketType.h"
 
 @interface FasTFinishViewController ()
 
-- (void)updateOrderStatusWithNotification:(NSNotification *)note;
+- (void)placeOrder;
+- (void)placedOrderWithResponse:(NSDictionary *)response;
 
 @end
 
@@ -21,48 +24,54 @@
 
 - (id)initWithOrderController:(FasTOrderViewController *)oc
 {
-    self = [super initWithOrderController:oc];
-    if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrderStatusWithNotification:) name:FasTApiPlacedOrderNotification object:nil];
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    return [super initWithStepName:@"finish" orderController:oc];
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [statusLabel release];
-    [spinnerView release];
     [noteLabel release];
     [queueNumberLabel release];
     [super dealloc];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self placeOrder];
+}
+
 #pragma mark class methods
 
-- (void)updateOrderStatusWithNotification:(NSNotification *)note
+- (void)placeOrder
 {
-    NSDictionary *response = [note userInfo];
+    [statusLabel setHighlighted:YES];
+    [orderController toggleWaitingSpinner:YES];
+    
+    NSMutableDictionary *tickets = [NSMutableDictionary dictionary];
+    for (NSDictionary *type in [[orderController order] tickets]) {
+        tickets[[type[@"type"] typeId]] = type[@"number"];
+    }
+    NSDictionary *orderInfo = @{@"date": [[[orderController order] date] dateId], @"tickets": tickets};
+    [[FasTApi defaultApi] placeOrderWithInfo:orderInfo callback:^(NSDictionary *response) {
+        [self placedOrderWithResponse:response];
+    }];
+}
+
+- (void)placedOrderWithResponse:(NSDictionary *)response
+{
+    [orderController toggleWaitingSpinner:NO];
+    [statusLabel setHidden:NO];
+    NSInteger idleDelay = 20;
     if (![response[@"ok"] boolValue]) {
         [statusLabel setText:NSLocalizedStringByKey(@"unknownErrorOccurred")];
+        idleDelay = 10;
     } else {
         FasTOrder *order = [[[FasTOrder alloc] initWithInfo:response[@"order"] event:[orderController event]] autorelease];
         [queueNumberLabel setHidden:NO];
         [queueNumberLabel setText:[order queueNumber]];
         [noteLabel setHidden:NO];
     }
-    [spinnerView setHidden:YES];
+    [orderController showIdleControllerWithDelay:idleDelay];
 }
 
 @end

@@ -21,6 +21,5 @@
 - (id)initWithStepName:(NSString *)name orderController:(FasTOrderViewController *)oc;
 - (id)initWithOrderController:(FasTOrderViewController *)oc;
 - (BOOL)isValid;
-- (NSDictionary *)stepInfo;
 
 @end

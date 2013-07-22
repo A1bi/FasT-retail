@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FasTExpirationView.h"
 
 @class FasTOrder;
 @class FasTEvent;
@@ -15,7 +16,7 @@
 @class FasTExpirationView;
 @class MBProgressHUD;
 
-@interface FasTOrderViewController : UIViewController
+@interface FasTOrderViewController : UIViewController <FasTExpirationViewDelegate>
 {
     FasTOrder *order;
 	UINavigationController *nvc;
@@ -29,7 +30,6 @@
 	IBOutlet UIButton *nextBtn;
 	IBOutlet UIButton *prevBtn;
     IBOutlet FasTExpirationView *expirationView;
-    IBOutlet UIActivityIndicatorView *loadingView;
 }
 
 @property (nonatomic, readonly) FasTOrder *order;
@@ -39,6 +39,8 @@
 
 - (FasTEvent *)event;
 - (void)updateNextButton;
+- (void)toggleWaitingSpinner:(BOOL)toggle;
+- (void)showIdleControllerWithDelay:(NSTimeInterval)delay;
 - (void)resetExpiration;
 
 @end

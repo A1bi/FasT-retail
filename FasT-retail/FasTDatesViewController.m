@@ -28,11 +28,7 @@
 
 - (id)initWithOrderController:(FasTOrderViewController *)oc
 {
-    self = [super initWithStepName:@"date" orderController:oc];
-    if (self) {
-        
-    }
-    return self;
+    return [super initWithStepName:@"date" orderController:oc];
 }
 
 - (void)viewDidLoad
@@ -50,11 +46,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
 }
 
 - (void)dealloc
@@ -95,11 +86,6 @@
 - (BOOL)isValid
 {
     return [[orderController order] date] != nil;
-}
-
-- (NSDictionary *)stepInfo
-{
-    return @{@"date": [[[orderController order] date] dateId]};
 }
 
 - (NSArray *)dates

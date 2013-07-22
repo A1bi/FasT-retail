@@ -14,10 +14,11 @@
 #import "FasTConfirmStepViewController.h"
 #import "FasTFinishViewController.h"
 #import "FasTApi.h"
-#import "FasTExpirationView.h"
 #import "FasTIdleViewController.h"
 #import "MBProgressHUD.h"
 
+#define kFasTIdleTimeTotal 150
+#define kFasTIdleTimeBefore 30
 
 @interface FasTOrderViewController ()
 
@@ -25,17 +26,19 @@
 - (void)pushNextStepController;
 - (void)popStepController;
 - (void)updateButtons;
-- (void)updateOrder;
+- (void)stopExpiration;
+- (void)showExpirationView;
 - (void)expireOrder;
 - (void)resetOrder;
 - (void)disconnected;
 - (void)showLocalizedHUDMessageWithKey:(NSString *)key;
+- (void)stopIdleController;
 - (void)showIdleController:(BOOL)animated;
 - (void)showIdleController;
-- (void)showIdleControllerWithDelay:(NSTimeInterval)delay;
 - (void)toggleBtn:(UIButton *)btn enabled:(BOOL)enabled;
 - (void)toggleBtns:(BOOL)toggle;
 - (void)disableBtns;
+- (void)cancelTasksWithSelector:(SEL)selector;
 
 @end
 
@@ -56,12 +59,6 @@
         }];
         [center addObserver:self selector:@selector(expireOrder) name:FasTApiOrderExpiredNotification object:nil];
         [center addObserver:self selector:@selector(disconnected) name:FasTApiDisconnectedNotification object:nil];
-        [center addObserverForName:FasTApiAboutToExpireNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-            [expirationView startWithNumberOfSeconds:[[note userInfo][@"secondsLeft"] intValue]];
-        }];
-        [center addObserverForName:FasTApiPlacedOrderNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-            [self showIdleControllerWithDelay:20];
-        }];
         [center addObserverForName:UIApplicationWillResignActiveNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
             [self showIdleController:NO];
         }];
@@ -76,15 +73,11 @@
         
         returnedFromIdle = NO;
         idleController = [[FasTIdleViewController alloc] init];
+        [expirationView setDelegate:self];
         
         [self disableBtns];
     }
     return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -108,12 +101,6 @@
     [[UIScreen mainScreen] setBrightness:1.0];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -125,7 +112,6 @@
     [stepControllers release];
     [idleController release];
     [expirationView release];
-    [loadingView release];
 	[super dealloc];
 }
 
@@ -158,28 +144,13 @@
     [self pushNextStepController];
 }
 
-- (void)updateOrder
-{
-    [self resetExpiration];
-    [self disableBtns];
-    [loadingView startAnimating];
-    
-    SocketIOCallback callback = ^(NSDictionary *response) {
-        [loadingView stopAnimating];
-        if ([(NSNumber *)response[@"ok"] boolValue]) {
-            [self pushNextStepController];
-        }
-    };
-
-    [[FasTApi defaultApi] updateOrderWithStep:[currentStepController stepName] info:[currentStepController stepInfo] callback:callback];
-}
-
 - (void)resetOrder
 {
-    [[FasTApi defaultApi] resetOrder];
+    [[FasTApi defaultApi] resetSeating];
+    [self stopIdleController];
     [self initSteps];
+    [self resetExpiration];
     [hud hide:NO];
-    [expirationView stopAndHide];
 }
 
 - (void)pushNextStepController
@@ -227,14 +198,12 @@
 
 - (void)expireOrder
 {
-    [expirationView stopAndHide];
     [self showLocalizedHUDMessageWithKey:@"orderExpiredMessage"];
     [self showIdleControllerWithDelay:10];
 }
 
 - (void)disconnected
 {
-    [expirationView stopAndHide];
     [self showLocalizedHUDMessageWithKey:@"disconnectedMessage"];
     [self showIdleControllerWithDelay:10];
 }
@@ -242,20 +211,51 @@
 - (void)showLocalizedHUDMessageWithKey:(NSString *)key
 {
     [self disableBtns];
-    [loadingView stopAnimating];
+    [self stopExpiration];
     
+    [hud setMode:MBProgressHUDModeText];
     [hud setLabelText:NSLocalizedStringByKey(key)];
     [hud setDetailsLabelText:NSLocalizedStringByKey(([NSString stringWithFormat:@"%@Details", key]))];
     [hud show:YES];
 }
 
-- (void)resetExpiration
+- (void)toggleWaitingSpinner:(BOOL)toggle
+{
+    if (toggle) {
+        [hud setMode:MBProgressHUDModeIndeterminate];
+        [hud setLabelText:NSLocalizedStringByKey(@"oneMoment")];
+        [hud setDetailsLabelText:nil];
+        [hud show:YES];
+    } else {
+        [hud hide:YES];
+    }
+}
+
+- (void)stopExpiration
 {
     [expirationView stopAndHide];
+    [self cancelTasksWithSelector:@selector(showExpirationView)];
+}
+
+- (void)resetExpiration
+{
+    [self stopExpiration];
+    [self performSelector:@selector(showExpirationView) withObject:nil afterDelay:kFasTIdleTimeTotal - kFasTIdleTimeBefore];
+}
+
+- (void)showExpirationView
+{
+    [expirationView startWithNumberOfSeconds:kFasTIdleTimeBefore];
+}
+
+- (void)stopIdleController
+{
+    [self cancelTasksWithSelector:@selector(showIdleController)];
 }
 
 - (void)showIdleController:(BOOL)animated
 {
+    [self stopExpiration];
     if ([self presentedViewController]) return;
     [self presentViewController:idleController animated:animated completion:nil];
 }
@@ -268,9 +268,9 @@
 - (void)showIdleControllerWithDelay:(NSTimeInterval)delay
 {
     if ([self presentedViewController]) return;
-    SEL selector = @selector(showIdleController);
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:selector object:nil];
-    [self performSelector:selector withObject:nil afterDelay:delay];
+    [self stopExpiration];
+    [self stopIdleController];
+    [self performSelector:@selector(showIdleController) withObject:nil afterDelay:delay];
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion
@@ -297,16 +297,30 @@
     [self toggleBtns:NO];
 }
 
+- (void)cancelTasksWithSelector:(SEL)selector
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:selector object:nil];
+}
+
 #pragma mark actions
 
 - (IBAction)nextTapped:(id)sender {
+    [self resetExpiration];
     if ([currentStepController isValid]) {
-        [self updateOrder];
+        [self pushNextStepController];
     }
 }
 
 - (IBAction)prevTapped:(id)sender {
+    [self resetExpiration];
     [self popStepController];
+}
+
+#pragma mark expiration view delegate
+
+- (void)expirationViewDidExpire:(FasTExpirationView *)view
+{
+    [self expireOrder];
 }
 
 @end

@@ -47,9 +47,9 @@
     for (int i = 10; i <= 12 ; i++) {
         FasTSeatViewState state = FasTSeatViewStateAvailable;
         if (i == 11) {
-            state = FasTSeatViewStateReserved;
+            state = FasTSeatViewStateTaken;
         } else if (i == 12) {
-            state = FasTSeatViewStateSelected;
+            state = FasTSeatViewStateChosen;
         }
         [(FasTSeatView *)[[self view] viewWithTag:i] setState:state];
     }
@@ -61,7 +61,17 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self updateSeats];
+    
+    if (![currentDateId isEqualToString:[[[orderController order] date] dateId]]) {
+        [currentDateId release];
+        currentDateId = [[[[orderController order] date] dateId] retain];
+        [self updateSeats];
+    }
+    
+    [orderController toggleWaitingSpinner:YES];
+    [[FasTApi defaultApi] setDate:currentDateId numberOfSeats:[[orderController order] numberOfTickets] callback:^(NSDictionary *response) {
+        [orderController toggleWaitingSpinner:NO];
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -70,15 +80,10 @@
     [errorAlert dismissWithClickedButtonIndex:0 animated:NO];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [selectedSeats release];
+    [currentDateId release];
     [seatsView release];
     [errorAlert release];
     [super dealloc];
@@ -99,7 +104,7 @@
         }
         [seatsView updatedSeat:seat];
         
-        if ([seat selected]) {
+        if ([seat chosen]) {
             [selectedSeats addObject:seat];
         } else {
             [selectedSeats removeObject:seat];
@@ -138,11 +143,10 @@
 
 #pragma mark seating delegate methods
 
-- (void)didSelectSeatView:(FasTSeatView *)seatView
+- (void)didChooseSeatView:(FasTSeatView *)seatView
 {
     [orderController resetExpiration];
-    
-    [[FasTApi defaultApi] reserveSeatWithId:[seatView seatId]];
+    [[FasTApi defaultApi] chooseSeatWithId:[seatView seatId]];
 }
 
 @end

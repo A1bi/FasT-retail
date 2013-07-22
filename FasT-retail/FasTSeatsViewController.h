@@ -15,6 +15,7 @@
 @interface FasTSeatsViewController : FasTStepViewController <FasTSeatingViewDelegate>
 {
     NSMutableArray *selectedSeats;
+    NSString *currentDateId;
     
     FasTSeatingView *seatsView;
     UIAlertView *errorAlert;

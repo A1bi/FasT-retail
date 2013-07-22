@@ -11,7 +11,6 @@
 
 @interface FasTFinishViewController : FasTStepViewController
 {
-    IBOutlet UIActivityIndicatorView *spinnerView;
     IBOutlet UILabel *statusLabel;
     IBOutlet UILabel *noteLabel;
     IBOutlet UILabel *queueNumberLabel;

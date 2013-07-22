@@ -44,12 +44,6 @@
     [orderController updateNextButton];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)dealloc
 {
 	[typeVCs release];
@@ -65,7 +59,8 @@
     NSMutableArray *tmpTypeVCs = [NSMutableArray array];
 	int i = 0;
 	for (FasTTicketType *type in [[orderController event] ticketTypes]) {
-		
+		if ([type exclusive]) continue;
+        
 		FasTTicketTypeViewController *typeVC = [[FasTTicketTypeViewController alloc] initWithType:type];
 		[typeVC setDelegate:self];
 		[tmpTypeVCs addObject:typeVC];
@@ -113,15 +108,6 @@
 - (BOOL)isValid
 {
     return numberOfTickets > 0;
-}
-
-- (NSDictionary *)stepInfo
-{
-    NSMutableDictionary *tickets = [NSMutableDictionary dictionary];
-    for (NSDictionary *type in [[orderController order] tickets]) {
-        tickets[[type[@"type"] typeId]] = type[@"number"];
-    }
-    return @{@"tickets": tickets};
 }
 
 #pragma mark delegate methods
